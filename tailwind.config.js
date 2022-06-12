@@ -9,9 +9,13 @@ module.exports = {
         blue: {
           75: '#E1F3FA',
           25: '#F3F4FC',
+          15: '#F8FAF9',
         },
         red: {
           25: '#F33F5D',
+        },
+        green: {
+          650: '#008000',
         },
         "pink": "#FDCCD3",
         "btn-blue": "#FDB9BA",

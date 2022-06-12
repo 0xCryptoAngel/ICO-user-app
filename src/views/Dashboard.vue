@@ -37,8 +37,8 @@
 
     <!-- Staking Options -->
     <div class="bg-blue-25 px-8">
-      <div>Staking Options</div>
-      <div class="flex justify-around">
+      <div class="text-4xl py-8">Staking Options</div>
+      <div class="flex justify-around pb-8">
         <div class="bg-white rounded-2xl ">
           <div class="p-4 space-y-2">
             <div class="flex">
@@ -107,7 +107,7 @@
           </div>
         </div>
   
-        <div class="bg-white rounded-2xl">
+        <div class="bg-white rounded-2xl sm:hidden md:block">
           <div class="p-4 space-y-2">
             <div class="flex">
               <div class="flex items-center space-x-1">
@@ -175,7 +175,7 @@
           </div>
         </div>
   
-        <div class="bg-white rounded-2xl">
+        <div class="bg-white rounded-2xl sm:hidden md:block">
           <div class="p-4 space-y-2">
             <div class="flex">
               <div class="flex items-center space-x-1">
@@ -244,5 +244,30 @@
         </div>
       </div>
     </div>
+
+    <!-- Beacon Chain -->
+
+    <div class="p-8 bg-blue-15">
+      <div class="text-2xl font-bold">The Baecon Chain</div>
+      <div class="flex sm:flex-col md:flex-row md:justify-around md:space-y-0 sm:items-center sm:space-y-6 mt-4">
+        <div class="border border-black rounded text-xl text-center sm:w-1/2 md:w-1/4 font-bold">
+          <div class="">Total ETH stacked</div>
+          <div class="text-green-650">11,012,715 ETH</div>
+        </div>
+        <div class="border border-black rounded text-xl text-center sm:w-1/2 md:w-1/4 font-bold ">
+          <div class="">Total validators</div>
+          <div class="text-green-650">328,081</div>
+        </div>
+        <div class="border border-black rounded text-xl text-center sm:w-1/2 md:w-1/4 font-bold ">
+          <div class="">Highest Return</div>
+          <div class="text-green-650">4.8%</div>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <button class="wallet-btn px-4 py-3 border border-black my-4">MORE STATS</button>
+      </div>
+    </div>
+
+    <!-- Validators -->
   </div>
 </template>
