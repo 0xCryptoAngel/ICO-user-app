@@ -1,6 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import '@crossmint/client-sdk-vanilla-ui';
+import store from '@/store'
+import router from './router/router'
 import './index.css'
 
-createApp(App).mount('#app')
+createApp(App)
+  .use(router)
+  .use(store)
+  .mount('#app')
