@@ -299,7 +299,7 @@
         <a href="#">
           More on consensus mechanisms ↗
         </a>
-      </div>
+        </div>
     </div>
   </div>
 </template>
