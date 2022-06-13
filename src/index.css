@@ -14,4 +14,8 @@
   background-color: #D5E8FD !important;
   border-radius: 10px !important;
   font-size: 10px !important;
+  margin: 0 -10px;
+}
+.vueperslides {
+  margin: 0px !important;
 }

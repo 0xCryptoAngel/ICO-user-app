@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed  w-full">
+  <div class="fixed  w-full z-50">
     <!-- Nav Bar -->
     <section class="wallet-btn flex px-4 justify-between py-2">
       <div class="flex items-center">
