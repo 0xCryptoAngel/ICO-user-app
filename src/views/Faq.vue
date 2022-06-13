@@ -269,6 +269,7 @@
           <div class="py-2">No, you cannot change your withdrawal credentials in top-ups.</div>
         </div>
       </div>
+
       <div>
           <div class="flex flex-col">
             <h3 class="text-2xl font-bold py-6">Keys</h3>
@@ -320,6 +321,7 @@
             </div>
           </div>
       </div>
+      
       <div>
         <div class="flex flex-col">
           <h3 class="text-2xl font-bold py-6">Support</h3>
