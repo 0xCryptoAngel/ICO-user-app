@@ -1,5 +1,7 @@
 <template>
   <div>
+    
+    
     <!-- Nav Bar -->
     <section class="wallet-btn flex px-4 justify-between py-2">
       <div class="flex items-center">
@@ -17,9 +19,17 @@
           <li>User Center</li>
         </ul>
       </div>
-      <button class="wallet-btn border border-black px-4 py-2 text-white">CONNECT WALLET</button>
+      <div class="flex">
+        <button class="wallet-btn border border-black px-4 py-2 text-white">CONNECT WALLET</button>
+        <div class="md:hidden sm:flex sm:items-center sm:ml-4" @click="isOpen">
+          <font-awesome-icon v-if="show" :icon="['fas', 'xmark']" class="font-bold text-2xl" />
+          <font-awesome-icon v-else :icon="['fas', 'bars']" class="font-bold text-2xl" />
+        </div>
+      </div>
     </section>
-    
+    <Transition>
+      <p v-if="show">hello</p>
+    </Transition>
     <!-- Home  -->
 
     <section class="bg-blue-75 p-4 sm:flex sm:flex-col md:flex-row justify-center">
@@ -452,3 +462,13 @@
     </section>
   </div>
 </template>
+<script>
+  import { ref } from 'vue';
+  export default {
+    setup() {
+      let show = ref(false);
+      const isOpen = () => (show.value = !show.value);
+      return { show, isOpen };
+    },
+  };
+</script>
