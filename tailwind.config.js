@@ -12,6 +12,9 @@ module.exports = {
           25: '#F3F4FC',
           15: '#F8FAF9',
         },
+        gray: {
+          25: '#E5E7EB',
+        },
         red: {
           25: '#F33F5D',
         },
