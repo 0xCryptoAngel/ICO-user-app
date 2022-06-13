@@ -18,7 +18,7 @@
         </ul>
       </div>
       <div class="flex">
-        <button class="wallet-btn border border-black px-4 py-3 text-xl hidden sm:block text-white">CONNECT WALLET</button>
+        <button class="wallet-btn border border-black px-4 py-3 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500">CONNECT WALLET</button>
         <div class="lg:hidden flex items-center ml-4" @click="isMenu">
           <font-awesome-icon v-if="menu" :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" />
           <font-awesome-icon v-else :icon="['fas', 'bars']" class="font-bold text-2xl w-8 h-8" />

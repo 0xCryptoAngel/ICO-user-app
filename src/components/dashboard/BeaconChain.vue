@@ -15,7 +15,7 @@
         <div class="text-green-650">4.8%</div>
       </div>
     </div>
-    <div class="flex justify-center">
+    <div class="flex justify-center hover:scale-105 hover:transition hover:duration-500">
       <button class="wallet-btn px-4 py-3 border border-black text-xl sm:text-3xl sm:font-semibold text-black my-8">MORE STATS</button>
     </div>
   </section>

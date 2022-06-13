@@ -8,8 +8,8 @@
       <div><a href="#" class="hover:underline">User Centre ↗</a></div>
     </div>
     <div class="flex items-center">
-      <div class="flex justify-center my-4">
-        <button class="wallet-btn border border-black px-4 py-2 text-white">CONNECT WALLET</button>
+      <div class="flex justify-center my-4 hover:scale-105 hover:transition hover:duration-500">
+        <button class="wallet-btn border border-black px-4 py-2 text-xl sm:text-3xl sm:font-semibold text-black">CONNECT WALLET</button>
       </div>
     </div>
 
