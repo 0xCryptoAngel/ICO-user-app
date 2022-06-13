@@ -9,3 +9,9 @@
   transition: height 4s;
   height: 50px;
 }
+.vueperslides__arrow {
+  color: #2B7AF0 !important;
+  background-color: #D5E8FD !important;
+  border-radius: 10px !important;
+  font-size: 10px !important;
+}

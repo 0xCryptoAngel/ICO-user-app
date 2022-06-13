@@ -9,10 +9,10 @@
           alt="beijing"
         />
         <div class="sm:block md:hidden ml-2">Staking Lauchpad</div>
-        <ul class="hidden md:flex ml-2 space-x-3">
+        <ul class="hidden md:flex ml-2 space-x-10 text-xl">
           <router-link to="/">Staking Launchpad</router-link>
           <router-link to="/faq">FAQ</router-link>
-          <router-link>What is Staking</router-link>
+          <li>What is Staking</li>
           <router-link to="/term">Terms of Service</router-link>
           <li @click="isUser">User Center</li>
         </ul>
