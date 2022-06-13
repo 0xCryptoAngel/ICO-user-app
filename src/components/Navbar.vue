@@ -10,10 +10,11 @@
         />
         <div class="sm:block md:hidden ml-2">Staking Lauchpad</div>
         <ul class="hidden md:flex ml-2 space-x-3">
-          <li>Staking Launchpad</li>
-          <li>FAQ</li>
+          <li></li>
+          <router-link to="/">Staking Launchpad</router-link>
+          <router-link to="/faq">FAQ</router-link>
           <li>What is Staking</li>
-          <li>Terms of Service</li>
+          <router-link to="/term">Terms of Service</router-link>
           <li>User Center</li>
         </ul>
       </div>
