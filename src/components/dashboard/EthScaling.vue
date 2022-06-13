@@ -1,5 +1,5 @@
 <template>
-  <section class="px-12">
+  <section class="px-12 sm:flex sm:flex-col md:flex-row md:space-x-8 bg-blue-10 py-12">
     <div class="">
       <div >
         <div class="text-3xl font-semibold mb-4">How is Ethereum scaling?</div>

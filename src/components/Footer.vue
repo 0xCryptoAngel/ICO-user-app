@@ -1,5 +1,5 @@
 <template>
-  <section class="sm:flex sm:flex-col sm:w-72 sm:mx-auto md:flex-row md:w-full px-12 md:justify-between">
+  <section class="flex flex-col w-full md:flex-row md:w-full px-12 md:justify-between bg-blue-75 py-8 bg-footer">
     <div>
       <div class="text-xl font-semibold">Stacking Options</div>
       <div><a href="faq.html" class="hover:underline">FAQ ↗</a></div>

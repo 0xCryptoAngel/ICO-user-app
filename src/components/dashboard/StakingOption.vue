@@ -33,10 +33,6 @@
   import Card4 from '@/components/dashboard/slides/Card4.vue'
   import Card5 from '@/components/dashboard/slides/Card5.vue'
   import Card6 from '@/components/dashboard/slides/Card6.vue'
-  import Card7 from '@/components/dashboard/slides/Card7.vue'
-  import Card8 from '@/components/dashboard/slides/Card8.vue'
-  import Card9 from '@/components/dashboard/slides/Card9.vue'
-  import Card10 from '@/components/dashboard/slides/Card10.vue'
   import 'vueperslides/dist/vueperslides.css'
  
   export default {
@@ -49,10 +45,6 @@
       Card4,
       Card5,
       Card6,
-      Card7,
-      Card8,
-      Card9,
-      Card10,
     },	
     data () {
         return 
@@ -63,7 +55,7 @@
       const test = reactive({comp: Card1});
       const isMenu = () => (menu.value = !menu.value);
       const isUser = () => (user.value = !user.value);
-      const slides = [ Card1, Card2, Card3, Card4, Card5, Card6, Card7, Card8, Card9, Card10 ]
+      const slides = [ Card1, Card2, Card3, Card4, Card5, Card6 ]
       return { menu, isMenu, user, isUser, slides, test };
       
     },

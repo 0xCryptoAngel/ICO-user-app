@@ -4,7 +4,9 @@
 .wallet-btn {
   background-image: linear-gradient(to right, rgb(253, 204, 211) 0%, rgb(253, 185, 186) 5%, rgb(254, 174, 173) 10%, rgb(252, 161, 154) 15%, rgb(253, 176, 156) 22%, rgb(254, 180, 156) 28%, rgb(218, 210, 163) 33%, rgb(218, 210, 163) 36%, rgb(193, 214, 167) 38%, rgb(193, 214, 167) 40%, rgb(150, 220, 178) 43%, rgb(150, 220, 178) 47%, rgb(140, 218, 205) 52%, rgb(131, 216, 230) 59%, rgb(136, 206, 237) 67%, rgb(136, 206, 237) 76%, rgb(145, 192, 237) 83%, rgb(154, 179, 237) 92%, rgb(154, 179, 237) 100%);
 }
-
+.bg-footer {
+  background-image: radial-gradient(circle at 100% -80%, rgb(254, 242, 244), rgb(253, 248, 247), rgb(255, 242, 230), rgb(229, 246, 234), rgb(223, 245, 250), rgb(227, 239, 250), rgb(231, 233, 250));
+}
 .menu-dropdown{
   transition: height 4s;
   height: 50px;
@@ -18,4 +20,20 @@
 }
 .vueperslides {
   margin: 0px !important;
+}
+.vueperslides__track-inner {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items:  center !important;
+  
+}
+@media (min-width: 640px) {
+  .vueperslides__track-inner {
+    flex-direction: row !important;
+  }
+}
+@media (max-width: 640px) {
+  .vueperslide {
+    width: 100% !important;
+  }
 }

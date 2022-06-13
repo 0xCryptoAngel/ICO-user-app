@@ -1,5 +1,5 @@
 <template>
-  <section class="flex sm:flex-col md:flex-row px-12 sm:items-center">
+  <section class="flex flex-col md:flex-row px-12 items-center py-12">
     <img
       class="w-12 h-36 my-8 md:mr-16"
       src="@/assets/eth-diamond-plain.svg"

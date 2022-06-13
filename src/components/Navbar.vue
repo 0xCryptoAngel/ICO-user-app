@@ -8,8 +8,8 @@
           src="@/assets/beijing.png"
           alt="beijing"
         />
-        <div class="sm:block md:hidden ml-2">Staking Lauchpad</div>
-        <ul class="hidden md:flex ml-2 space-x-10 text-xl">
+        <router-link to="/" class="sm:block lg:hidden ml-2">Staking Lauchpad</router-link>
+        <ul class="hidden lg:flex ml-2 space-x-10 text-xl">
           <router-link to="/">Staking Launchpad</router-link>
           <router-link to="/faq">FAQ</router-link>
           <li>What is Staking</li>
@@ -18,8 +18,8 @@
         </ul>
       </div>
       <div class="flex">
-        <button class="wallet-btn border border-black px-4 py-3 text-xl text-white">CONNECT WALLET</button>
-        <div class="md:hidden sm:flex sm:items-center sm:ml-4" @click="isMenu">
+        <button class="wallet-btn border border-black px-4 py-3 text-xl hidden sm:block text-white">CONNECT WALLET</button>
+        <div class="lg:hidden flex items-center ml-4" @click="isMenu">
           <font-awesome-icon v-if="menu" :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" />
           <font-awesome-icon v-else :icon="['fas', 'bars']" class="font-bold text-2xl w-8 h-8" />
         </div>

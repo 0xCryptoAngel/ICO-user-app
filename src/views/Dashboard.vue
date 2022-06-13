@@ -6,12 +6,11 @@
     <Validators/>
     <Validator/>
     <EthScaling/>
-    <Footer/>
   </div>
 </template>
 <script>
   import { ref } from 'vue';
-  import Footer from '@/components/Footer.vue'
+  
   import Home from '@/components/dashboard/Home.vue'
   import StakingOption from '@/components/dashboard/StakingOption.vue'
   import BeaconChain from '@/components/dashboard/BeaconChain.vue'
@@ -21,14 +20,12 @@
 
 export default {
     components: {
-      // Navbar,
       Home,
       StakingOption,
       BeaconChain,
       Validators,
       Validator,
       EthScaling,
-      Footer,
     },
   };
 </script>

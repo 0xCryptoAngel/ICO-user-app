@@ -21,12 +21,12 @@
         />
         <select class="border border-black rounded h-7 w-full">
           <option value="">3 day(0.5% ~ 1.5%)</option>
-          <option value="">3 day(0.5% ~ 1.5%)</option>
-          <option value="">3 day(0.5% ~ 1.5%)</option>
-          <option value="">3 day(0.5% ~ 1.5%)</option>
-          <option value="">3 day(0.5% ~ 1.5%)</option>
-          <option value="">3 day(0.5% ~ 1.5%)</option>
-          <option value="">3 day(0.5% ~ 1.5%)</option>
+          <option value="">7 day(1.5% ~ 2.0%)</option>
+          <option value="">15 day(2.0% ~ 2.6%)</option>
+          <option value="">30 day(2.6% ~ 3.5%)</option>
+          <option value="">60 day(3.5% ~ 4.2%)</option>
+          <option value="">90 day(4.2% ~ 5.0%)</option>
+          <option value="">180 day(5.0% ~ 6.0%)</option>
         </select>
       </div>
       <div class="flex items-center pl-4 pr-8">
@@ -56,7 +56,7 @@
           alt="triangle"
         />
         <div class="h-7">
-          96,376 Validators
+          131,554 Validators
         </div>
       </div>
     </div>

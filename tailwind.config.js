@@ -10,9 +10,11 @@ module.exports = {
           75: '#E1F3FA',
           45: '#D5E8FD',
           35: '#E3E5F2',
+          30: '#F9FAFB',
           25: '#F3F4FC',
           20: '#F0F4F7',
           15: '#F8FAF9',
+          10: '#F0F2FB',
         },
         gray: {
           25: '#E5E7EB',
