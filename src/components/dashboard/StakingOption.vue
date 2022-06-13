@@ -9,9 +9,9 @@
       :arrows-outside="true"
       :visible-slides="3"
       slide-multiple
-      :gap="3"
+      :gap="10"
       :slide-ratio="1 / 4"
-      :dragging-distance="200"
+      :dragging-distance="50"
       :breakpoints="{ 800: { visibleSlides: 2, slideMultiple: 2 } }">
         <vueper-slide  v-for="(slide, i) in slides" :key="i">
           <template #content>

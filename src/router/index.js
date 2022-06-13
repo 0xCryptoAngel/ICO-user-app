@@ -7,8 +7,8 @@ const routes = [
     component: () => import('@/views/Dashboard.vue'),
   },
   {
-    path: "/faq",
-    name: "faq",
+    path: "/validator",
+    name: "validator",
     component: () => import('@/views/Faq.vue'),
   },
   {

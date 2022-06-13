@@ -8,13 +8,13 @@
           src="@/assets/beijing.png"
           alt="beijing"
         />
-        <router-link to="/" class="sm:block lg:hidden ml-2">Staking Lauchpad</router-link>
+        <router-link to="/" class="sm:block lg:hidden ml-2 hover:opacity-70">Staking Lauchpad</router-link>
         <ul class="hidden lg:flex ml-2 space-x-10 text-xl">
-          <router-link to="/">Staking Launchpad</router-link>
-          <router-link to="/faq">FAQ</router-link>
-          <li>What is Staking</li>
-          <router-link to="/term">Terms of Service</router-link>
-          <li @click="isUser">User Center</li>
+          <router-link to="/" class="hover:opacity-70">Staking Launchpad</router-link>
+          <router-link to="/validator" class="hover:underline hover:opacity-70">FAQ</router-link>
+          <li class="hover:underline hover:opacity-70">What is Staking</li>
+          <router-link to="/term" class="hover:underline hover:opacity-70">Terms of Service</router-link>
+          <li class="hover:underline hover:opacity-70" @click="isUser" >User Center</li>
         </ul>
       </div>
       <div class="flex">
