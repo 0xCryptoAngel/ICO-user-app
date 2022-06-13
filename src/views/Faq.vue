@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-blue-75 p-12">
+  <div class="bg-blue-75 px-12 py-32">
     <div class="">
       <div>
         <div class="flex flex-col">
@@ -321,7 +321,7 @@
             </div>
           </div>
       </div>
-      
+
       <div>
         <div class="flex flex-col">
           <h3 class="text-2xl font-bold py-6">Support</h3>

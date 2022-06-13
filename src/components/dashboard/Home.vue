@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-blue-75 p-4 sm:flex sm:flex-col md:flex-row justify-center">
+  <section class="bg-blue-75 p-4 sm:flex sm:flex-col md:flex-row justify-center pt-28">
     <div>
       <div class="text-4xl md:w-full font-semibold">Become a validator and help secure the  future of Ethereum.</div>
       <div class="py-4">Earn continous reward for providing a public good to the community.</div>

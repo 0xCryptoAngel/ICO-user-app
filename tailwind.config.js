@@ -18,6 +18,7 @@ module.exports = {
         },
         red: {
           25: '#F33F5D',
+          10: '#FEF5F2',
         },
         green: {
           650: '#008000',
@@ -27,6 +28,10 @@ module.exports = {
       },
       height: {
         '100': '28rem',
+        '120': '36rem',
+      },
+      width: {
+        '88': '22rem',
       }
     },
   },

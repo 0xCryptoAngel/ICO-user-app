@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="fixed  w-full">
     <!-- Nav Bar -->
     <section class="wallet-btn flex px-4 justify-between py-2">
       <div class="flex items-center">
@@ -10,23 +10,22 @@
         />
         <div class="sm:block md:hidden ml-2">Staking Lauchpad</div>
         <ul class="hidden md:flex ml-2 space-x-3">
-          <li></li>
           <router-link to="/">Staking Launchpad</router-link>
           <router-link to="/faq">FAQ</router-link>
-          <li>What is Staking</li>
+          <router-link>What is Staking</router-link>
           <router-link to="/term">Terms of Service</router-link>
-          <li>User Center</li>
+          <li @click="isUser">User Center</li>
         </ul>
       </div>
       <div class="flex">
-        <button class="wallet-btn border border-black px-4 py-2 text-white">CONNECT WALLET</button>
-        <div class="md:hidden sm:flex sm:items-center sm:ml-4" @click="isOpen">
-          <font-awesome-icon v-if="show" :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" />
+        <button class="wallet-btn border border-black px-4 py-3 text-xl text-white">CONNECT WALLET</button>
+        <div class="md:hidden sm:flex sm:items-center sm:ml-4" @click="isMenu">
+          <font-awesome-icon v-if="menu" :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" />
           <font-awesome-icon v-else :icon="['fas', 'bars']" class="font-bold text-2xl w-8 h-8" />
         </div>
       </div>
     </section>
-    <div v-if="show" class="z-10 absolute w-full md:hidden sm:block">
+    <div v-if="menu" class="z-10 absolute w-full md:hidden sm:block">
       <div class="bg-blue-20 px-8 py-4">
         <div class="font-semibold">Launced network: Prater Testnet</div>
         <a href="#" class="text-blue-300 hover:text-black">Switch to mainnet launchpad ↗</a>
@@ -39,15 +38,130 @@
         <li>User Center</li>
       </ul>
     </div>
+    <div v-if="user" class="absolute right-0 w-88 bg-red-10 z-10 h-120  overflow-y-auto">
+      <div class="flex justify-end p-4" @click="isUser"><button></button><font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" /></div>
+      <div class="flex px-8">
+        <div class="rounded-full bg-white w-14 h-14"></div>
+        <div class="flex flex-col justify-center ml-4">
+          <div>Wallet Adddress</div>
+          <div>Ox2165 ... 0985</div>
+        </div>
+      </div> 
+
+      <div class="bg-white rounded-2xl shadow m-4 font-bold">
+        <div class="p-4">
+          <div>Staking Quantity</div>
+          <div class="flex items-center py-2">
+            <img src="@/assets/1105-eth.jpg" alt="eth" class="w-4 h-6">
+            <div>163.89655  </div>
+          </div>
+        </div>
+        <hr  class="h-1 bg-blue-20"/>
+        <div class="flex p-4 space-x-4">
+          <div>
+            <div>Staking Revenue</div>
+            <div class="flex items-center py-2">
+              <img src="@/assets/1105-eth.jpg" alt="eth" class="w-4 h-6">
+              <div>163.89655  </div>
+            </div>
+          </div>
+          <div>
+            <div>Balance</div>
+            <div class="flex items-center py-2">
+              <img src="@/assets/1105-eth.jpg" alt="eth" class="w-4 h-6">
+              <div>163.89655  </div>
+            </div>
+            <div class="flex items-center">
+              <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-6 h-6">
+              <div>163.89655  </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="flex justify-center">
+        <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full">WITHDRAW</button>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow m-4 font-bold">
+        <div class="py-4 text-center">Ethernet Exchange</div>
+        <hr  class="h-1 bg-blue-20"/>
+        <div>
+          
+          <div class="w-40 mx-auto">
+            <div class="flex items-center space-x-2 py-1">
+              <img src="@/assets/ETH-logo2.png" alt="usd" class="w-8 h-8">
+              <div class="text-xl">ETH</div>
+              <button class="rounded-full px-4 border border-red-300 text-red-300">max</button>
+            </div>
+            <div class="bg-red-300 rounded w-full h-9 opacity-60"></div>
+            <div class="text-red-300 w-8 h-8 rounded-full border-2 border-red-300 flex justify-center items-center mx-auto my-2">
+              <font-awesome-icon :icon="['fas', 'arrow-down']" class="font-bold text-2xl w-6 h-6" />
+            </div>
+            <div class="flex items-center space-x-2 py-1">
+              <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-8 h-8">
+              <div class="text-xl">USDC</div>
+            </div>
+            <div class="bg-red-300 rounded w-full h-9 opacity-60"></div>
+
+            <div class="flex justify-center py-4">
+              <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full">CONVERT</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow m-4 font-bold flex justify-between p-4">
+        <div>
+          <div>My Invitations</div>
+          <div class="flex items-center py-2">
+            <img src="@/assets/avatar.png" alt="avatar" class="w-6 h-6">
+            <div>163</div>
+          </div>
+        </div>
+        <div>
+          <div>Team income</div>
+          <div class="flex items-center py-2">
+            <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
+            <div>163.89655</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center">
+        <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full">INVITE USERS</button>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow m-4 h-96 ">
+        <div class="flex justify-center border-b border-black font-bold">
+          <div class="border-r border-black pr-1 py-2">Staking Earnings</div>
+          <div class="pl-1 py-2">Withdrawal records</div>
+        </div>
+        <div class="text-gray-500 flex justify-between px-2 py-1 border-b border-black">
+          <div>2022-5-25 00-00-00</div>
+          <div>+0.06255 ETH</div>
+        </div>
+        <div class="flex justify-between text-gray-500 px-2 py-1 border-b border-black items-center ">
+          <div class="flex flex-col">
+            <div>2022-5-25 00-00-00</div>
+            <div>20.12345 ETH</div>
+          </div>
+          <div>Status: Warning</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
   import { ref } from 'vue';
   export default {
     setup() {
-      let show = ref(false);
-      const isOpen = () => (show.value = !show.value);
-      return { show, isOpen };
+      let menu = ref(false);
+      let user = ref(false);
+      const isMenu = () => (menu.value = !menu.value);
+      const isUser = () => (user.value = !user.value);
+      return { menu, isMenu, user, isUser };
     },
   };
 </script>

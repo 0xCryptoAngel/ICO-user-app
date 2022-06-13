@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <Navbar/> -->
     <Home/>
     <StakingOption/>
     <BeaconChain/>

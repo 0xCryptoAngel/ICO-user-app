@@ -1,5 +1,5 @@
 <template>
-  <div class="p-12">
+  <div class="px-12 py-32">
     <div style="font-weight: 100;">Page last updated: September 18, 2021</div>
     <div class="text-4xl font-bold py-8">Terms of Service</div>
     <div class="flex flex-col py-2">
