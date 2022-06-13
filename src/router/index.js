@@ -11,6 +11,11 @@ const routes = [
     name: "faq",
     component: () => import('@/views/Faq.vue'),
   },
+  {
+    path: "/term",
+    name: "term",
+    component: () => import('@/views/Terms.vue'),
+  },
 ];
 
 const router = createRouter({
