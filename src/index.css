@@ -38,7 +38,8 @@
   margin: 0px !important;
 }
 body {
-  font-family: "Poppins", sans-serif
+  font-family: "Poppins", sans-serif;
+  touch-action: manipulation;
 }
 @media (min-width: 1280px) { 
   .vueperslides__arrow {
