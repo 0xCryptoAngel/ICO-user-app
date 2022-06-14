@@ -20,7 +20,9 @@
   box-shadow: rgb(0, 0, 0, 0.1) 0px 0px 7px 4px;
 }
 
-
+* {
+  touch-action: manipulation;
+}
 .menu-dropdown{
   transition: height 4s;
   height: 50px;
