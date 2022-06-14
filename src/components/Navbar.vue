@@ -13,7 +13,7 @@
             Staking Lauchpad
           </div> 
         </router-link>
-        <ul class="hidden lg:flex ml-2 space-x-8 text-base">
+        <ul class="hidden lg:flex ml-2 space-x-8 text-base opacity-90">
           <router-link to="/" class="hover:opacity-70">Staking Launchpad</router-link>
           <router-link to="/validator" class="hover:underline hover:opacity-70">FAQ</router-link>
           <li class="hover:underline hover:opacity-70">What is Staking</li>
