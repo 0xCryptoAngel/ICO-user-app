@@ -25,7 +25,7 @@
         </div>
       </div>
     </section>
-    <div v-if="menu" class="z-10 absolute w-full md:hidden sm:block">
+    <div class="-z-20 absolute w-full lg:hidden sm:block  ease-in-out transition transform duration-700" :class="menu ? '-translate-y-96' : 'translate-y-0'">
       <div class="bg-blue-20 px-8 py-4">
         <div class="font-semibold">Launced network: Prater Testnet</div>
         <a href="#" class="text-blue-300 hover:text-black">Switch to mainnet launchpad ↗</a>
@@ -38,7 +38,7 @@
         <li class="hover:underline hover:opacity-70" @click="isUser">User Center</li>
       </ul>
     </div>
-    <div v-if="user" class="absolute right-0 sm:w-88 w-full bg-red-10 z-10 h-screen sm:h-120  overflow-y-auto">
+    <div class="absolute right-0 sm:w-88 w-full bg-red-10 z-10 h-screen sm:h-120  overflow-y-auto ease-in-out transition transform duration-700" :class="user ? 'translate-x-full' : 'translate-x-0'">
       <div class="flex justify-end p-4" @click="isUser"><button></button><font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" /></div>
       <div class="flex px-8">
         <div class="rounded-full bg-white w-14 h-14"></div>
@@ -48,11 +48,11 @@
         </div>
       </div> 
 
-      <div class="bg-white rounded-2xl shadow m-4 font-bold">
+      <div class="bg-white rounded-2xl box-shadow m-4 font-bold">
         <div class="p-4">
           <div>Staking Quantity</div>
           <div class="flex items-center py-2">
-            <img src="@/assets/1105-eth.jpg" alt="eth" class="w-4 h-6">
+            <img src="@/assets/USD-Coin-icon_small.png" alt="USD" class="w-6 h-6">
             <div>163.89655  </div>
           </div>
         </div>
@@ -61,14 +61,14 @@
           <div>
             <div>Staking Revenue</div>
             <div class="flex items-center py-2">
-              <img src="@/assets/1105-eth.jpg" alt="eth" class="w-4 h-6">
+              <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
               <div>163.89655  </div>
             </div>
           </div>
           <div>
             <div>Balance</div>
             <div class="flex items-center py-2">
-              <img src="@/assets/1105-eth.jpg" alt="eth" class="w-4 h-6">
+              <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
               <div>163.89655  </div>
             </div>
             <div class="flex items-center">
@@ -84,7 +84,7 @@
         <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full">WITHDRAW</button>
       </div>
 
-      <div class="bg-white rounded-2xl shadow m-4 font-bold">
+      <div class="bg-white rounded-2xl box-shadow m-4 font-bold">
         <div class="py-4 text-center">Ethernet Exchange</div>
         <hr  class="h-1 bg-blue-20"/>
         <div>
@@ -112,7 +112,7 @@
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl shadow m-4 font-bold flex justify-between p-4">
+      <div class="bg-white rounded-2xl box-shadow m-4 font-bold flex justify-between p-4">
         <div>
           <div>My Invitations</div>
           <div class="flex items-center py-2">
@@ -133,7 +133,7 @@
         <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full">INVITE USERS</button>
       </div>
 
-      <div class="bg-white rounded-2xl shadow mx-4 mt-4 mb-24 h-96 ">
+      <div class="bg-white rounded-2xl box-shadow mx-4 mt-4 mb-24 h-96 ">
         <div class="flex justify-center border-b border-black font-bold">
           <div class="border-r border-black pr-1 py-2">Staking Earnings</div>
           <div class="pl-1 py-2">Withdrawal records</div>

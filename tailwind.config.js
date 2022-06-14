@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        Poppins: ["Poppins"],    
+      },
       colors: {
         blue: {
           75: '#E1F3FA',
@@ -34,7 +37,7 @@ module.exports = {
         '120': '36rem',
       },
       width: {
-        '88': '22rem',
+        '88': '24rem',
       }
     },
   },
