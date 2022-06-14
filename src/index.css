@@ -38,3 +38,18 @@
 body {
   font-family: "Poppins", sans-serif
 }
+@media (min-width: 1280px) { 
+  .vueperslides__arrow {
+    margin: 0 -100px !important;
+  }
+
+ }
+ @media (min-width: 1536px) { 
+  .vueperslides__arrow {
+    margin: 0 -150px !important;
+  }
+
+ }
+ .foggy-modal {
+   background-color: rgba(0, 0, 0, 0.6);
+ }

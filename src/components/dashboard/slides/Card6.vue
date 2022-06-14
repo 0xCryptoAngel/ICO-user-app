@@ -3,11 +3,11 @@
     <div class="p-4 space-y-2">
       <div class="flex">
         <div class="flex items-center space-x-1">
-          <img src="@/assets/ETH-logo.png" alt="ETH" class="w-6 h-6"/>
+          <img src="@/assets/ETH-logo.png" alt="ETH" class="w-7 h-7"/>
           <img src="@/assets/switch-horizontal.png" alt="switch" class="w-3 h-4"/>
-          <img src="@/assets/USD-Coin-icon_small.png" alt="USD" class="w-6 h-6"/>
+          <img src="@/assets/USD-Coin-icon_small.png" alt="USD" class="w-7 h-7"/>
         </div>
-        <div class="ml-2"><strong class="text-xl font-bold ">Ethereum /</strong>  <br/> USDC</div>
+        <div class="ml-2"><strong class="text-xl font-bold ">Ethereum</strong> / USDC</div>
       </div>
       <div class="font-bold">1000000 - 3000000 USDC</div>
     </div>

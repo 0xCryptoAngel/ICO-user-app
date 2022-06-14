@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed  w-full z-50 ">
+  <div class="fixed  w-full z-30 ">
     <!-- Nav Bar -->
     <section class="wallet-btn flex px-4 justify-between py-4 bar-shadow">
       <div class="flex items-center">
@@ -9,16 +9,16 @@
             src="@/assets/eth-diamond-plain.svg"
             alt="beijing"
           />
-          <div class="sm:block lg:hidden ml-2 hover:opacity-70 text-base">
+          <div class="sm:block lg:hidden ml-2 hover:opacity-50 text-base opacity-70 font-medium">
             Staking Lauchpad
           </div> 
         </router-link>
-        <ul class="hidden lg:flex ml-2 space-x-8 text-base opacity-90">
-          <router-link to="/" class="hover:opacity-70">Staking Launchpad</router-link>
-          <router-link to="/validator" class="hover:underline hover:opacity-70">FAQ</router-link>
-          <li class="hover:underline hover:opacity-70">What is Staking</li>
-          <router-link to="/term" class="hover:underline hover:opacity-70">Terms of Service</router-link>
-          <li class="hover:underline hover:opacity-70" @click="isUser" >User Center</li>
+        <ul class="hidden lg:flex ml-2 space-x-8 text-base opacity-70 font-medium">
+          <router-link to="/" class="hover:opacity-50">Staking Launchpad</router-link>
+          <router-link to="/validator" class="hover:underline hover:opacity-50">FAQ</router-link>
+          <li class="hover:underline hover:opacity-50">What is Staking</li>
+          <router-link to="/term" class="hover:underline hover:opacity-50">Terms of Service</router-link>
+          <li class="hover:underline hover:opacity-50" @click="isUser" >User Center</li>
         </ul>
       </div>
       <div class="flex">
@@ -46,7 +46,10 @@
         <li class="hover:underline hover:opacity-70" @click="isUser">User Center</li>
       </ul>
     </div>
-    <div class="absolute right-0 sm:w-88 w-full bg-red-10 z-10 h-screen sm:h-120  overflow-y-auto ease-in-out transition transform duration-700" :class="user ? 'translate-x-full' : 'translate-x-0'">
+    <div v-if="!user" class="absolute w-full h-screen bg-black z-40 top-0 foggy-modal opacity-70">
+
+    </div>
+    <div class="absolute right-0 sm:w-88 w-full bg-red-10 z-50 h-screen sm:h-130  overflow-y-auto ease-in-out transition transform duration-700" :class="user ? 'translate-x-full' : 'translate-x-0'">
       <div class="flex justify-end p-4" @click="isUser"><button></button><font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" /></div>
       <div class="flex px-8 pb-6">
         <div class="relative">
@@ -69,14 +72,14 @@
         </div>
         <hr  class="h-1 bg-blue-20"/>
         <div class="flex p-4 justify-around">
-          <div>
+          <div class="w-3/5">
             <div>Staking Revenue</div>
             <div class="flex items-center py-2">
               <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
               <div class="ml-1">163.89655  </div>
             </div>
           </div>
-          <div>
+          <div class="w-2/5">
             <div>Balance</div>
             <div class="flex items-center py-2">
               <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
@@ -144,7 +147,7 @@
         <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full">INVITE USERS</button>
       </div>
 
-      <div class="bg-white rounded-2xl box-shadow mx-4 mt-8 mb-24 h-96 ">
+      <div class="bg-white rounded-2xl box-shadow mx-4 mt-8 mb-36 h-96 ">
         <div class="flex justify-center border-b border-black font-bold">
           <div class="border-r border-black pr-3 py-2">Earnings records</div>
           <div class="pl-3 py-2">Withdrawal records</div>

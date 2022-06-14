@@ -1,18 +1,18 @@
 <template>
-  <section class="bg-blue-25 px-8 ">
+  <section class="bg-blue-25 px-8 py-16">
     <div class="text-4xl py-8">Staking Options</div>
  
     <vueper-slides
-      class="no-shadow px-8"
+      class="no-shadow px-8 lg:px-24 xl:px-32 2xl:px-48"
       fixed-height="500px"
       :bullets="false" 
       :arrows-outside="true"
       :visible-slides="3"
       slide-multiple
-      :gap="10"
+      :gap="15"
       :slide-ratio="1 / 4"
       :dragging-distance="50"
-      :breakpoints="{ 800: { visibleSlides: 2, slideMultiple: 2 }, 640: {visibleSlides: 1, slideMultiple: 1 } }">
+      :breakpoints="{ 1280: { visibleSlides: 2, slideMultiple: 2, gap:10 }, 640: {visibleSlides: 1, slideMultiple: 1 } }">
         <vueper-slide  v-for="(slide, i) in slides" :key="i">
           <template #content>
             <component
@@ -20,7 +20,7 @@
             />
           </template>
         </vueper-slide>
-      </vueper-slides>
+    </vueper-slides>
     
   </section>
 </template>
