@@ -175,7 +175,7 @@
       const route = useRoute()
       const testValue = computed(() => route.name)
       let menu = ref(false);
-      let user = ref(false);
+      let user = ref(true);
       const isMenu = () => (menu.value = !menu.value);
       const isUser = () => (user.value = !user.value);
       return { menu, isMenu, user, isUser, testValue };
