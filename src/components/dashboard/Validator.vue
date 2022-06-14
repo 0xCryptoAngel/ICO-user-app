@@ -1,13 +1,13 @@
 <template>
-  <section class="px-12 py-8 bg-blue-30">
+  <section class="px-12 py-32 bg-blue-30">
     <div class="font-semibold mb-4 text-3xl">Become a Validator</div>
     <div>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis
       dolor sit natus assumenda ea at et sint explicabo amet eveniet?
     </div>
 
-    <div class="flex flex-col md:flex-row mx-auto md:w-full md:space-x-4 justify-center w-full">
-      <div class="py-4">
+    <div class="flex flex-wrap justify-center my-4">
+      <div class="py-4 w-120 mx-8">
         <div class="text-7xl">📚</div>
         <div class="text-2xl font-semibold my-4">1. Learn about your responsibilities</div>
         <div>
@@ -18,7 +18,7 @@
         </div>
       </div>
 
-      <div class="py-4">
+      <div class="py-4 w-120 mx-8">
         <div class="text-7xl">💰</div>
         <div class="text-2xl font-semibold my-4">2. Deposit your Eth</div>
         <div>
@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <div class="py-4">
+      <div class="py-4 w-120 mx-8">
         <div class="text-7xl">🕰</div>
         <div class="text-2xl font-semibold my-4">3. Wait to become active</div>
         <div>

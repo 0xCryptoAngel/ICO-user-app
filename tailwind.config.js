@@ -22,6 +22,7 @@ module.exports = {
         gray: {
           25: '#E5E7EB',
         },
+        'brown': '#AC6D78',
         red: {
           25: '#F33F5D',
           10: '#FEF5F2',
@@ -37,6 +38,7 @@ module.exports = {
         '120': '36rem',
       },
       width: {
+        '120': '28rem',
         '88': '24rem',
       }
     },
