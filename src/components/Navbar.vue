@@ -37,8 +37,12 @@
       </div>
       <ul class="px-8 bg-white py-4">
         <li>FAQ</li>
-        <router-link to="/validator">What is Staking</router-link>
-        <router-link to="/term">Terms of Service</router-link>
+        <li>
+          <router-link to="/validator">What is Staking</router-link>
+        </li>
+        <li>
+          <router-link to="/term">Terms of Service</router-link>
+        </li>
         <li class="hover:underline hover:opacity-70" @click="isUser">User Center</li>
       </ul>
     </div>
