@@ -1,7 +1,7 @@
 <template>
-  <div class="fixed  w-full z-50">
+  <div class="fixed  w-full z-50 ">
     <!-- Nav Bar -->
-    <section class="wallet-btn flex px-4 justify-between py-2">
+    <section class="wallet-btn flex px-4 justify-between py-2 bar-shadow">
       <div class="flex items-center">
         <img
           class=""
@@ -18,8 +18,8 @@
         </ul>
       </div>
       <div class="flex">
-        <button class="wallet-btn border border-black px-4 py-3 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500">CONNECT WALLET</button>
-        <div class="lg:hidden flex items-center ml-4" @click="isMenu">
+        <button class="wallet-btn border border-black px-4 h-16 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500">CONNECT WALLET</button>
+        <div class="lg:hidden flex items-center ml-4 h-16" @click="isMenu">
           <font-awesome-icon v-if="menu" :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" />
           <font-awesome-icon v-else :icon="['fas', 'bars']" class="font-bold text-2xl w-8 h-8" />
         </div>
@@ -33,12 +33,12 @@
       </div>
       <ul class="px-8 bg-white py-4">
         <li>FAQ</li>
-        <li>What is Staking</li>
-        <li>Terms of Service</li>
-        <li>User Center</li>
+        <router-link to="/validator">What is Staking</router-link>
+        <router-link to="/term">Terms of Service</router-link>
+        <li class="hover:underline hover:opacity-70" @click="isUser">User Center</li>
       </ul>
     </div>
-    <div v-if="user" class="absolute right-0 w-88 bg-red-10 z-10 h-120  overflow-y-auto">
+    <div v-if="user" class="absolute right-0 sm:w-88 w-full bg-red-10 z-10 h-screen sm:h-120  overflow-y-auto">
       <div class="flex justify-end p-4" @click="isUser"><button></button><font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" /></div>
       <div class="flex px-8">
         <div class="rounded-full bg-white w-14 h-14"></div>
@@ -133,7 +133,7 @@
         <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full">INVITE USERS</button>
       </div>
 
-      <div class="bg-white rounded-2xl shadow m-4 h-96 ">
+      <div class="bg-white rounded-2xl shadow mx-4 mt-4 mb-24 h-96 ">
         <div class="flex justify-center border-b border-black font-bold">
           <div class="border-r border-black pr-1 py-2">Staking Earnings</div>
           <div class="pl-1 py-2">Withdrawal records</div>

@@ -1,12 +1,12 @@
 <template>
   <section class="px-12 py-8 bg-blue-30">
-    <div class="text-3xl font-semibold mb-4">Become a Validator</div>
+    <div class="font-semibold mb-4 text-3xl">Become a Validator</div>
     <div>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis
       dolor sit natus assumenda ea at et sint explicabo amet eveniet?
     </div>
 
-    <div class="flex flex-col md:flex-row mx-auto md:w-full md:space-x-4 justify-center w-1/2">
+    <div class="flex flex-col md:flex-row mx-auto md:w-full md:space-x-4 justify-center w-full">
       <div class="py-4">
         <div class="text-7xl">📚</div>
         <div class="text-2xl font-semibold my-4">1. Learn about your responsibilities</div>
@@ -42,7 +42,7 @@
     </div>
 
     <div class="flex justify-center my-4 hover:scale-105 hover:transition hover:duration-500">
-      <button class="wallet-btn border border-black px-4 py-2 text-xl sm:text-3xl sm:font-semibold text-black">CONNECT WALLET</button>
+      <button class="wallet-btn border border-black sm:px-4 sm:py-2 px-2 py-2 mb-6 sm:mb-0 text-lg my-8 sm:text-3xl font-semibold text-black md:mt-8 hover:scale-105 hover:transition hover:duration-500">CONNECT WALLET</button>
     </div>
 
   </section>

@@ -10,6 +10,9 @@
 .home-bg {
   background: linear-gradient(45deg, #E7EAFA 0%, #E5EDFA 21%, #E1F2FA 45%, #E1F5F6 57%, #E6F6EA 73%, #EBF5E9 81%, #F7F3E7 91%, #FCF3E7 100%);
 }
+.bar-shadow {
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.3) !important;
+}
 .menu-dropdown{
   transition: height 4s;
   height: 50px;
@@ -24,19 +27,6 @@
 .vueperslides {
   margin: 0px !important;
 }
-.vueperslides__track-inner {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items:  center !important;
-  
-}
-@media (min-width: 640px) {
-  .vueperslides__track-inner {
-    flex-direction: row !important;
-  }
-}
-@media (max-width: 640px) {
-  .vueperslide {
-    width: 100% !important;
-  }
+.home-font {
+  font-family: "Poppins", sans-serif
 }

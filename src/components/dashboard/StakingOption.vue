@@ -12,7 +12,7 @@
       :gap="10"
       :slide-ratio="1 / 4"
       :dragging-distance="50"
-      :breakpoints="{ 800: { visibleSlides: 2, slideMultiple: 2 } }">
+      :breakpoints="{ 800: { visibleSlides: 2, slideMultiple: 2 }, 640: {visibleSlides: 1, slideMultiple: 1 } }">
         <vueper-slide  v-for="(slide, i) in slides" :key="i">
           <template #content>
             <component
@@ -56,6 +56,7 @@
       const isMenu = () => (menu.value = !menu.value);
       const isUser = () => (user.value = !user.value);
       const slides = [ Card1, Card2, Card3, Card4, Card5, Card6 ]
+      
       return { menu, isMenu, user, isUser, slides, test };
       
     },
