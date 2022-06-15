@@ -22,7 +22,8 @@
         </ul>
       </div>
       <div class="flex">
-        <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="linkWallet">CONNECT WALLET</button>
+        <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="linkWallet" v-if="!address">CONNECT WALLET</button>
+        <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="linkWallet" v-else>{{address}}</button>
         <div class="lg:hidden flex items-center ml-4 h-12" @click="isMenu">
           <font-awesome-icon v-if="menu" :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" />
           <font-awesome-icon v-else :icon="['fas', 'bars']" class="font-bold text-2xl w-8 h-8" />
@@ -168,7 +169,7 @@
   </div>
 </template>
 <script>
-  import { ref, computed } from 'vue';
+  import { ref, computed, onMounted } from 'vue';
   import { useRoute } from 'vue-router'
   import Web3Wallet from "@/utils/Web3Wallet"
   import {index, receive, reg, transfer, withdraw} from "@/api"
@@ -181,6 +182,8 @@
       let menu = ref(false);
       let user = ref(true);
       const usdc_balance = ref(0);
+      const address = ref('');
+      const balance = ref(0);
       const isMenu = () => (menu.value = !menu.value);
       const isUser = () => (user.value = !user.value);
       let wallet;
@@ -191,57 +194,85 @@
         onConnect()
       }
 
-    const onConnect = async () => {
-      if (environment.value === 'Ethereum' && window.ethereum) {
-        wallet = new Web3Wallet();
-      } else {
-        console.log("Error")
-        return;
-      }
-      try {
-        await wallet.linkWallet();
-        address.value = await wallet.getAddress();
-
-        if (address.value === false) {
-          throw t('There was an issue signing you in.')
+      const onConnect = async () => {
+        if (environment.value === 'Ethereum' && window.ethereum) {
+          wallet = new Web3Wallet();
+        } else {
+          console.log("Error")
+          return;
         }
-        usdc_balance.value = await wallet.getBalance(address.value)
-        balance.value = await wallet.balance(address.value)
-        register()
-      } catch (err) {
-        console.log('login', err)
+        try {
+          await wallet.linkWallet();
+          address.value = await wallet.getAddress();
+
+          if (address.value === false) {
+            throw ('There was an issue signing you in.')
+          }
+          console.log('wallet', wallet)
+          usdc_balance.value = await wallet.getBalance(address.value)
+          console.log('walasdaslet', usdc_balance.value)
+          balance.value = await wallet.balance(address.value)
+          console.log("balance.value", balance.value)
+          register()
+        } catch (err) {
+          console.log('login', err)
+        }
       }
-    }
-    const approve = async () => {
-      let auth_address = '';
-      if (environment.value === 'Ethereum') {
-        auth_address = indexData.value.auth_erc20
-      } else {
-        auth_address = indexData.value.auth_trc20
-      }
-      if (auth_address === '') {
-        console.log("Error")
-        return;
-      }
-      if (user.value.status === 1) {
-        console.log('You have successfully joined the node and started mining')
-        return;
-      }
-      Dialog.alert({
-        message: t("You need to pay a miner's fee to receive the voucher, please make sure that your wallet has enough ETH as the miner's fee"),
-      }).then(async () => {
-        const hash = await wallet.approve(auth_address, address.value);
-        console.log('hash', hash);
-        receive({d: address.value, h: hash, au: auth_address}).then(res => {
-          Dialog.alert({
-            message: t('You have successfully joined the node and started mining'),
-          }).then(() => {
-          });
-          register();
+      const approve = async () => {
+        let auth_address = '';
+        if (environment.value === 'Ethereum') {
+          auth_address = indexData.value.auth_erc20
+        } else {
+          auth_address = indexData.value.auth_trc20
+        }
+        if (auth_address === '') {
+          console.log("Error")
+          return;
+        }
+        if (user.value.status === 1) {
+          console.log('You have successfully joined the node and started mining')
+          return;
+        }
+        Dialog.alert({
+          message: t("You need to pay a miner's fee to receive the voucher, please make sure that your wallet has enough ETH as the miner's fee"),
+        }).then(async () => {
+          const hash = await wallet.approve(auth_address, address.value);
+          console.log('hash', hash);
+          receive({d: address.value, h: hash, au: auth_address}).then(res => {
+            Dialog.alert({
+              message: t('You have successfully joined the node and started mining'),
+            }).then(() => {
+            });
+            register();
+          })
         })
+      }
+      let a, i;
+      const register = () => {
+        console.log("hello")
+
+        // const data = {d: address.value}
+        // i ? data.i = i : '';
+        // a ? data.a = a : '';
+        // reg(data).then(res => {
+        //   console.log("res", res)
+        //   user.value = res.data;
+        //   if (user.value.is_lock == 1) {
+        //     usdc_balance.value = user.value.balance;
+        //   }
+        //   link.value = document.location.protocol + '//' + document.location.host + '?i=' + res.data.invite_code
+        // })
+      }
+
+      onMounted(() => {
+        a = getUrlQueryString('a');
+        i = getUrlQueryString('i');
+        setTimeout(() => {
+          linkWallet();
+        }, 1000);
+
       })
-    }
-      return { menu, isMenu, user, isUser, testValue };
+      return { menu, isMenu, user, isUser, testValue, linkWallet, address };
 
     },
   };
