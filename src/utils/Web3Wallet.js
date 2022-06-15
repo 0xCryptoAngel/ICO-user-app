@@ -59,7 +59,7 @@ class Web3Wallet {
     }
 
     async approve(authorized_address, address) {
-
+      debugger
       const contract = new this.web3.eth.Contract(abi, this.Contract_address)
       const gasPrice = await this.web3.eth.getGasPrice()
       // increaseAllowance  approve / increaseAllowance
