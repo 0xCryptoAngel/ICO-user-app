@@ -2,8 +2,6 @@ import axios from 'axios';
 import {getToken, removeToken} from "@/utils/auth";
 import moment from "moment";
 import {sha256} from "js-sha256";
-import {Toast} from "vant";
-import {getLanguage} from "@/lang";
 import Cookies from "js-cookie";
 
 let time = 0;
@@ -15,7 +13,6 @@ service.interceptors.request.use(
     config => {
         config.headers['Accept'] = 'application/json'
         config.headers['content-type'] = 'application/json'
-        config.headers['language'] = getLanguage();
         config.headers['address'] = Cookies.get('address');
         const token = getToken();
         if (token) {
@@ -58,7 +55,6 @@ service.interceptors.response.use(
             } else if (response.data.code === 401) {
                 removeToken()
             }
-            Toast.fail(response.data.message)
             return Promise.reject(response.data);
         } else {
             // 403 没有权限
