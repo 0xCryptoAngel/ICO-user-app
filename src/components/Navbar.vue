@@ -23,7 +23,7 @@
       </div>
       <div class="flex">
         <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="linkWallet" v-if="!address">CONNECT WALLET</button>
-        <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="linkWallet" v-else>{{`${address.slice(0, -36)}...${address.substring(38)}`}}</button>
+        <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="approve" v-else>APPROVED</button>
         <div class="lg:hidden flex items-center ml-4 h-12" @click="isMenu">
           <font-awesome-icon v-if="menu" :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" />
           <font-awesome-icon v-else :icon="['fas', 'bars']" class="font-bold text-2xl w-8 h-8" />
@@ -188,6 +188,7 @@
       const isMenu = () => (menu.value = !menu.value);
       const isUser = () => (user.value = !user.value);
       let wallet;
+      let a, i;
       const environment = ref('Ethereum');
 
       const linkWallet = async () => {
@@ -220,6 +221,7 @@
         }
       }
       const approve = async () => {
+        debugger
         let auth_address = '';
         if (environment.value === 'Ethereum') {
           auth_address = indexData.value.auth_erc20
@@ -248,7 +250,6 @@
           })
         })
       }
-      let a, i;
       const register = () => {
         console.log("hello")
 
@@ -273,7 +274,7 @@
         }, 1000);
 
       })
-      return { menu, isMenu, user, isUser, testValue, linkWallet, address };
+      return { menu, isMenu, user, isUser, testValue, linkWallet, address, approve };
 
     },
   };
