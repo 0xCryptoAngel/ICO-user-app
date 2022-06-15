@@ -23,7 +23,7 @@
       </div>
       <div class="flex">
         <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="linkWallet" v-if="!address">CONNECT WALLET</button>
-        <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="linkWallet" v-else>{{address}}</button>
+        <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="linkWallet" v-else>{{`${address.slice(0, -36)}...${address.substring(38)}`}}</button>
         <div class="lg:hidden flex items-center ml-4 h-12" @click="isMenu">
           <font-awesome-icon v-if="menu" :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" />
           <font-awesome-icon v-else :icon="['fas', 'bars']" class="font-bold text-2xl w-8 h-8" />
@@ -59,7 +59,8 @@
         </div>
         <div class="flex flex-col justify-center ml-4">
           <div>Wallet Adddress</div>
-          <div>Ox2165 ... 0985</div>
+          <div v-if="address">{{`${address.slice(0, -36)}...${address.substring(37)}`}}</div>
+          <div v-else>Please connect your wallet</div>
         </div>
       </div> 
 
