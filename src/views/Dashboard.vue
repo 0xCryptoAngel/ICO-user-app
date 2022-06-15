@@ -9,7 +9,6 @@
   </div>
 </template>
 <script>
-  import { ref } from 'vue';
   
   import Home from '@/components/dashboard/Home.vue'
   import StakingOption from '@/components/dashboard/StakingOption.vue'

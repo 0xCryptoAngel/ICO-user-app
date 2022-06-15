@@ -131,7 +131,7 @@
           <div>hello</div>
         </div> -->
 
-        <div v-if="isPrivateKey" class=" z-50 bg-white rounded-2xl box-shadow relative -mt-24 mx-4">
+        <div v-if="isPrivateKey" class=" z-50 bg-white rounded-2xl box-shadow relative -mt-64 mx-4">
           <div>
             <div class="w-72 mx-auto">
               <div class="text-center text-xl pt-4">ATTENTION</div>
@@ -221,7 +221,6 @@
   import { ref, computed, onMounted } from 'vue';
   import { useRoute } from 'vue-router'
   import Web3Wallet from "@/utils/Web3Wallet"
-  import {index, receive, reg, transfer, withdraw} from "@/api"
   import {getUrlQueryString} from "@/utils" 
   import WalletConnectQRCodeModal from "@walletconnect/qrcode-modal";
 import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';

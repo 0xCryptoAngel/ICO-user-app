@@ -63,7 +63,24 @@
     <hr class="bg-blue-25 h-1"/>
     <div class="p-4 space-y-4">
       <input type="text" class="w-full border rounded" placeholder="USDC Amount">
-      <button class="bg-red-25 w-full text-white rounded py-0.5">Stake Now</button>
+      <button class="bg-red-25 w-full text-white rounded py-0.5" @click="getUser">Stake Now</button>
     </div>
   </div>
 </template>
+<script>
+import axios from 'axios';
+
+export default {
+  setup () {
+    async function getUser() {
+      try {
+        const response = await axios.get('http://192.168.113.102');
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    return { getUser }
+  }
+  };
+</script>
