@@ -11,10 +11,13 @@
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/vue-fontawesome": "^3.0.0-4",
+    "@walletconnect/web3-provider": "^1.7.8",
+    "axios": "^0.27.2",
     "vue": "^3.2.25",
     "vue-router": "^4.0.16",
     "vueperslides": "^3.4.0",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "web3": "^1.7.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
