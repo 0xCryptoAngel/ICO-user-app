@@ -1,5 +1,5 @@
 import Web3 from 'web3/dist/web3.min.js'
-import abi from '@/assets/erc20_abi.json'
+import abi from './erc20_abi.json'
 import Cookies from "js-cookie";
 
 
