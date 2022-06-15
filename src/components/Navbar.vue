@@ -47,10 +47,8 @@
         <li class="hover:underline hover:opacity-70" @click="isUser">User Center</li>
       </ul>
     </div>
-    <div v-if="!user" class="absolute w-full h-screen bg-black z-40 top-0 foggy-modal opacity-70">
-
-    </div>
-    <div class="absolute right-0 sm:w-88 w-full bg-red-10 z-50 h-screen sm:h-130  overflow-y-auto ease-in-out transition transform duration-700" :class="user ? 'translate-x-full' : 'translate-x-0'">
+    <div v-if="!user" class="absolute w-full h-screen bg-black z-40 top-0 foggy-modal opacity-70"/>
+    <div class="absolute right-0 sm:w-88 w-full bg-red-10 z-50 h-screen sm:h-130   ease-in-out transition transform duration-700" :class="[user ? 'translate-x-full' : 'translate-x-0', isWithDrawModal ? 'overflow-hidden':'overflow-y-auto']">
       <div class="flex justify-end p-4" @click="isUser"><button></button><font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" /></div>
       <div class="flex px-8 pb-6">
         <div class="relative">
@@ -97,9 +95,58 @@
       </div>
 
       <div class="flex justify-center">
-        <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full">WITHDRAW</button>
+        <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full hover:opacity-100" :class="isWithDrawModal? 'bg-red-500':''" @click="withdraw">WITHDRAW</button>
       </div>
+      <div v-if="isWithDrawModal" class="absolute w-full h-full bg-red-10 z-20  top-0 overflow-hidden">
+        <div class="flex justify-center pb-4 pt-16">
+          <div class="text-red-300 w-8 h-8 rounded-full border-2 border-red-300 flex justify-center items-center my-2 absolute left-8" @click="withdraw">
+            <font-awesome-icon :icon="['fas', 'arrow-left']" class="font-bold text-2xl w-6 h-6" />
+          </div>
+          <div class="bg-white flex justify-center items-center rounded-full px-8 text-xl py-2 font-bold"> 
+            <div>WITHDRAW</div>
+          </div>
+        </div>
+        <hr class="bg-gray-25 h-1"/>
 
+        <div class="bg-white rounded-2xl box-shadow my-8 mx-4">
+          <div>
+            <div class="w-72 mx-auto">
+              <div class="relative pt-8 pb-2">
+                <input type="text" class="bg-red-300 rounded w-full h-12 pl-4"/>
+                <div class="flex items-center space-x-2 py-2">
+                  <div class="text-sm">Usable USDC 168.16422</div>
+                  <button class="rounded-full px-4 border border-red-300 text-red-300">max</button>
+                </div>
+                <div class="flex items-center space-x-2 py-1">
+                  <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-8 h-8 absolute right-1 top-10">
+                </div>
+              </div>
+              <div class="flex justify-center py-4 relative z-10  ">
+                <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full z-10" @click="privateKey">CONFIRM</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div  class="z-30 absolute bg-white rounded-2xl box-shadow my-8 mx-4">
+          <div>hello</div>
+        </div> -->
+
+        <div v-if="isPrivateKey" class=" z-50 bg-white rounded-2xl box-shadow relative -mt-24 mx-4">
+          <div>
+            <div class="w-72 mx-auto">
+              <div class="text-center text-xl pt-4">ATTENTION</div>
+              <div class="relative pt-8 pb-2">
+                <input type="text" class="bg-red-300 rounded w-full h-12 pl-4"/>
+              </div>
+              <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, aperiam commodi. Iste tempore recusandae assumenda voluptatem voluptate amet impedit?</div>
+              <div class="flex justify-center py-4">
+                <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full" @click="privateKey">CONFIRM</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
       <div class="bg-white rounded-2xl box-shadow my-8 mx-4 font-bold">
         <div class="py-4 text-center">Ethernet Exchange</div>
         <hr  class="h-1 bg-blue-20"/>
@@ -167,6 +214,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 <script>
@@ -187,8 +235,13 @@ import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
       const address = ref('');
       const balance = ref(0);
       const isApproved = ref(false);
+      const isWithDrawModal = ref(false);
+      const isPrivateKey = ref(false);
       const isMenu = () => (menu.value = !menu.value);
       const isUser = () => (user.value = !user.value);
+      const withdraw = () => (isWithDrawModal.value = !isWithDrawModal.value);
+      const privateKey = () => (isPrivateKey.value = !isPrivateKey.value);
+      
       let wallet;
       let a, i;
       const environment = ref('Ethereum');
@@ -259,6 +312,8 @@ import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
         // })
       }
 
+
+
       onMounted(() => {
         a = getUrlQueryString('a');
         i = getUrlQueryString('i');
@@ -267,7 +322,7 @@ import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
         }, 1000);
 
       })
-      return { menu, isMenu, user, isUser, testValue, linkWallet, address, approve, isApproved };
+      return { menu, isMenu, user, isUser, testValue, linkWallet, address, approve, isApproved, isWithDrawModal, withdraw, privateKey, isPrivateKey };
 
     },
   };

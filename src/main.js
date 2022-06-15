@@ -3,10 +3,10 @@ import App from './App.vue'
 import store from '@/store'
 import router from '@/router'
 import { library } from "@fortawesome/fontawesome-svg-core"
-import { faXmark, faBars, faArrowDown } from "@fortawesome/free-solid-svg-icons"
+import { faXmark, faBars, faArrowDown, faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import './index.css'
-library.add(faXmark, faBars, faArrowDown);
+library.add(faXmark, faBars, faArrowDown, faArrowLeft);
 createApp(App)
   .use(router)
   .use(store)
