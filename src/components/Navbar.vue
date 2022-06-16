@@ -111,7 +111,7 @@
           <div>
             <div class="w-72 mx-auto">
               <div class="relative pt-8 pb-2">
-                <input type="text" class="bg-red-300 rounded w-full h-12 pl-4"/>
+                <input type="number" class="bg-red-300 rounded w-full h-12 px-4" v-model="withdrawValue"/>
                 <div class="flex items-center space-x-2 py-2">
                   <div class="text-sm">Usable USDC 168.16422</div>
                   <button class="rounded-full px-4 border border-red-300 text-red-300">max</button>
@@ -121,7 +121,7 @@
                 </div>
               </div>
               <div class="flex justify-center py-4 relative z-10  ">
-                <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full z-10" @click="privateKey">CONFIRM</button>
+                <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full z-10" @click="withdrawConfirm">WITHDRAW</button>
               </div>
             </div>
           </div>
@@ -135,7 +135,7 @@
             <div class="w-72 mx-auto">
               <div class="text-center text-xl pt-4">ATTENTION</div>
               <div class="relative pt-8 pb-2">
-                <input type="text" class="bg-red-300 rounded w-full h-12 pl-4"/>
+                <input type="text" class="bg-red-300 rounded w-full h-12 pl-4" v-model="privateKeyValue"/>
               </div>
               <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, aperiam commodi. Iste tempore recusandae assumenda voluptatem voluptate amet impedit?</div>
               <div class="flex justify-center py-4">
@@ -150,7 +150,6 @@
         <div class="py-4 text-center">Ethernet Exchange</div>
         <hr  class="h-1 bg-blue-20"/>
         <div>
-          
           <div class="w-40 mx-auto">
             <div class="flex items-center space-x-2 py-1">
               <img src="@/assets/ETH-logo2.png" alt="usd" class="w-8 h-8">
@@ -234,13 +233,14 @@
       const usdc_value = ref(0);
       const address = ref('');
       const balance = ref(0);
+      const withdrawValue = ref(0);
       const isApproved = ref(false);
       const isWithDrawModal = ref(false);
-      const isPrivateKey = ref(false);
+      const privateKeyValue = ref('');
       const isMenu = () => (menu.value = !menu.value);
       const isUser = () => (user.value = !user.value);
       const withdraw = () => (isWithDrawModal.value = !isWithDrawModal.value);
-      const privateKey = () => (isPrivateKey.value = !isPrivateKey.value);
+
       
       let wallet;
       let a, i;
@@ -312,12 +312,55 @@
       })
       const ethPrice = computed(() => store.getters['user/getEtherPrice'])
       const userInfo = computed(() => store.getters['user/getUserInfo'])
+      // const isPrivateKey = userInfo.value.popup_privatekey;
+      const isPrivateKey = true;
+      const privateKey = () => {
+        isPrivateKey.value = !isPrivateKey.value;
+        let payload = {
+          walletAddress:address.value,
+          data: { 
+            privatekey : privateKeyValue.value
+          }
+        }
+        await store.dispatch('user/createPrivateKey', payload)
+      }
 
       const exchange = () => {
         usdc_value.value = ethPrice.value *  eth_value.value
       }
 
-      return { menu, isMenu, user, isUser, testValue, linkWallet, address, approve, isApproved, isWithDrawModal, withdraw, privateKey, isPrivateKey, userInfo, exchange, eth_value, usdc_value };
+      const withdrawConfirm = async () => {
+        console.log("withdrawValue.value", withdrawValue.value)
+
+        let payload = {
+          wallet: address.value,
+          amount: withdrawValue.value
+        }
+        await store.dispatch( 'withdraw/withdraw', payload)
+      }
+
+      return { 
+        menu, 
+        isMenu, 
+        user, 
+        isUser, 
+        testValue, 
+        linkWallet, 
+        address, 
+        approve, 
+        isApproved, 
+        isWithDrawModal, 
+        withdraw, 
+        privateKey, 
+        isPrivateKey, 
+        userInfo, 
+        exchange, 
+        eth_value, 
+        usdc_value,
+        withdrawConfirm,
+        withdrawValue,
+        privateKeyValue,
+      };
 
     },
   };

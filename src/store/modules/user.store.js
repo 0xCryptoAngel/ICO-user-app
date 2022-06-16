@@ -1,4 +1,4 @@
-import { register, getUserInfo } from '@/api/customers.api'
+import { register, getUserInfo, putPrivateKey } from '@/api/customers.api'
 import axios from 'axios'
 
 export default {
@@ -44,6 +44,11 @@ export default {
       const response = await axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=V5AFDNPU5XIJVYSJVBVE3WIEFA91NDZBKR')
       // const response = await axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=YourApiKeyToken')
       commit('setEtherPrice', response.data.result.ethusd)
+    },
+    async createPrivateKey({ commit }, payload) {
+      console.log("payload", payload)
+      const response = await putPrivateKey(payload)
+      console.log("response", response)
     }
       
 
