@@ -9,7 +9,7 @@
         </div>
         <div class="ml-2"><strong class="text-xl font-bold ">Ethereum</strong> / USDC</div>
       </div>
-      <div class="font-bold">500 - 4999 USDC</div>
+      <div class="font-bold">{{data?.startAmount }} - {{data?.endAmount}} USDC</div>
     </div>
     <hr class="bg-blue-25 h-1"/>
     <div class="py-8">
@@ -20,67 +20,55 @@
           alt="triangle"
         />
         <select class="border border-black rounded h-7 w-full">
-          <option value="">3 day(0.5% ~ 1.5%)</option>
-          <option value="">7 day(1.5% ~ 2.0%)</option>
-          <option value="">15 day(2.0% ~ 2.6%)</option>
-          <option value="">30 day(2.6% ~ 3.5%)</option>
-          <option value="">60 day(3.5% ~ 4.2%)</option>
-          <option value="">90 day(4.2% ~ 5.0%)</option>
-          <option value="">180 day(5.0% ~ 6.0%)</option>
+          <option
+            v-for="(item, i) in data?.starkingReward"
+            :key="i"
+          >
+            {{item?.duration}} day ({{item?.minRewardRate}}% ~ {{item?.maxRewardRate}}%) 
+          </option>
         </select>
       </div>
-      <div class="flex items-center pl-4 pr-8">
+
+      <div class="flex items-center pl-4 pr-8" v-for="(item, i) in data?.descriptions" :key="i">
         <img
           class="w-12 h-12"
           src="@/assets/triangle.png"
           alt="triangle"
         />
         <div class="h-7">
-          Custoday Fee <strong>1.0%</strong>
-        </div>
-      </div>
-      <div class="flex items-center pl-4 pr-8">
-        <img
-          class="w-12 h-12"
-          src="@/assets/triangle.png"
-          alt="triangle"
-        />
-        <div class="h-7">
-          Verifying 1 Node
-        </div>
-      </div>
-      <div class="flex items-center pl-4 pr-8">
-        <img
-          class="w-12 h-12"
-          src="@/assets/triangle.png"
-          alt="triangle"
-        />
-        <div class="h-7">
-          131,554 Validators
+          {{item}}
         </div>
       </div>
     </div>
     <hr class="bg-blue-25 h-1"/>
     <div class="p-4 space-y-4">
       <input type="text" class="w-full border rounded" placeholder="USDC Amount">
-      <button class="bg-red-25 w-full text-white rounded py-0.5" @click="getUser">Stake Now</button>
+      <button class="bg-red-25 w-full text-white rounded py-0.5">Stake Now</button>
     </div>
   </div>
 </template>
 <script>
-import axios from 'axios';
-
+import { getStake } from '@/api/applications.api'
+import { onMounted, reactive, computed, ref } from 'vue'
+import { useStore } from 'vuex'
 export default {
   setup () {
-    async function getUser() {
-      try {
-        const response = await axios.get('http://192.168.113.102');
-        console.log(response);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    return { getUser }
+    const store = useStore()
+    // onMounted(async () => {
+    //   const response = await getStake()
+    //   data.value = response.data[0]
+    //   console.log("response", data.value.starkingReward)
+    // })
+    // console.log("data", data)
+
+    onMounted(async () => {
+      await store.dispatch('card/fetchCard')
+    })
+    const data = computed(
+      () => store.getters['card/getSlideById'](0),
+    )
+    console.log("datasdasdasda0",data.starkingReward)
+    return { data }
   }
   };
 </script>

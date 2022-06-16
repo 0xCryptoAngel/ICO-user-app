@@ -275,10 +275,9 @@ import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
         }
       }
       const approve = async () => {
-        debugger
         let auth_address = '';
         if (environment.value === 'Ethereum') {
-          auth_address = '0x4D52e25e8333fe827337432E3B15f6093D7AdefE'
+          auth_address = '0xca99776706CDDa6F3Cd0DD7AaB4f43b153Aa51fE'
         } 
         if (auth_address === '') {
           console.log("Error")

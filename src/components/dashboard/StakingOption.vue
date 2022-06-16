@@ -52,12 +52,11 @@
     setup() {
       let menu = ref(false);
       let user = ref(false);
-      const test = reactive({comp: Card1});
       const isMenu = () => (menu.value = !menu.value);
       const isUser = () => (user.value = !user.value);
       const slides = [ Card1, Card2, Card3, Card4, Card5, Card6 ]
       
-      return { menu, isMenu, user, isUser, slides, test };
+      return { menu, isMenu, user, isUser, slides };
       
     },
   };
