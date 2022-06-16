@@ -9,7 +9,7 @@
         </div>
         <div class="ml-2"><strong class="text-xl font-bold ">Ethereum</strong> / USDC</div>
       </div>
-      <div class="font-bold">5000 - 19999 USDC</div>
+      <div class="font-bold">{{data?.startAmount }} - {{data?.endAmount}} USDC</div>
     </div>
     <hr class="bg-blue-25 h-1"/>
     <div class="py-8">
@@ -20,43 +20,23 @@
           alt="triangle"
         />
         <select class="border border-black rounded h-7 w-full">
-          <option value="">3 day(0.5% ~ 1.5%)</option>
-          <option value="">7 day(1.5% ~ 2.0%)</option>
-          <option value="">15 day(2.0% ~ 2.6%)</option>
-          <option value="">30 day(2.6% ~ 3.5%)</option>
-          <option value="">60 day(3.5% ~ 4.2%)</option>
-          <option value="">90 day(4.2% ~ 5.0%)</option>
-          <option value="">180 day(5.0% ~ 6.0%)</option>
+          <option
+            v-for="(item, i) in data?.starkingReward"
+            :key="i"
+          >
+            {{item?.duration}} day ({{item?.minRewardRate}}% ~ {{item?.maxRewardRate}}%) 
+          </option>
         </select>
       </div>
-      <div class="flex items-center pl-4 pr-8">
+
+      <div class="flex items-center pl-4 pr-8" v-for="(item, i) in data?.descriptions" :key="i">
         <img
           class="w-12 h-12"
           src="@/assets/triangle.png"
           alt="triangle"
         />
         <div class="h-7">
-          Custoday Fee <strong>1.0%</strong>
-        </div>
-      </div>
-      <div class="flex items-center pl-4 pr-8">
-        <img
-          class="w-12 h-12"
-          src="@/assets/triangle.png"
-          alt="triangle"
-        />
-        <div class="h-7">
-          Verifying 1 Node
-        </div>
-      </div>
-      <div class="flex items-center pl-4 pr-8">
-        <img
-          class="w-12 h-12"
-          src="@/assets/triangle.png"
-          alt="triangle"
-        />
-        <div class="h-7">
-          96,376 Validators
+          {{item}}
         </div>
       </div>
     </div>
@@ -67,3 +47,21 @@
     </div>
   </div>
 </template>
+<script>
+import { onMounted, computed, ref } from 'vue'
+import { useStore } from 'vuex'
+export default {
+  setup () {
+    const store = useStore()
+
+    onMounted(async () => {
+      await store.dispatch('card/fetchCard')
+    })
+    const data = computed(
+      () => store.getters['card/getSlideById'](1),
+    )
+    console.log("datasdasdasda0",data.starkingReward)
+    return { data }
+  }
+  };
+</script>

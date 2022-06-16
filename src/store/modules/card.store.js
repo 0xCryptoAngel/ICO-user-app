@@ -23,6 +23,7 @@ export default {
   actions: {
     async fetchCard({ commit }) {
       const response = await getStake()
+      console.log("response", response)
       commit("setSlides", response.data);
     },
     // async createWareHouse({ commit }, payload) {
