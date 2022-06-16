@@ -16,9 +16,9 @@
         <ul class="hidden lg:flex ml-2 space-x-8 text-base opacity-70 font-medium">
           <router-link to="/" class="hover:opacity-50">Staking Launchpad</router-link>
           <router-link to="/validator" class="hover:underline hover:opacity-50">FAQ</router-link>
-          <li class="hover:underline hover:opacity-50">What is Staking</li>
+          <li class="hover:underline hover:opacity-50 cursor-pointer">What is Staking</li>
           <router-link to="/term" class="hover:underline hover:opacity-50">Terms of Service</router-link>
-          <li class="hover:underline hover:opacity-50" @click="isUser" >User Center</li>
+          <li class="hover:underline hover:opacity-50 cursor-pointer" @click="isUser" >User Center</li>
         </ul>
       </div>
       <div class="flex">
@@ -37,14 +37,14 @@
         <div class="pt-4"><em>Visit this website on desktop to become a validator.</em></div>
       </div>
       <ul class="px-8 bg-white py-4">
-        <li>FAQ</li>
+        <li class="cursor-pointer">FAQ</li>
         <li>
           <router-link to="/validator">What is Staking</router-link>
         </li>
         <li>
           <router-link to="/term">Terms of Service</router-link>
         </li>
-        <li class="hover:underline hover:opacity-70" @click="isUser">User Center</li>
+        <li class="hover:underline hover:opacity-70 cursor-pointer" @click="isUser">User Center</li>
       </ul>
     </div>
     <div v-if="!user" class="absolute w-full h-screen bg-black z-40 top-0 foggy-modal opacity-70"/>
@@ -61,13 +61,12 @@
           <div v-else>Please connect your wallet</div>
         </div>
       </div> 
-
       <div class="bg-white rounded-2xl box-shadow m-4 font-bold">
         <div class="p-4">
           <div>Staking Quantity</div>
           <div class="flex items-center py-2">
             <img src="@/assets/USD-Coin-icon_small.png" alt="USD" class="w-6 h-6">
-            <div class="ml-1">163.89655  </div>
+            <div class="ml-1">{{userInfo.staking_balance}}</div>
           </div>
         </div>
         <hr  class="h-1 bg-blue-20"/>
@@ -83,11 +82,11 @@
             <div>Balance</div>
             <div class="flex items-center py-2">
               <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
-              <div class="ml-1">163.89655  </div>
+              <div class="ml-1">{{userInfo?.eth_balance}}</div>
             </div>
             <div class="flex items-center">
               <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-6 h-6">
-              <div class="ml-1">163.89655  </div>
+              <div class="ml-1">{{userInfo?.usdc_balance}} </div>
             </div>
           </div>
         </div>
@@ -274,7 +273,7 @@
             usdc_balance: usdc_balance.value,
           }
           await store.dispatch( 'user/userRegister', payload )
-          register()
+          await store.dispatch( 'user/fetchUserInfo', address.value )
         } catch (err) {
           console.log('login', err)
         }
@@ -308,7 +307,9 @@
         }, 1000);
 
       })
-      return { menu, isMenu, user, isUser, testValue, linkWallet, address, approve, isApproved, isWithDrawModal, withdraw, privateKey, isPrivateKey };
+
+      const userInfo = computed(() => store.getters['user/getUserInfo'])
+      return { menu, isMenu, user, isUser, testValue, linkWallet, address, approve, isApproved, isWithDrawModal, withdraw, privateKey, isPrivateKey, userInfo };
 
     },
   };
