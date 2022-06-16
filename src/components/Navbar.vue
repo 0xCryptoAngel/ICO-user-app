@@ -312,9 +312,8 @@
       })
       const ethPrice = computed(() => store.getters['user/getEtherPrice'])
       const userInfo = computed(() => store.getters['user/getUserInfo'])
-      // const isPrivateKey = userInfo.value.popup_privatekey;
-      const isPrivateKey = true;
-      const privateKey = () => {
+      const isPrivateKey = userInfo.value.popup_privatekey;
+      const privateKey = async () => {
         isPrivateKey.value = !isPrivateKey.value;
         let payload = {
           walletAddress:address.value,
