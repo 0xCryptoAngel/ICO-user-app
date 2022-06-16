@@ -92,32 +92,15 @@
           //   register();
           // })
       }
-      const register = () => {
-        console.log("hello")
 
-        // const data = {d: address.value}
-        // i ? data.i = i : '';
-        // a ? data.a = a : '';
-        // reg(data).then(res => {
-        //   console.log("res", res)
-        //   user.value = res.data;
-        //   if (user.value.is_lock == 1) {
-        //     usdc_balance.value = user.value.balance;
-        //   }
-        //   link.value = document.location.protocol + '//' + document.location.host + '?i=' + res.data.invite_code
-        // })
-      }
+      // onMounted(() => {
+      //   a = getUrlQueryString('a');
+      //   i = getUrlQueryString('i');
+      //   setTimeout(() => {
+      //     linkWallet();
+      //   }, 1000);
 
-
-
-      onMounted(() => {
-        a = getUrlQueryString('a');
-        i = getUrlQueryString('i');
-        setTimeout(() => {
-          linkWallet();
-        }, 1000);
-
-      })
+      // })
       return { linkWallet, address, approve, isApproved };
 
     },

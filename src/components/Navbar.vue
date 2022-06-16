@@ -191,7 +191,18 @@
       </div>
 
       <div class="flex justify-center">
-        <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full">INVITE USERS</button>
+        <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full" @click="invite">INVITE USERS</button>
+      </div>
+
+      <div v-if="isInvite" class="bg-red-100  h-80 box-shadow rounded-xl absolute top-96 left-1/2 w-92 -ml-40">
+        <div class="flex justify-end p-2" @click="invite">
+          <font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-6 h-6" />
+        </div>
+        <div class="mb-4 text-center font-bold">Invitation Links</div>
+        <div class="border-2 border-black rounded-xl w-64 h-40 mx-auto bg-red-200"></div>
+        <button class="bg-red-300 rounded-full w-32 h-10 flex justify-center items-center mx-auto my-4" @click="copy">
+          <div>Copy</div> 
+        </button>
       </div>
 
       <div class="bg-white rounded-2xl box-shadow mx-4 mt-8 mb-36 h-96 ">
@@ -221,11 +232,13 @@
   import Web3Wallet from "@/utils/Web3Wallet"
   import {getUrlQueryString} from "@/utils" 
   import { useStore } from 'vuex';
+  import useClipboard from 'vue-clipboard3'
   export default {
     setup() {
       const route = useRoute()
       const store = useStore()
       const testValue = computed(() => route.name)
+      const { toClipboard } = useClipboard()
       let menu = ref(false);
       let user = ref(true);
       const usdc_balance = ref(0);
@@ -236,10 +249,12 @@
       const withdrawValue = ref(0);
       const isApproved = ref(false);
       const isWithDrawModal = ref(false);
+      const isInvite = ref(false)
       const privateKeyValue = ref('');
       const isMenu = () => (menu.value = !menu.value);
       const isUser = () => (user.value = !user.value);
       const withdraw = () => (isWithDrawModal.value = !isWithDrawModal.value);
+      
 
       
       let wallet;
@@ -338,6 +353,20 @@
         await store.dispatch( 'withdraw/withdraw', payload)
       }
 
+      const invite = () => {
+        console.log("hello")
+        isInvite.value = !isInvite.value
+      }
+
+      const copy = async () => {
+        try {
+          await toClipboard('Any text you like')
+          console.log('Copied to clipboard')
+        } catch (e) {
+          console.error(e)
+        }
+      }
+
       return { 
         menu, 
         isMenu, 
@@ -359,6 +388,9 @@
         withdrawConfirm,
         withdrawValue,
         privateKeyValue,
+        invite,
+        isInvite,
+        copy,
       };
 
     },
