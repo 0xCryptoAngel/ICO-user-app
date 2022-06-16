@@ -59,7 +59,7 @@ export default {
     onMounted(async () => {
       await store.dispatch('card/fetchCard')
     })
-    const data = computed(() => store.getters['card/getSlideById'](6))
+    const data = computed(() => store.getters['card/getSlideById'](5))
     const wallet = computed(() => store.getters['user/getUserAddress'])
     const stakeNow = async () => {
       let someDate = new Date();
