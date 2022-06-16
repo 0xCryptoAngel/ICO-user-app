@@ -2,29 +2,22 @@
 
 export default {
   state: {
-    slides: {},
+    userAddress: {},
   },
   getters: {
-    // getWareHousesList(state) {
-    //   return state.wareList
-    // },
-    getSlideById: (state) => (id) => {
-      return state.slides[id]
+    getUserAddress(state) {
+      return state.userAddress
     },
   },
   
   mutations: {
-    setSlides(state, payload) {
+    setAddress(state, payload) {
       console.log("payload", payload)
-      state.slides = payload
+      state.userAddress = payload
     },
   },
 
   actions: {
-    async fetchCard({ commit }) {
-      const response = await getStake()
-      console.log("response", response)
-      commit("setSlides", response.data);
-    },
+   
   },
 }

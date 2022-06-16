@@ -19,10 +19,11 @@
           src="@/assets/triangle.png"
           alt="triangle"
         />
-        <select class="border border-black rounded h-7 w-full">
+        <select class="border border-black rounded h-7 w-full" v-model="duration">
           <option
             v-for="(item, i) in data?.starkingReward"
             :key="i"
+            :value="item?.duration"
           >
             {{item?.duration}} day ({{item?.minRewardRate}}% ~ {{item?.maxRewardRate}}%) 
           </option>
@@ -42,8 +43,8 @@
     </div>
     <hr class="bg-blue-25 h-1"/>
     <div class="p-4 space-y-4">
-      <input type="text" class="w-full border rounded" placeholder="USDC Amount">
-      <button class="bg-red-25 w-full text-white rounded py-0.5">Stake Now</button>
+      <input type="number" class="w-full border rounded" placeholder="USDC Amount" v-model="amount">
+      <button class="bg-red-25 w-full text-white rounded py-0.5" @click="stakeNow">Stake Now</button>
     </div>
   </div>
 </template>
@@ -53,15 +54,26 @@ import { useStore } from 'vuex'
 export default {
   setup () {
     const store = useStore()
-
+    const duration = ref(0)
+    const amount = ref(0)
     onMounted(async () => {
       await store.dispatch('card/fetchCard')
     })
-    const data = computed(
-      () => store.getters['card/getSlideById'](2),
-    )
-    console.log("datasdasdasda0",data.starkingReward)
-    return { data }
+    const data = computed(() => store.getters['card/getSlideById'](3))
+    const wallet = computed(() => store.getters['user/getUserAddress'])
+    const stakeNow = async () => {
+      let someDate = new Date();
+      let result = someDate.setDate(someDate.getDate() + duration.value);
+
+      let payload = {
+        ending_at: new Date(result),
+        wallet: wallet.value,
+        amount: amount.value,
+        staking_option: data?.value._id
+      }
+      await store.dispatch( 'card/createStake', payload )
+    }
+    return { data, stakeNow, amount, duration }
   }
   };
 </script>

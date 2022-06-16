@@ -222,11 +222,11 @@
   import { useRoute } from 'vue-router'
   import Web3Wallet from "@/utils/Web3Wallet"
   import {getUrlQueryString} from "@/utils" 
-  import WalletConnectQRCodeModal from "@walletconnect/qrcode-modal";
-import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
+  import { useStore } from 'vuex';
   export default {
     setup() {
       const route = useRoute()
+      const store = useStore()
       const testValue = computed(() => route.name)
       let menu = ref(false);
       let user = ref(true);
@@ -260,6 +260,8 @@ import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
         try {
           await wallet.linkWallet();
           address.value = await wallet.getAddress();
+
+          store.commit('user/setAddress', address.value)
 
           if (address.value === false) {
             throw new TypeError("There was an issue signing you in.")

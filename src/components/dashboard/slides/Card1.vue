@@ -19,7 +19,7 @@
           src="@/assets/triangle.png"
           alt="triangle"
         />
-        <select class="border border-black rounded h-7 w-full">
+        <select class="border border-black rounded h-7 w-full" v-model="duration">
           <option
             v-for="(item, i) in data?.starkingReward"
             :key="i"
@@ -43,35 +43,40 @@
     </div>
     <hr class="bg-blue-25 h-1"/>
     <div class="p-4 space-y-4">
-      <input type="text" class="w-full border rounded" placeholder="USDC Amount" v-model="amount">
+      <input type="number" class="w-full border rounded" placeholder="USDC Amount" v-model="amount">
       <button class="bg-red-25 w-full text-white rounded py-0.5" @click="stakeNow">Stake Now</button>
     </div>
   </div>
 </template>
 <script>
-import { onMounted, computed, ref, reactive } from 'vue'
+import { onMounted, computed, ref } from 'vue'
 import { useStore } from 'vuex'
 export default {
   setup () {
     const store = useStore()
+    const duration = ref(0)
     const amount = ref(0)
     onMounted(async () => {
       await store.dispatch('card/fetchCard')
     })
     const data = computed(() => store.getters['card/getSlideById'](0))
-    const stakeNow = () => {
-      // let payload = {
-      //   ending_at: "Thu Jun 16 2022 00:17:35 GMT+0900 (Japan Standard Time)",
-      //   wallet: "0x8645346546",
-      //   amount: 700,
-      //   staking_option: "62a9ef8df0625c6c502a1bb4"
-      // }
-      console.log("hello", payload)
-    }
+    const wallet = computed(() => store.getters['user/getUserAddress'])
+    const stakeNow = async () => {
+      let someDate = new Date();
+      let result = someDate.setDate(someDate.getDate() + duration.value);
 
+      let payload = {
+        ending_at: new Date(result),
+        wallet: wallet.value,
+        amount: amount.value,
+        staking_option: data?.value._id
+      }
+      console.log("hello", payload)
+      await store.dispatch( 'card/createStake', payload )
+    }
   
-    console.log("datasdasdasda0",data.starkingReward)
-    return { data, stakeNow, amount }
+    console.log("datasdasdasda0", data.starkingReward)
+    return { data, stakeNow, amount, duration }
   }
   };
 </script>

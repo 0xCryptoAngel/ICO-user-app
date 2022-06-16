@@ -1,4 +1,4 @@
-import { getStake } from '@/api/applications.api'
+import { getStake, postStake } from '@/api/applications.api'
 
 export default {
   state: {
@@ -26,12 +26,14 @@ export default {
       console.log("response", response)
       commit("setSlides", response.data);
     },
-    // async createWareHouse({ commit }, payload) {
-    //   await createWareHouses(payload)
-    // },
-    // async editWareHouse({ commit }, payload) {
-    //   await editWareHouses(payload)
-    // }
+    async createStake({ commit }, payload) {
+      try {
+        let response = await postStake(payload)
+        console.log("response", response.status)
+      } catch (error) {
+        console.log(error)
+      }
+    },
     
   },
 }
