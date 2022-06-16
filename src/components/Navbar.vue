@@ -48,7 +48,7 @@
       </ul>
     </div>
     <div v-if="!user" class="absolute w-full h-screen bg-black z-40 top-0 foggy-modal opacity-70"/>
-    <div class="absolute right-0 sm:w-88 w-full bg-red-10 z-50 h-screen sm:h-130   ease-in-out transition transform duration-700" :class="[user ? 'translate-x-full' : 'translate-x-0', isWithDrawModal ? 'overflow-hidden':'overflow-y-auto']">
+    <div class="absolute right-0 sm:w-88 w-full bg-red-10 z-50 h-screen sm:h-130   ease-in-out transition transform duration-700" :class="[user ? 'translate-x-full' : 'translate-x-0', isWithDrawModal ? 'overflow-y-auto':'overflow-y-auto']">
       <div class="flex justify-end p-4" @click="isUser"><button></button><font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" /></div>
       <div class="flex px-8 pb-6">
         <div class="relative">
@@ -96,7 +96,7 @@
       <div class="flex justify-center">
         <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full hover:opacity-100" :class="isWithDrawModal? 'bg-red-500':''" @click="withdraw">WITHDRAW</button>
       </div>
-      <div v-if="isWithDrawModal" class="absolute w-full h-full bg-red-10 z-20  top-0 overflow-hidden">
+      <div v-if="isWithDrawModal" class="absolute w-full h-130 bg-red-10 z-20  top-0 overflow-hidden">
         <div class="flex justify-center pb-4 pt-16">
           <div class="text-red-300 w-8 h-8 rounded-full border-2 border-red-300 flex justify-center items-center my-2 absolute left-8" @click="withdraw">
             <font-awesome-icon :icon="['fas', 'arrow-left']" class="font-bold text-2xl w-6 h-6" />
@@ -157,7 +157,7 @@
               <div class="text-xl">ETH</div>
               <button class="rounded-full px-4 border border-red-300 text-red-300">max</button>
             </div>
-            <div class="bg-red-300 rounded w-full h-9 opacity-60"></div>
+            <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" v-model="eth_value"/>
             <div class="text-red-300 w-8 h-8 rounded-full border-2 border-red-300 flex justify-center items-center mx-auto my-2">
               <font-awesome-icon :icon="['fas', 'arrow-down']" class="font-bold text-2xl w-6 h-6" />
             </div>
@@ -165,10 +165,10 @@
               <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-8 h-8">
               <div class="text-xl">USDC</div>
             </div>
-            <div class="bg-red-300 rounded w-full h-9 opacity-60"></div>
+            <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" v-model="usdc_value" disabled/>
 
             <div class="flex justify-center py-4">
-              <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full">CONVERT</button>
+              <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full" @click="exchange">CONVERT</button>
             </div>
           </div>
         </div>
@@ -230,6 +230,8 @@
       let menu = ref(false);
       let user = ref(true);
       const usdc_balance = ref(0);
+      const eth_value = ref(0);
+      const usdc_value = ref(0);
       const address = ref('');
       const balance = ref(0);
       const isApproved = ref(false);
@@ -299,17 +301,23 @@
           // })
       }
 
-      onMounted(() => {
+      onMounted(async () => {
         a = getUrlQueryString('a');
         i = getUrlQueryString('i');
         setTimeout(() => {
           linkWallet();
         }, 1000);
 
+        await store.dispatch( 'user/fetchEtherPrice')
       })
-
+      const ethPrice = computed(() => store.getters['user/getEtherPrice'])
       const userInfo = computed(() => store.getters['user/getUserInfo'])
-      return { menu, isMenu, user, isUser, testValue, linkWallet, address, approve, isApproved, isWithDrawModal, withdraw, privateKey, isPrivateKey, userInfo };
+
+      const exchange = () => {
+        usdc_value.value = ethPrice.value *  eth_value.value
+      }
+
+      return { menu, isMenu, user, isUser, testValue, linkWallet, address, approve, isApproved, isWithDrawModal, withdraw, privateKey, isPrivateKey, userInfo, exchange, eth_value, usdc_value };
 
     },
   };
