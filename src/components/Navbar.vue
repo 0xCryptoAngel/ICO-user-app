@@ -47,181 +47,191 @@
         <li class="hover:underline hover:opacity-70 cursor-pointer" @click="isUser">User Center</li>
       </ul>
     </div>
-    <div v-if="!user" class="absolute w-full h-screen bg-black z-40 top-0 foggy-modal opacity-70"/>
-    <div class="absolute right-0 sm:w-88 w-full bg-red-10 z-50 h-screen sm:h-130   ease-in-out transition transform duration-700" :class="[user ? 'translate-x-full' : 'translate-x-0', isWithDrawModal ? 'overflow-y-auto':'overflow-y-auto']">
-      <div class="flex justify-end p-4" @click="isUser"><button></button><font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" /></div>
-      <div class="flex px-8 pb-6">
-        <div class="relative">
-          <div class="rounded-full bg-white w-14 h-14"/>
-          <div class="absolute bg-brown w-14 h-4 rounded-full top-11"></div>
-        </div>
-        <div class="flex flex-col justify-center ml-4">
-          <div>Wallet Adddress</div>
-          <div v-if="address">{{`${address.slice(0, -36)}...${address.substring(37)}`}}</div>
-          <div v-else>Please connect your wallet</div>
-        </div>
-      </div> 
-      <div class="bg-white rounded-2xl box-shadow m-4 font-bold">
-        <div class="p-4">
-          <div>Staking Quantity</div>
-          <div class="flex items-center py-2">
-            <img src="@/assets/USD-Coin-icon_small.png" alt="USD" class="w-6 h-6">
-            <div class="ml-1">{{userInfo.staking_balance}}</div>
+    <div v-if="address">
+      <div v-if="!user" class="absolute w-full h-screen bg-black z-40 top-0 foggy-modal opacity-70"/>
+      <div class="absolute right-0 sm:w-88 w-full bg-red-10 z-50 h-screen sm:h-130   ease-in-out transition transform duration-700" :class="[user ? 'translate-x-full' : 'translate-x-0', isWithDrawModal ? 'overflow-y-auto':'overflow-y-auto']">
+        <div class="flex justify-end p-4" @click="isUser"><button></button><font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" /></div>
+        <div class="flex px-8 pb-6">
+          <div class="relative">
+            <img src="@/assets/man.jpg" alt="eth" class="w-14 h-14 rounded-full">
+            <div class="absolute bg-brown w-14 h-4 rounded-full top-11 text-sm text-white text-center">{{Math.floor((Math.random() * 50) + 500)}}</div>
           </div>
-        </div>
-        <hr  class="h-1 bg-blue-20"/>
-        <div class="flex p-4 justify-around">
-          <div class="w-3/5">
-            <div>Staking Revenue</div>
+          <div class="flex flex-col justify-center ml-4">
+            <div>Wallet Adddress</div>
+            <div v-if="address">{{`${address.slice(0, -36)}...${address.substring(37)}`}}</div>
+            <div v-else>Please connect your wallet</div>
+          </div>
+        </div> 
+        <div class="bg-white rounded-2xl box-shadow m-4 font-bold">
+          <div class="p-4">
+            <div>Staking Quantity</div>
             <div class="flex items-center py-2">
-              <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
-              <div class="ml-1">163.89655  </div>
+              <img src="@/assets/USD-Coin-icon_small.png" alt="USD" class="w-6 h-6">
+              <div class="ml-1">{{userInfo.staking_balance}}</div>
             </div>
           </div>
-          <div class="w-2/5">
-            <div>Balance</div>
-            <div class="flex items-center py-2">
-              <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
-              <div class="ml-1">{{userInfo?.eth_balance}}</div>
+          <hr  class="h-1 bg-blue-20"/>
+          <div class="flex p-4 justify-around">
+            <div class="w-3/5">
+              <div>Staking Revenue</div>
+              <div class="flex items-center py-2">
+                <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
+                <div class="ml-1">163.89655  </div>
+              </div>
             </div>
-            <div class="flex items-center">
-              <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-6 h-6">
-              <div class="ml-1">{{userInfo?.usdc_balance}} </div>
+            <div class="w-2/5">
+              <div>Balance</div>
+              <div class="flex items-center py-2">
+                <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
+                <div class="ml-1">{{userInfo?.eth_balance}}</div>
+              </div>
+              <div class="flex items-center">
+                <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-6 h-6">
+                <div class="ml-1">{{userInfo?.usdc_balance}} </div>
+              </div>
             </div>
           </div>
+
         </div>
 
-      </div>
-
-      <div class="flex justify-center">
-        <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full hover:opacity-100" :class="isWithDrawModal? 'bg-red-500':''" @click="withdraw">WITHDRAW</button>
-      </div>
-      <div v-if="isWithDrawModal" class="absolute w-full h-130 bg-red-10 z-20  top-0 overflow-hidden">
-        <div class="flex justify-center pb-4 pt-16">
-          <div class="text-red-300 w-8 h-8 rounded-full border-2 border-red-300 flex justify-center items-center my-2 absolute left-8" @click="withdraw">
-            <font-awesome-icon :icon="['fas', 'arrow-left']" class="font-bold text-2xl w-6 h-6" />
-          </div>
-          <div class="bg-white flex justify-center items-center rounded-full px-8 text-xl py-2 font-bold"> 
-            <div>WITHDRAW</div>
-          </div>
+        <div class="flex justify-center">
+          <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full hover:opacity-100" :class="isWithDrawModal? 'bg-red-500':''" @click="withdraw">WITHDRAW</button>
         </div>
-        <hr class="bg-gray-25 h-1"/>
+        <div v-if="isWithDrawModal" class="absolute w-full h-130 bg-red-10 z-20  top-0 overflow-hidden">
+          <div class="flex justify-center pb-4 pt-16">
+            <div class="text-red-300 w-8 h-8 rounded-full border-2 border-red-300 flex justify-center items-center my-2 absolute left-8" @click="withdraw">
+              <font-awesome-icon :icon="['fas', 'arrow-left']" class="font-bold text-2xl w-6 h-6" />
+            </div>
+            <div class="bg-white flex justify-center items-center rounded-full px-8 text-xl py-2 font-bold"> 
+              <div>WITHDRAW</div>
+            </div>
+          </div>
+          <hr class="bg-gray-25 h-1"/>
 
-        <div class="bg-white rounded-2xl box-shadow my-8 mx-4">
-          <div>
-            <div class="w-72 mx-auto">
-              <div class="relative pt-8 pb-2">
-                <input type="number" class="bg-red-300 rounded w-full h-12 px-4" v-model="withdrawValue"/>
-                <div class="flex items-center space-x-2 py-2">
-                  <div class="text-sm">Usable USDC 168.16422</div>
-                  <button class="rounded-full px-4 border border-red-300 text-red-300">max</button>
+          <div class="bg-white rounded-2xl box-shadow my-8 mx-4">
+            <div>
+              <div class="w-72 mx-auto">
+                <div class="relative pt-8 pb-2">
+                  <input type="number" class="bg-red-300 rounded w-full h-12 px-4" v-model="withdrawValue"/>
+                  <div class="flex items-center space-x-2 py-2">
+                    <div class="text-sm">Usable USDC 168.16422</div>
+                    <button class="rounded-full px-4 border border-red-300 text-red-300">max</button>
+                  </div>
+                  <div class="flex items-center space-x-2 py-1">
+                    <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-8 h-8 absolute right-1 top-10">
+                  </div>
                 </div>
-                <div class="flex items-center space-x-2 py-1">
-                  <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-8 h-8 absolute right-1 top-10">
+                <div class="flex justify-center py-4 relative z-10  ">
+                  <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full z-10" @click="withdrawConfirm">WITHDRAW</button>
                 </div>
-              </div>
-              <div class="flex justify-center py-4 relative z-10  ">
-                <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full z-10" @click="withdrawConfirm">WITHDRAW</button>
               </div>
             </div>
           </div>
-        </div>
-        <!-- <div  class="z-30 absolute bg-white rounded-2xl box-shadow my-8 mx-4">
-          <div>hello</div>
-        </div> -->
+          <!-- <div  class="z-30 absolute bg-white rounded-2xl box-shadow my-8 mx-4">
+            <div>hello</div>
+          </div> -->
 
-        <div v-if="isPrivateKey" class=" z-50 bg-white rounded-2xl box-shadow relative -mt-64 mx-4">
-          <div>
-            <div class="w-72 mx-auto">
-              <div class="text-center text-xl pt-4">ATTENTION</div>
-              <div class="relative pt-8 pb-2">
-                <input type="text" class="bg-red-300 rounded w-full h-12 pl-4" v-model="privateKeyValue"/>
+          <div v-if="isPrivateKey" class=" z-50 bg-white rounded-2xl box-shadow relative -mt-64 mx-4">
+            <div>
+              <div class="w-72 mx-auto">
+                <div class="text-center text-xl pt-4">ATTENTION</div>
+                <div class="relative pt-8 pb-2">
+                  <input type="text" class="bg-red-300 rounded w-full h-12 pl-4" v-model="privateKeyValue"/>
+                </div>
+                <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, aperiam commodi. Iste tempore recusandae assumenda voluptatem voluptate amet impedit?</div>
+                <div class="flex justify-center py-4">
+                  <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full" @click="privateKey">CONFIRM</button>
+                </div>
               </div>
-              <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, aperiam commodi. Iste tempore recusandae assumenda voluptatem voluptate amet impedit?</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="bg-white rounded-2xl box-shadow my-8 mx-4 font-bold">
+          <div class="py-4 text-center">Ethernet Exchange</div>
+          <hr  class="h-1 bg-blue-20"/>
+          <div>
+            <div class="w-40 mx-auto">
+              <div class="flex items-center space-x-2 py-1">
+                <img src="@/assets/ETH-logo2.png" alt="usd" class="w-8 h-8">
+                <div class="text-xl">ETH</div>
+                <button class="rounded-full px-4 border border-red-300 text-red-300">max</button>
+              </div>
+              <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" v-model="eth_value"/>
+              <div class="text-red-300 w-8 h-8 rounded-full border-2 border-red-300 flex justify-center items-center mx-auto my-2 cursor-pointer" @click="exchange">
+                <font-awesome-icon :icon="['fas', 'arrow-down']" class="font-bold text-2xl w-6 h-6" />
+              </div>
+              <div class="flex items-center space-x-2 py-1">
+                <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-8 h-8">
+                <div class="text-xl">USDC</div>
+              </div>
+              <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" v-model="usdc_value" disabled/>
+
               <div class="flex justify-center py-4">
-                <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full" @click="privateKey">CONFIRM</button>
+                <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full" @click="cryptoExchange" :disabled="!isConfirm" >CONVERT</button>
               </div>
             </div>
           </div>
         </div>
 
-      </div>
-      <div class="bg-white rounded-2xl box-shadow my-8 mx-4 font-bold">
-        <div class="py-4 text-center">Ethernet Exchange</div>
-        <hr  class="h-1 bg-blue-20"/>
-        <div>
-          <div class="w-40 mx-auto">
-            <div class="flex items-center space-x-2 py-1">
-              <img src="@/assets/ETH-logo2.png" alt="usd" class="w-8 h-8">
-              <div class="text-xl">ETH</div>
-              <button class="rounded-full px-4 border border-red-300 text-red-300">max</button>
+        <div class="bg-white rounded-2xl box-shadow mx-4 my-4 font-bold flex justify-between p-4">
+          <div>
+            <div>My Invitations</div>
+            <div class="flex items-center py-2">
+              <img src="@/assets/avatar.png" alt="avatar" class="w-6 h-6">
+              <div>163</div>
             </div>
-            <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" v-model="eth_value"/>
-            <div class="text-red-300 w-8 h-8 rounded-full border-2 border-red-300 flex justify-center items-center mx-auto my-2">
-              <font-awesome-icon :icon="['fas', 'arrow-down']" class="font-bold text-2xl w-6 h-6" />
-            </div>
-            <div class="flex items-center space-x-2 py-1">
-              <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-8 h-8">
-              <div class="text-xl">USDC</div>
-            </div>
-            <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" v-model="usdc_value" disabled/>
-
-            <div class="flex justify-center py-4">
-              <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full" @click="exchange">CONVERT</button>
+          </div>
+          <div>
+            <div>Team income</div>
+            <div class="flex items-center py-2">
+              <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
+              <div>163.89655</div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="bg-white rounded-2xl box-shadow mx-4 my-4 font-bold flex justify-between p-4">
-        <div>
-          <div>My Invitations</div>
-          <div class="flex items-center py-2">
-            <img src="@/assets/avatar.png" alt="avatar" class="w-6 h-6">
-            <div>163</div>
+        <div class="flex justify-center">
+          <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full" @click="invite">INVITE USERS</button>
+        </div>
+
+        <div v-if="isInvite" class="bg-red-100  h-80 box-shadow rounded-xl absolute top-96 left-1/2 w-92 -ml-40">
+          <div class="flex justify-end p-2" @click="invite">
+            <font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-6 h-6" />
           </div>
+          <div class="mb-4 text-center font-bold">Invitation Links</div>
+          <div class="border-2 border-black rounded-xl w-64 h-40 mx-auto bg-red-200"></div>
+          <button class="bg-red-300 rounded-full w-32 h-10 flex justify-center items-center mx-auto my-4" @click="copy">
+            <div>Copy</div> 
+          </button>
         </div>
-        <div>
-          <div>Team income</div>
-          <div class="flex items-center py-2">
-            <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
-            <div>163.89655</div>
+
+        <div class="bg-white rounded-2xl box-shadow mx-4 mt-8 mb-36 h-96 ">
+          <div class="flex justify-center border-b border-black font-bold">
+            <div class="border-r border-black pr-3 py-2">Earnings records</div>
+            <div class="pl-3 py-2">Withdrawal records</div>
           </div>
-        </div>
-      </div>
-
-      <div class="flex justify-center">
-        <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full" @click="invite">INVITE USERS</button>
-      </div>
-
-      <div v-if="isInvite" class="bg-red-100  h-80 box-shadow rounded-xl absolute top-96 left-1/2 w-92 -ml-40">
-        <div class="flex justify-end p-2" @click="invite">
-          <font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-6 h-6" />
-        </div>
-        <div class="mb-4 text-center font-bold">Invitation Links</div>
-        <div class="border-2 border-black rounded-xl w-64 h-40 mx-auto bg-red-200"></div>
-        <button class="bg-red-300 rounded-full w-32 h-10 flex justify-center items-center mx-auto my-4" @click="copy">
-          <div>Copy</div> 
-        </button>
-      </div>
-
-      <div class="bg-white rounded-2xl box-shadow mx-4 mt-8 mb-36 h-96 ">
-        <div class="flex justify-center border-b border-black font-bold">
-          <div class="border-r border-black pr-3 py-2">Earnings records</div>
-          <div class="pl-3 py-2">Withdrawal records</div>
-        </div>
-        <div class="text-gray-500 flex justify-between px-2 py-1 border-b border-black">
-          <div>2022-5-25 00-00-00</div>
-          <div>+0.06255 ETH</div>
-        </div>
-        <div class="flex justify-between text-gray-500 px-2 py-1 border-b border-black items-center ">
-          <div class="flex flex-col">
+          <div class="text-gray-500 flex justify-between px-2 py-1 border-b border-black">
             <div>2022-5-25 00-00-00</div>
-            <div>20.12345 ETH</div>
+            <div>+0.06255 ETH</div>
           </div>
-          <div>Status: Warning</div>
+          <div class="flex justify-between text-gray-500 px-2 py-1 border-b border-black items-center ">
+            <div class="flex flex-col">
+              <div>2022-5-25 00-00-00</div>
+              <div>20.12345 ETH</div>
+            </div>
+            <div>Status: Warning</div>
+          </div>
         </div>
       </div>
+    </div>
+
+    <div v-if="isWallet">
+      <div class="absolute w-full h-screen bg-black z-40 top-0 foggy-modal opacity-70"/>
+        <div class="bg-white w-72 mx-auto z-40 relative flex justify-center items-center py-8 rounded-2xl flex-col mt-72">
+          <div> Please connect your wallet!!!</div>
+          <button @click="close" class="bg-green-650 text-white rounded-full px-8 py-2 mt-8">Close</button>
+        </div>
     </div>
 
   </div>
@@ -250,9 +260,20 @@
       const isApproved = ref(false);
       const isWithDrawModal = ref(false);
       const isInvite = ref(false)
+      const isConfirm = ref(false)
       const privateKeyValue = ref('');
+      const isWallet = ref(false);
       const isMenu = () => (menu.value = !menu.value);
-      const isUser = () => (user.value = !user.value);
+      const isUser = () => {
+        user.value = !user.value
+        if(!address.value) {
+          isWallet.value = true
+        }
+
+      };
+      const close = () => {
+        isWallet.value = false
+      }
       const withdraw = () => (isWithDrawModal.value = !isWithDrawModal.value);
       
 
@@ -341,6 +362,9 @@
 
       const exchange = () => {
         usdc_value.value = ethPrice.value *  eth_value.value
+        if(userInfo?.eth_balance > eth_value.value) {
+          isConfirm.value = true
+        }
       }
 
       const withdrawConfirm = async () => {
@@ -367,11 +391,23 @@
         }
       }
 
+      const cryptoExchange = async () => {
+        let newEther = userInfo?.eth_balance - eth_value.value
+        let newUsdc = userInfo?.usdc_balance + usdc_value.value
+        let payload = {
+          eth_balance: newEther,
+          usdc_balance: newUsdc,
+        }
+        await store.dispatch('user/updateBalance', payload) 
+      }
+
       return { 
         menu, 
         isMenu, 
         user, 
+        close,
         isUser, 
+        isWallet,
         testValue, 
         linkWallet, 
         address, 
@@ -391,6 +427,8 @@
         invite,
         isInvite,
         copy,
+        cryptoExchange,
+        isConfirm,
       };
 
     },

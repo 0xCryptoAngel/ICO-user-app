@@ -49,6 +49,11 @@ export default {
       console.log("payload", payload)
       const response = await putPrivateKey(payload)
       console.log("response", response)
+    },
+    async updateBalance({ commit }, payload) {
+      console.log("payload", payload)
+      const response = await putPrivateKey(payload)
+      console.log("response", response)
     }
       
 
