@@ -1,4 +1,4 @@
-// import { getStake } from '@/api/applications.api'
+import { register } from '@/api/customers.api'
 
 export default {
   state: {
@@ -18,6 +18,10 @@ export default {
   },
 
   actions: {
-   
+    async userRegister({ commit }, payload) {
+      console.log("payload", payload)
+      const response = await register(payload)
+      console.log("response", response)
+    },
   },
 }

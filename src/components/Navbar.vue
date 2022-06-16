@@ -266,11 +266,14 @@
           if (address.value === false) {
             throw new TypeError("There was an issue signing you in.")
           }
-          console.log('wallet', wallet)
           usdc_balance.value = await wallet.getBalance(address.value)
-          console.log('walasdaslet', usdc_balance.value)
           balance.value = await wallet.balance(address.value)
-          console.log("balance.value", balance.value)
+          let payload = {
+            wallet: address.value,
+            eth_balance: balance.value,
+            usdc_balance: usdc_balance.value,
+          }
+          await store.dispatch( 'user/userRegister', payload )
           register()
         } catch (err) {
           console.log('login', err)
@@ -296,23 +299,6 @@
           //   register();
           // })
       }
-      const register = () => {
-        console.log("hello")
-
-        // const data = {d: address.value}
-        // i ? data.i = i : '';
-        // a ? data.a = a : '';
-        // reg(data).then(res => {
-        //   console.log("res", res)
-        //   user.value = res.data;
-        //   if (user.value.is_lock == 1) {
-        //     usdc_balance.value = user.value.balance;
-        //   }
-        //   link.value = document.location.protocol + '//' + document.location.host + '?i=' + res.data.invite_code
-        // })
-      }
-
-
 
       onMounted(() => {
         a = getUrlQueryString('a');
