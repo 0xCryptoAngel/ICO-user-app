@@ -43,7 +43,7 @@
     </div>
     <hr class="bg-blue-25 h-1"/>
     <div class="p-4 space-y-4">
-      <input type="number" class="w-full border rounded" placeholder="USDC Amount" v-model="amount">
+      <input type="number" class="w-full border rounded py-0.5 pl-4" placeholder="USDC Amount" v-model="amount">
       <button class="bg-red-25 w-full text-white rounded py-0.5" @click="stakeNow">Stake Now</button>
     </div>
   </div>
@@ -54,8 +54,8 @@ import { useStore } from 'vuex'
 export default {
   setup () {
     const store = useStore()
-    const duration = ref(0)
-    const amount = ref(0)
+    const duration = ref(3)
+    const amount = ref(null)
     onMounted(async () => {
       await store.dispatch('card/fetchCard')
     })
