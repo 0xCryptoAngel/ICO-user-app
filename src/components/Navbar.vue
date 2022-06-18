@@ -114,14 +114,13 @@
                 <div class="relative pt-8 pb-2">
                   <input type="number" class="bg-red-300 rounded w-full h-12 px-4" v-model="withdrawValue"/>
                   <div class="flex items-center space-x-2 py-2">
-                    <div class="text-sm">Usable USDC 168.16422</div>
+                    <div class="text-sm">Usable USDC {{userInfo.usdc_balance}}</div>
                     <button class="rounded-full px-4 border border-red-300 text-red-300">max</button>
                   </div>
                   <div class="flex items-center space-x-2 py-1">
                     <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-8 h-8 absolute right-1 top-10">
                   </div>
                 </div>
-                <div>sasdas{{userInfo.usdc_balance < 100}}</div>
                 <div class="flex justify-center py-4 relative z-10  ">
                   <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full z-10" @click="withdrawConfirm" :disabled="userInfo.usdc_balance <= 0">WITHDRAW</button>
                 </div>
