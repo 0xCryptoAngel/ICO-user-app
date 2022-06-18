@@ -48,7 +48,7 @@
       </ul>
     </div>
     <div v-if="address">
-      <div v-if="!user" class="absolute w-full h-screen bg-black z-40 top-0 foggy-modal opacity-70"/>
+      <div v-if="!user" class="absolute w-full h-screen bg-black z-40 top-0 foggy-modal opacity-70" @click="isUser"/>
       <div class="absolute right-0 sm:w-88 w-full bg-red-10 z-50 h-screen sm:h-130   ease-in-out transition transform duration-700" :class="[user ? 'translate-x-full' : 'translate-x-0', isWithDrawModal ? 'overflow-y-auto':'overflow-y-auto']">
         <div class="flex justify-end p-4" @click="isUser"><button></button><font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" /></div>
         <div class="flex px-8 pb-6">
@@ -73,7 +73,7 @@
           <hr  class="h-1 bg-blue-20"/>
           <div class="flex p-4 justify-around">
             <div class="w-3/5">
-              <div>Staking Revenue</div>
+              <div>Staking Amount</div>
               <div class="flex items-center py-2">
                 <img src="@/assets/USD-Coin-icon_small.png" alt="USD" class="w-6 h-6">
                 <div class="ml-1">{{userInfo.staking_balance?.toFixed(5)}}</div>
