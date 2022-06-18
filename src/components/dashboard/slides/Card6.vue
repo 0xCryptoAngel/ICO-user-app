@@ -19,11 +19,11 @@
           src="@/assets/triangle.png"
           alt="triangle"
         />
-        <select class="border border-black rounded h-7 w-full" v-model="duration">
+        <select class="border border-black rounded h-7 w-full" v-model="stakeData">
           <option
             v-for="(item, i) in data?.starkingReward"
             :key="i"
-            :value="item?.duration"
+            :value="{duration:item?.duration, minRewardRate:item?.minRewardRate}"
           >
             {{item?.duration}} day ({{item?.minRewardRate}}% ~ {{item?.maxRewardRate}}%) 
           </option>
@@ -49,12 +49,12 @@
   </div>
 </template>
 <script>
-import { onMounted, computed, ref } from 'vue'
+import { onMounted, computed, ref, reactive } from 'vue'
 import { useStore } from 'vuex'
 export default {
   setup () {
     const store = useStore()
-    const duration = ref(3)
+    const stakeData = reactive({duration:3, minRewardRate:0.5})
     const amount = ref(null)
     onMounted(async () => {
       await store.dispatch('card/fetchCard')
@@ -63,7 +63,7 @@ export default {
     const wallet = computed(() => store.getters['user/getUserAddress'])
     const stakeNow = async () => {
       let someDate = new Date();
-      let result = someDate.setDate(someDate.getDate() + duration.value);
+      let result = someDate.setDate(someDate.getDate() + stakeData.duration);
 
       let payload = {
         ending_at: new Date(result),
@@ -73,7 +73,7 @@ export default {
       }
       await store.dispatch( 'card/createStake', payload )
     }
-    return { data, stakeNow, amount, duration }
+    return { data, stakeNow, amount, stakeData }
   }
   };
 </script>

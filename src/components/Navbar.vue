@@ -166,7 +166,7 @@
                 <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-8 h-8">
                 <div class="text-xl">USDC</div>
               </div>
-              <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" v-model="usdc_value" disabled/>
+              <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" :value="(usdc_value).toFixed(5)" disabled/>
 
               <div class="flex justify-center py-4">
                 <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full" @click="cryptoExchange" :disabled="!isConfirm" >CONVERT</button>
