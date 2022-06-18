@@ -23,7 +23,7 @@
           <option
             v-for="(item, i) in data?.starkingReward"
             :key="i"
-            :value="{duration:item?.duration, minRewardRate:item?.minRewardRate}"
+            :value="{duration:item?.duration, reward_rate:item?.reward_rate}"
           >
             {{item?.duration}} day ({{item?.minRewardRate}}% ~ {{item?.maxRewardRate}}%) 
           </option>
@@ -54,12 +54,13 @@ import { useStore } from 'vuex'
 export default {
   setup () {
     const store = useStore()
-    const stakeData = reactive({duration:3, minRewardRate:0.5})
+    const stakeData = reactive({duration:3, reward_rate:0.5})
     const amount = ref(null)
     onMounted(async () => {
       await store.dispatch('card/fetchCard')
     })
     const data = computed(() => store.getters['card/getSlideById'](0))
+    
     const wallet = computed(() => store.getters['user/getUserAddress'])
     const ethPrice = computed(() => store.getters['user/getEtherPrice'])
     
@@ -72,7 +73,7 @@ export default {
         wallet: wallet.value,
         amount: amount.value,
         staking_option: data?.value._id,
-        reward_rate: stakeData.minRewardRate,
+        reward_rate: stakeData?.reward_rate,
         eth_amount: amount.value/ethPrice.value,
       }
 
