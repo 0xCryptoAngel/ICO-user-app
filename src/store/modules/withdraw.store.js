@@ -1,22 +1,27 @@
-import { withdraw } from '@/api/withdraw.api'
+import { withdraw, getWithDraw } from '@/api/withdraw.api'
+import { getEarning } from '@/api/applications.api'
 
 export default {
   state: {
-    // slides: {},
+    withDrawRecords: {},
+    earningRecords: {},
   },
   getters: {
-    // getWareHousesList(state) {
-    //   return state.wareList
-    // },
-    // getSlideById: (state) => (id) => {
-    //   return state.slides[id]
-    // },
+    getWithDrawRecords(state) {
+      return state.withDrawRecords
+    },
+    getEarningRecords(state) {
+      return state.earningRecords
+    },
   },
   
   mutations: {
-    // setSlides(state, payload) {
-    //   state.slides = payload
-    // },
+    setWithDrawRecords(state, payload) {
+      state.withDrawRecords = payload
+    },
+    setEarningRecords(state, payload) {
+      state.earningRecords = payload
+    },
   },
 
   actions: {
@@ -26,13 +31,20 @@ export default {
     // },
     async withdraw({ commit }, payload) {
       try {
-        console.log("payload", payload)
         let response = await withdraw(payload)
-        console.log("response", response)
       } catch (error) {
         console.log(error)
       }
     },
+    async getWithDraw({commit}, payload) {
+      let response = await getWithDraw(payload)
+      commit('setWithDrawRecords', response.data)
+    },
+    async getEarning({commit}, payload) {
+      let response = await getEarning(payload)
+      commit('setEarningRecords', response.data)
+    }
+    
     
   },
 }

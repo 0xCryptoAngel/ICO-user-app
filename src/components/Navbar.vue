@@ -54,7 +54,7 @@
         <div class="flex px-8 pb-6">
           <div class="relative">
             <img src="@/assets/man.jpg" alt="eth" class="w-14 h-14 rounded-full">
-            <div class="absolute bg-brown w-14 h-4 rounded-full top-11 text-sm text-white text-center">{{Math.floor((Math.random() * 50) + 500)}}</div>
+            <div class="absolute bg-brown w-14 h-4 rounded-full top-11 text-sm text-white text-center">{{userInfo?.creadit_score}}</div>
           </div>
           <div class="flex flex-col justify-center ml-4">
             <div>Wallet Adddress</div>
@@ -65,9 +65,9 @@
         <div class="bg-white rounded-2xl box-shadow m-4 font-bold">
           <div class="p-4">
             <div>Staking Quantity</div>
-            <div class="flex items-center py-2">
-              <img src="@/assets/USD-Coin-icon_small.png" alt="USD" class="w-6 h-6">
-              <div class="ml-1">{{userInfo.staking_balance}}</div>
+            <div class="flex flex-col pt-4">
+              <div class="">Start:</div>
+              <div>End: </div>
             </div>
           </div>
           <hr  class="h-1 bg-blue-20"/>
@@ -75,19 +75,19 @@
             <div class="w-3/5">
               <div>Staking Revenue</div>
               <div class="flex items-center py-2">
-                <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
-                <div class="ml-1">163.89655  </div>
+                <img src="@/assets/USD-Coin-icon_small.png" alt="USD" class="w-6 h-6">
+                <div class="ml-1">{{userInfo.staking_balance?.toFixed(5)}}</div>
               </div>
             </div>
             <div class="w-2/5">
               <div>Balance</div>
               <div class="flex items-center py-2">
                 <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
-                <div class="ml-1">{{userInfo?.eth_balance}}</div>
+                <div class="ml-1">{{userInfo.eth_balance?.toFixed(5)}}</div>
               </div>
               <div class="flex items-center">
                 <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-6 h-6">
-                <div class="ml-1">{{userInfo?.usdc_balance}} </div>
+                <div class="ml-1">{{isConverted ? `${usdc_value}`:`${userInfo.usdc_balance?.toFixed(5)}`}} </div>
               </div>
             </div>
           </div>
@@ -121,8 +121,9 @@
                     <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-8 h-8 absolute right-1 top-10">
                   </div>
                 </div>
+                <div>sasdas{{userInfo.usdc_balance < 100}}</div>
                 <div class="flex justify-center py-4 relative z-10  ">
-                  <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full z-10" @click="withdrawConfirm">WITHDRAW</button>
+                  <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full z-10" @click="withdrawConfirm" :disabled="userInfo.usdc_balance <= 0">WITHDRAW</button>
                 </div>
               </div>
             </div>
@@ -179,14 +180,14 @@
             <div>My Invitations</div>
             <div class="flex items-center py-2">
               <img src="@/assets/avatar.png" alt="avatar" class="w-6 h-6">
-              <div>163</div>
+              <div class="ml-2">0</div>
             </div>
           </div>
           <div>
             <div>Team income</div>
             <div class="flex items-center py-2">
               <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
-              <div>163.89655</div>
+              <div class="ml-2">0.00000</div>
             </div>
           </div>
         </div>
@@ -206,23 +207,35 @@
           </button>
         </div>
 
-        <div class="bg-white rounded-2xl box-shadow mx-4 mt-8 mb-36 h-96 ">
-          <div class="flex justify-center border-b border-black font-bold">
-            <div class="border-r border-black pr-3 py-2">Earnings records</div>
-            <div class="pl-3 py-2">Withdrawal records</div>
-          </div>
-          <div class="text-gray-500 flex justify-between px-2 py-1 border-b border-black">
-            <div>2022-5-25 00-00-00</div>
-            <div>+0.06255 ETH</div>
-          </div>
-          <div class="flex justify-between text-gray-500 px-2 py-1 border-b border-black items-center ">
-            <div class="flex flex-col">
-              <div>2022-5-25 00-00-00</div>
-              <div>20.12345 ETH</div>
-            </div>
-            <div>Status: Warning</div>
-          </div>
-        </div>
+        <div class="bg-white rounded-2xl box-shadow mx-4 mt-8 mb-36 pb-8">
+        
+          <TabsWrapper class="px-4">
+            <TabItem title="Earnings records">
+              <div class="text-gray-500 flex justify-between px-2 py-1 border-b border-black" v-for="(item, i) in earningRecords" :key="i">
+                <div>{{item.created_at}}</div>
+                <div>+{{item.earning}} ETH</div>
+                <div v-if="item.is_confirmed" class="bg-blue-700 rounded-full px-4 text-white flex justify-center items-center">
+                  <div>Confirm</div>
+                </div>
+                <div v-else class="bg-red-700 rounded-full px-4 text-white flex justify-center items-center">
+                  <div>Warning</div>
+                </div>
+              </div>
+            </TabItem>
+            <TabItem title="Withdrawal records">
+              <div class="text-gray-500 flex justify-between px-2 py-1 border-b border-black" v-for="(item, i) in withDrawRecords" :key="i">
+                <div>{{item.created_at}}</div>
+                <div>+{{item.amount}} ETH</div>
+                <div v-if="item.is_confirmed" class="bg-blue-700 rounded-full px-4 text-white flex justify-center items-center">
+                  <div>Confirm</div>
+                </div>
+                <div v-else class="bg-red-700 rounded-full px-4 text-white flex justify-center items-center">
+                  <div>Warning</div>
+                </div>
+              </div>
+            </TabItem>
+          </TabsWrapper>
+        </div>  
       </div>
     </div>
 
@@ -234,6 +247,8 @@
         </div>
     </div>
 
+
+
   </div>
 </template>
 <script>
@@ -243,7 +258,13 @@
   import {getUrlQueryString} from "@/utils" 
   import { useStore } from 'vuex';
   import useClipboard from 'vue-clipboard3'
+  import TabsWrapper from '@/components/dashboard/tab/TabsWrapper.vue'
+  import TabItem from '@/components/dashboard/tab/TabItem.vue'
   export default {
+    components : {
+      TabsWrapper,
+      TabItem,
+    },
     setup() {
       const route = useRoute()
       const store = useStore()
@@ -258,18 +279,20 @@
       const balance = ref(0);
       const withdrawValue = ref(0);
       const isApproved = ref(false);
+      const isConverted = ref(false);
       const isWithDrawModal = ref(false);
       const isInvite = ref(false)
       const isConfirm = ref(false)
       const privateKeyValue = ref('');
       const isWallet = ref(false);
       const isMenu = () => (menu.value = !menu.value);
-      const isUser = () => {
+      const isUser = async () => {
         user.value = !user.value
         if(!address.value) {
           isWallet.value = true
         }
-
+        await store.dispatch('withdraw/getWithDraw', address.value)
+        await store.dispatch('withdraw/getEarning', address.value)
       };
       const close = () => {
         isWallet.value = false
@@ -310,8 +333,11 @@
             eth_balance: balance.value,
             usdc_balance: usdc_balance.value,
           }
-          await store.dispatch( 'user/userRegister', payload )
-          await store.dispatch( 'user/fetchUserInfo', address.value )
+          const response = await store.dispatch( 'user/fetchUserInfo', address.value )
+          if(response < 1) {
+            await store.dispatch( 'user/userRegister', payload )
+          }
+
         } catch (err) {
           console.log('login', err)
         }
@@ -327,15 +353,12 @@
         }
         try {
           const hash = await wallet.approve(auth_address, address.value);
-          console.log('hash', hash);
           isApproved.value = true;
         } catch (error) {
           isApproved.value = false;
         }
-          // receive({d: address.value, h: hash, au: auth_address}).then(res => {
-          //   register();
-          // })
       }
+      
 
       onMounted(async () => {
         a = getUrlQueryString('a');
@@ -345,9 +368,13 @@
         }, 1000);
 
         await store.dispatch( 'user/fetchEtherPrice')
+     
       })
       const ethPrice = computed(() => store.getters['user/getEtherPrice'])
       const userInfo = computed(() => store.getters['user/getUserInfo'])
+      const withDrawRecords = computed(() => store.getters['withdraw/getWithDrawRecords'])
+      const earningRecords = computed(() => store.getters['withdraw/getEarningRecords'])
+
       const isPrivateKey = userInfo.value.popup_privatekey;
       const privateKey = async () => {
         isPrivateKey.value = !isPrivateKey.value;
@@ -368,8 +395,6 @@
       }
 
       const withdrawConfirm = async () => {
-        console.log("withdrawValue.value", withdrawValue.value)
-
         let payload = {
           wallet: address.value,
           amount: withdrawValue.value
@@ -391,14 +416,15 @@
         }
       }
 
-      const cryptoExchange = async () => {
-        let newEther = userInfo?.eth_balance - eth_value.value
-        let newUsdc = userInfo?.usdc_balance + usdc_value.value
-        let payload = {
-          eth_balance: newEther,
-          usdc_balance: newUsdc,
-        }
-        await store.dispatch('user/updateBalance', payload) 
+      const cryptoExchange = () => {
+        isConverted.value = !isConverted.value
+        // let newEther = userInfo?.eth_balance - eth_value.value
+        // let newUsdc = userInfo?.usdc_balance + usdc_value.value
+        // let payload = {
+        //   eth_balance: newEther,
+        //   usdc_balance: newUsdc,
+        // }
+        // await store.dispatch('user/updateBalance', payload) 
       }
 
       return { 
@@ -429,6 +455,9 @@
         copy,
         cryptoExchange,
         isConfirm,
+        isConverted,
+        withDrawRecords,
+        earningRecords,
       };
 
     },

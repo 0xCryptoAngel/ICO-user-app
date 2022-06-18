@@ -61,6 +61,8 @@ export default {
     })
     const data = computed(() => store.getters['card/getSlideById'](0))
     const wallet = computed(() => store.getters['user/getUserAddress'])
+    const ethPrice = computed(() => store.getters['user/getEtherPrice'])
+    
     const stakeNow = async () => {
       let someDate = new Date();
       let result = someDate.setDate(someDate.getDate() + duration.value);
@@ -69,13 +71,12 @@ export default {
         ending_at: new Date(result),
         wallet: wallet.value,
         amount: amount.value,
-        staking_option: data?.value._id
+        staking_option: data?.value._id,
+        eth_amount: amount.value/ethPrice.value,
       }
-      console.log("hello", payload)
       await store.dispatch( 'card/createStake', payload )
     }
   
-    console.log("datasdasdasda0", data.starkingReward)
     return { data, stakeNow, amount, duration }
   }
   };

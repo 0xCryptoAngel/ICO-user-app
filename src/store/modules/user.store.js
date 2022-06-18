@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export default {
   state: {
-    userAddress: {},
+    userAddress: '',
     userInfo: {},
     eth_price: 0,
   },
@@ -39,6 +39,7 @@ export default {
     async fetchUserInfo({ commit }, payload) {
       const response = await getUserInfo(payload)
       commit('setUserInfo', response.data)
+      return Object.keys(response.data).length;
     },
     async fetchEtherPrice({ commit }) {
       const response = await axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=V5AFDNPU5XIJVYSJVBVE3WIEFA91NDZBKR')
