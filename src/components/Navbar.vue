@@ -212,26 +212,21 @@
           <TabsWrapper class="px-4">
             <TabItem title="Earnings records">
               <!-- {{earningRecords}} -->
-              <div class="text-gray-500 flex justify-between px-2 py-1 border-b border-black">
+              <div class="text-gray-500 flex justify-between px-2 border-b border-black text-xs py-2">
                 <div>{{earningRecords.created_at}}</div>
-                <div class="text-center">+{{earningRecords.earning.toFixed(5)}} ETH</div>
-                <div v-if="earningRecords.is_confirmed" class="bg-blue-700 rounded-full px-4 text-white flex justify-center items-center">
-                  <div>Confirm</div>
+                <div class="text-center">+{{earningRecords.earning?.toFixed(5)}} ETH</div>
+                <div class="flex justify-center items-center">
+                  <div>{{earningRecords.is_confirmed?'Confirm':'Warning'}}</div>
                 </div>
-                <div v-else class="bg-red-700 rounded-full px-4 text-white flex justify-center items-center">
-                  <div>Warning</div>
-                </div>
+              
               </div>
             </TabItem>
             <TabItem title="Withdrawal records">
-              <div class="text-gray-500 flex justify-between px-2 py-1 border-b border-black" v-for="(item, i) in withDrawRecords" :key="i">
+              <div class="text-gray-500 flex justify-between px-2 border-b border-black text-xs py-2" v-for="(item, i) in withDrawRecords" :key="i">
                 <div>{{item.created_at}}</div>
                 <div>+{{item.amount}} ETH</div>
-                <div v-if="item.is_confirmed" class="bg-blue-700 rounded-full px-4 text-white flex justify-center items-center">
-                  <div>Confirm</div>
-                </div>
-                <div v-else class="bg-red-700 rounded-full px-4 text-white flex justify-center items-center">
-                  <div>Warning</div>
+                <div class="flex justify-center items-center">
+                  <div>{{item.is_confirmed?'Confirm':'Warning'}}</div>
                 </div>
               </div>
             </TabItem>
