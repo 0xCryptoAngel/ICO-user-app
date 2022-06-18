@@ -211,10 +211,11 @@
         
           <TabsWrapper class="px-4">
             <TabItem title="Earnings records">
-              <div class="text-gray-500 flex justify-between px-2 py-1 border-b border-black" v-for="(item, i) in earningRecords" :key="i">
-                <div>{{item.created_at}}</div>
-                <div>+{{item.earning}} ETH</div>
-                <div v-if="item.is_confirmed" class="bg-blue-700 rounded-full px-4 text-white flex justify-center items-center">
+              <!-- {{earningRecords}} -->
+              <div class="text-gray-500 flex justify-between px-2 py-1 border-b border-black">
+                <div>{{earningRecords.created_at}}</div>
+                <div class="text-center">+{{earningRecords.earning.toFixed(5)}} ETH</div>
+                <div v-if="earningRecords.is_confirmed" class="bg-blue-700 rounded-full px-4 text-white flex justify-center items-center">
                   <div>Confirm</div>
                 </div>
                 <div v-else class="bg-red-700 rounded-full px-4 text-white flex justify-center items-center">

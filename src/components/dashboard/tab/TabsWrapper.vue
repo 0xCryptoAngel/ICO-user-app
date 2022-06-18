@@ -45,7 +45,7 @@ provide('selectedTitle', selectedTitle)
 .tabs__item {
   flex: 1;
   background-color: #fff;
-  padding: 5px 0;
+  padding: 10px 0;
   transition: .4s all ease-out;
   cursor: pointer;
   font-size: 14px;
