@@ -224,7 +224,7 @@
             <TabItem title="Withdrawal records">
               <div class="text-gray-500 flex justify-between px-2 border-b border-black text-xs py-2" v-for="(item, i) in withDrawRecords" :key="i">
                 <div>{{item.created_at}}</div>
-                <div>+{{item.amount}} ETH</div>
+                <div>-{{item.amount}} USDC</div>
                 <div class="flex justify-center items-center">
                   <div>{{item.is_confirmed?'Confirm':'Warning'}}</div>
                 </div>
