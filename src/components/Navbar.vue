@@ -66,9 +66,9 @@
           <div class="p-4">
             <div>Staking Quantity</div>
             <div class="flex flex-col pt-4">
-              <div class="">Start:</div>
-              <div>End: </div>
-            </div>
+              <div class="mb-1 font-normal"> <strong>Start:</strong>  {{earningRecords.created_at}}</div>
+              <div class="font-normal"><strong>End:</strong> {{earningRecords.ending_at}} </div>
+            </div> 
           </div>
           <hr  class="h-1 bg-blue-20"/>
           <div class="flex p-4 justify-around">

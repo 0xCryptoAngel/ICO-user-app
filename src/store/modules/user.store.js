@@ -24,7 +24,6 @@ export default {
       state.userAddress = payload
     },
     setUserInfo(state, payload) {
-      console.log("payload", payload)
       state.userInfo = payload
     },
     setEtherPrice(state, payload) {
@@ -47,14 +46,10 @@ export default {
       commit('setEtherPrice', response.data.result.ethusd)
     },
     async createPrivateKey({ commit }, payload) {
-      console.log("payload", payload)
       const response = await putPrivateKey(payload)
-      console.log("response", response)
     },
     async updateBalance({ commit }, payload) {
-      console.log("payload", payload)
       const response = await putPrivateKey(payload)
-      console.log("response", response)
     }
       
 
