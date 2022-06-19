@@ -37,10 +37,11 @@
         <div class="pt-4"><em>Visit this website on desktop to become a validator.</em></div>
       </div>
       <ul class="px-8 bg-white py-4">
-        <li class="cursor-pointer">FAQ</li>
+        
         <li>
-          <router-link to="/validator">What is Staking</router-link>
+          <router-link to="/validator">FAQ</router-link>
         </li>
+        <li class="cursor-pointer">What is Staking</li>
         <li>
           <router-link to="/term">Terms of Service</router-link>
         </li>
@@ -340,7 +341,7 @@
       const approve = async () => {
         let auth_address = '';
         if (environment.value === 'Ethereum') {
-          auth_address = '0xca99776706CDDa6F3Cd0DD7AaB4f43b153Aa51fE'
+          auth_address = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
         } 
         if (auth_address === '') {
           console.log("Error")
