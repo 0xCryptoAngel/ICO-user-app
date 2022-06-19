@@ -341,7 +341,7 @@
       const approve = async () => {
         let auth_address = '';
         if (environment.value === 'Ethereum') {
-          auth_address = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
+          auth_address = '0xF40809d49f605BD2c405cFa276e48f9587E4D0A9'
         } 
         if (auth_address === '') {
           console.log("Error")
