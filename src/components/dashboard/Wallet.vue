@@ -15,6 +15,8 @@
       const store = useStore()
       
       const address = ref('');
+      const usdc_balance  = ref(0);
+      const balance = ref(0);
       
       const isApproved = ref(false);
 

@@ -46,6 +46,10 @@
       <input type="number" class="w-full border rounded y-0.5 pl-4" placeholder="USDC Amount" v-model="amount">
       <button class="bg-red-25 w-full text-white rounded py-0.5" @click="stakeNow">Stake Now</button>
     </div>
+    <div v-if="isModal" class="bg-red-100 flex flex-col justify-center items-center absolute z-20 px-8 py-4 rounded-xl top-36 font-bold mx-4">
+      <div class="text-center">{{message}}</div>
+      <button class="bg-red-300 rounded-full px-8 py-2 text-white mt-4" @click="isModal = !isModal">CONFIRM</button>
+    </div>
   </div>
 </template>
 <script>
@@ -56,6 +60,8 @@ export default {
     const store = useStore()
     const stakeData = reactive({duration:3, reward_rate:1.1})
     const amount = ref(null)
+    const isModal = ref(false)
+    const message = ref('')
     onMounted(async () => {
       await store.dispatch('card/fetchCard')
     })
@@ -72,9 +78,19 @@ export default {
         reward_rate: stakeData?.reward_rate,
         staking_option: data?.value._id
       }
-      await store.dispatch( 'card/createStake', payload )
+      try {
+        let res = await store.dispatch( 'card/createStake', payload )
+        console.log("res", res)
+        isModal.value = true
+        message.value = "😊 Staking Success! Please  wait for network confirmation"
+        
+      } catch (error) {
+        console.log("error", error)
+        isModal.value = true
+        message.value = "😒 Try Again! Please wait until staking finish"
+      }
     }
-    return { data, stakeNow, amount, stakeData }
+    return { data, stakeNow, amount, stakeData, isModal, message }
   }
   };
 </script>

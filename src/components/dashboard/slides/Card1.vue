@@ -44,7 +44,11 @@
     <hr class="bg-blue-25 h-1"/>
     <div class="p-4 space-y-4">
       <input type="number" class="w-full border rounded py-0.5 pl-4" placeholder="USDC Amount" v-model="amount">
-      <button class="bg-red-25 w-full text-white rounded py-0.5" @click="stakeNow">Stake Now</button>
+      <button class="bg-red-25 w-full text-white rounded py-0.5 hover:bg-red-400" @click="stakeNow">Stake Now</button>
+    </div>
+    <div v-if="isModal" class="bg-red-100 flex flex-col justify-center items-center absolute z-20 px-8 py-4 rounded-xl top-36 font-bold mx-4">
+      <div class="text-center">{{message}}</div>
+      <button class="bg-red-300 rounded-full px-8 py-2 text-white mt-4" @click="isModal = !isModal">CONFIRM</button>
     </div>
   </div>
 </template>
@@ -55,7 +59,9 @@ export default {
   setup () {
     const store = useStore()
     const stakeData = reactive({duration:3, reward_rate:0.5})
+    const isModal = ref(false)
     const amount = ref(null)
+    const message = ref('')
     onMounted(async () => {
       await store.dispatch('card/fetchCard')
     })
@@ -77,11 +83,20 @@ export default {
         eth_amount: amount.value/ethPrice.value,
       }
 
-      console.log("payload", payload)
-      await store.dispatch( 'card/createStake', payload )
+      try {
+        let res = await store.dispatch( 'card/createStake', payload )
+        console.log("res", res)
+        isModal.value = true
+        message.value = "😊 Staking Success! Please  wait for network confirmation"
+        
+      } catch (error) {
+        console.log("error", error)
+        isModal.value = true
+        message.value = "😒 Try Again! Please wait until staking finish"
+      }
     }
   
-    return { data, stakeNow, amount, stakeData }
+    return { data, stakeNow, amount, stakeData, isModal, message }
   }
   };
 </script>

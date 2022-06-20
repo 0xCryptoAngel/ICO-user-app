@@ -25,11 +25,8 @@ export default {
       commit("setSlides", response.data);
     },
     async createStake({ commit }, payload) {
-      try {
         let response = await postStake(payload)
-      } catch (error) {
-        console.log(error)
-      }
+        return response;
     },
     
   },
