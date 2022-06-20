@@ -10,34 +10,19 @@
       <div class="py-4 w-120 mx-8">
         <div class="text-7xl">📚</div>
         <div class="text-2xl font-semibold my-4">1. Learn about your responsibilities</div>
-        <div>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur,
-          at. Tempora reprehenderit facere consequatur repellendus quia
-          porro eaque accusamus est laborum, ad autem amet. Quisquam
-          mollitia dolore fugiat quod reprehenderit.
-        </div>
+        <div>The Ethereum upgrades will only be successful if validators understand the risks and responsibilities.</div>
       </div>
 
       <div class="py-4 w-120 mx-8">
         <div class="text-7xl">💰</div>
         <div class="text-2xl font-semibold my-4">2. Deposit your Eth</div>
-        <div>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur,
-          at. Tempora reprehenderit facere consequatur repellendus quia
-          porro eaque accusamus est laborum, ad autem amet. Quisquam
-          mollitia dolore fugiat quod reprehenderit.
-        </div>
+        <div>Once you're comfortable, you'll go through generating your keys and depositing your ETH.</div>
       </div>
 
       <div class="py-4 w-120 mx-8">
         <div class="text-7xl">🕰</div>
         <div class="text-2xl font-semibold my-4">3. Wait to become active</div>
-        <div>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur,
-          at. Tempora reprehenderit facere consequatur repellendus quia
-          porro eaque accusamus est laborum, ad autem amet. Quisquam
-          mollitia dolore fugiat quod reprehenderit.
-        </div>
+        <div>Once set up, your validator won't become active straight away. Use this time to complete the checklist and get some extra practice on a testnet.</div>
       </div>
     </div>
 
