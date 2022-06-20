@@ -37,6 +37,7 @@ export default {
     },
     async fetchUserInfo({ commit }, payload) {
       const response = await getUserInfo(payload)
+      console.log("response", response)
       commit('setUserInfo', response.data)
       return Object.keys(response.data).length;
     },

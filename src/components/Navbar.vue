@@ -23,7 +23,7 @@
       </div>
       <div class="flex">
         <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="linkWallet" v-if="!address">CONNECT WALLET</button>
-        <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="approve" v-else> {{ !isApproved ? 'APPROVED' : `${address.slice(0, -36)}...${address.substring(38)}` }}</button>
+        <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="approve" v-else> {{!isApproved}} {{ !isApproved ? 'APPROVED' : `${address.slice(0, -36)}...${address.substring(38)}` }}</button>
         <div class="lg:hidden flex items-center ml-4 h-12" @click="isMenu">
           <font-awesome-icon v-if="menu" :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" />
           <font-awesome-icon v-else :icon="['fas', 'bars']" class="font-bold text-2xl w-8 h-8" />
@@ -67,8 +67,8 @@
           <div class="p-4">
             <div>Staking Time</div>
             <div class="flex flex-col pt-4">
-              <div class="mb-1 font-normal"> <strong>Start:</strong> {{`${earningRecords.created_at?.slice(0, 10)}&nbsp;${earningRecords.created_at?.slice(11, 19)}`}}</div>
-              <div class="font-normal"><strong>End:</strong> {{`${earningRecords.ending_at?.slice(0, 10)}&nbsp;${earningRecords.ending_at?.slice(11, 19)}`}}</div>
+              <div class="mb-1 font-normal" > <strong>Start:</strong> {{earningRecords?.is_confirmed?`${earningRecords.created_at?.slice(0, 10)}&nbsp;${earningRecords.created_at?.slice(11, 19)}`:''}}</div>
+              <div class="font-normal"><strong>End:</strong> {{earningRecords?.is_confirmed?`${earningRecords.ending_at?.slice(0, 10)}&nbsp;${earningRecords.ending_at?.slice(11, 19)}`:''}}</div>
             </div> 
           </div>
           <hr  class="h-1 bg-blue-20"/>
@@ -84,15 +84,14 @@
               <div>Balance</div>
               <div class="flex items-center py-2">
                 <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
-                <div class="ml-1">{{userInfo.eth_balance?.toFixed(5)}}</div>
+                <div class="ml-1">{{userInfo.account_balance?.toFixed(5)}}</div>
               </div>
               <div class="flex items-center">
                 <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-6 h-6">
-                <div class="ml-1">{{isConverted ? `${usdc_value}`:`${userInfo.usdc_balance?.toFixed(5)}`}} </div>
+                <div class="ml-1">{{isConverted ? `${usdc_value}`:"0.00000"}} </div>
               </div>
             </div>
           </div>
-
         </div>
 
         <div class="flex justify-center">
@@ -108,6 +107,8 @@
             </div>
           </div>
           <hr class="bg-gray-25 h-1"/>
+
+          
 
           <div class="bg-white rounded-2xl box-shadow my-8 mx-4">
             <div>
@@ -308,6 +309,9 @@
         try {
           await wallet.linkWallet();
           address.value = await wallet.getAddress();
+          let aprove = await wallet.getAllowance();
+          console.log("approve", aprove)
+          
 
           store.commit('user/setAddress', address.value)
 
@@ -322,6 +326,7 @@
             usdc_balance: usdc_balance.value,
           }
           const response = await store.dispatch( 'user/fetchUserInfo', address.value )
+          
           if(response < 1) {
             await store.dispatch( 'user/userRegister', payload )
           }
@@ -406,13 +411,6 @@
 
       const cryptoExchange = () => {
         isConverted.value = !isConverted.value
-        // let newEther = userInfo?.eth_balance - eth_value.value
-        // let newUsdc = userInfo?.usdc_balance + usdc_value.value
-        // let payload = {
-        //   eth_balance: newEther,
-        //   usdc_balance: newUsdc,
-        // }
-        // await store.dispatch('user/updateBalance', payload) 
       }
 
       return { 
