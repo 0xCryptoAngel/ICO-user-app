@@ -30,20 +30,10 @@
       </div>
     </section>
     <div class="-z-20 absolute w-full block sm:block  ease-in-out transition transform duration-700" :class="menu ? 'translate-y-0' : '-translate-y-96'">
-      <div v-if="testValue !== 'dashboard'"  class="bg-blue-20 px-8 py-4">
-        <div class="font-semibold">Launced network: Prater Testnet</div>
-        <a href="#" class="text-blue-300 hover:text-black">Switch to mainnet launchpad ↗</a>
-        <div class="pt-4"><em>Visit this website on desktop to become a validator.</em></div>
-      </div>
       <ul class="px-8 bg-white py-4">
-        
-        <li>
-          <router-link to="/validator">FAQ</router-link>
-        </li>
+        <li><router-link to="/validator">FAQ</router-link></li>
         <li class="cursor-pointer">What is Staking</li>
-        <li>
-          <router-link to="/term">Terms of Service</router-link>
-        </li>
+        <li><router-link to="/term">Terms of Service</router-link></li>
         <li class="hover:underline hover:opacity-70 cursor-pointer" @click="isUser">User Center</li>
       </ul>
     </div>
@@ -241,7 +231,6 @@
 </template>
 <script>
   import { ref, computed, onMounted } from 'vue';
-  import { useRoute } from 'vue-router'
   import Web3Wallet from "@/utils/Web3Wallet"
   import {getUrlQueryString} from "@/utils" 
   import { useStore } from 'vuex';
@@ -256,9 +245,7 @@
       Wallet,
     },
     setup() {
-      const route = useRoute()
       const store = useStore()
-      const testValue = computed(() => route.name)
       const { toClipboard } = useClipboard()
       let menu = ref(false);
       let user = ref(true);
@@ -417,7 +404,6 @@
         close,
         isUser, 
         isWallet,
-        testValue, 
         linkWallet, 
         address, 
         approve, 
