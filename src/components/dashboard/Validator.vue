@@ -27,8 +27,16 @@
     </div>
 
     <div class="flex justify-center my-4 hover:scale-105 hover:transition hover:duration-500">
-      <button class="wallet-btn border border-black sm:px-4 sm:py-2 px-2 py-2 mb-6 sm:mb-0 text-lg my-8 sm:text-3xl font-semibold text-black md:mt-8 hover:scale-105 hover:transition hover:duration-500">CONNECT WALLET</button>
+      <Wallet/>
     </div>
 
   </section>
 </template>   
+<script>
+  import Wallet from '@/components/dashboard/Wallet.vue'
+  export default {
+    components: {
+      Wallet,
+    }
+  };
+</script>

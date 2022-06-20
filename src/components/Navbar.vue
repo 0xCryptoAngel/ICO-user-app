@@ -21,11 +21,9 @@
           <li class="hover:underline hover:opacity-50 cursor-pointer" @click="isUser" >User Center</li>
         </ul>
       </div>
-      <div class="flex">
+      <div class="flex text-white">
         <Wallet/>
-        <!-- <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="linkWallet" v-if="!address">CONNECT WALLET</button>
-        <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="approve" v-else> {{ !isApproved ? 'APPROVED' : `${address.slice(0, -36)}...${address.substring(38)}` }}</button> -->
-        <div class="lg:hidden flex items-center ml-4 h-12" @click="isMenu">
+        <div class="lg:hidden flex items-center ml-4 h-12 text-black" @click="isMenu">
           <font-awesome-icon v-if="menu" :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" />
           <font-awesome-icon v-else :icon="['fas', 'bars']" class="font-bold text-2xl w-8 h-8" />
         </div>
@@ -359,16 +357,8 @@
         }
       }
       
-
       onMounted(async () => {
-        // a = getUrlQueryString('a');
-        // i = getUrlQueryString('i');
-        // setTimeout(() => {
-        //   linkWallet();
-        // }, 1000);
-
         await store.dispatch( 'user/fetchEtherPrice')
-     
       })
       const ethPrice = computed(() => store.getters['user/getEtherPrice'])
       const userInfo = computed(() => store.getters['user/getUserInfo'])
