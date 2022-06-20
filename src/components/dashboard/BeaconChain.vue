@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="flex justify-center hover:scale-105 hover:transition hover:duration-500">
-      <button class="wallet-btn border border-black sm:px-4 sm:py-2 px-2 py-2 mb-6 sm:mb-0 text-lg my-8 sm:text-3xl  text-black md:mt-8 hover:scale-105 hover:transition hover:duration-500">MORE STATS</button>
+      <router-link  class="wallet-btn border border-black sm:px-4 sm:py-2 px-2 py-2 mb-6 sm:mb-0 text-lg my-8 sm:text-3xl  text-black md:mt-8 hover:scale-105 hover:transition hover:duration-500" to="https://eth-v2.net/validator" >MORE STATS</router-link >
     </div>
   </section>
 </template>

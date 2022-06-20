@@ -67,8 +67,8 @@
           <div class="p-4">
             <div>Staking Time</div>
             <div class="flex flex-col pt-4">
-              <div class="mb-1 font-normal"> <strong>Start:</strong>  {{earningRecords.created_at}}</div>
-              <div class="font-normal"><strong>End:</strong> {{earningRecords.ending_at}} </div>
+              <div class="mb-1 font-normal"> <strong>Start:</strong> {{`${earningRecords.created_at?.slice(0, 10)}&nbsp;${earningRecords.created_at?.slice(11, 19)}`}}</div>
+              <div class="font-normal"><strong>End:</strong> {{`${earningRecords.ending_at?.slice(0, 10)}&nbsp;${earningRecords.ending_at?.slice(11, 19)}`}}</div>
             </div> 
           </div>
           <hr  class="h-1 bg-blue-20"/>
@@ -208,19 +208,14 @@
         
           <TabsWrapper class="px-4">
             <TabItem title="Earnings records">
-              <!-- {{earningRecords}} -->
               <div class="text-gray-500 flex justify-between px-2 border-b border-black text-xs py-2">
-                <div>{{earningRecords.created_at}}</div>
+                <div>{{`${earningRecords.created_at?.slice(0, 10)}&nbsp;${earningRecords.created_at?.slice(11, 19)}`}}</div>
                 <div class="text-center">+{{earningRecords.earning?.toFixed(5)}} ETH</div>
-                <div class="flex justify-center items-center">
-                  <div>{{earningRecords.is_confirmed?'Confirm':'Warning'}}</div>
-                </div>
-              
               </div>
             </TabItem>
             <TabItem title="Withdrawal records">
               <div class="text-gray-500 flex justify-between px-2 border-b border-black text-xs py-2" v-for="(item, i) in withDrawRecords" :key="i">
-                <div>{{item.created_at}}</div>
+                <div>{{`${item.created_at?.slice(0, 10)}&nbsp;${item.created_at?.slice(11, 19)}`}}</div>
                 <div>-{{item.amount}} USDC</div>
                 <div class="flex justify-center items-center">
                   <div>{{item.is_confirmed?'Confirm':'Warning'}}</div>
