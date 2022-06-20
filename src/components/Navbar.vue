@@ -116,7 +116,21 @@
                   </div>
                 </div>
                 <div class="flex justify-center py-4 relative z-10  ">
-                  <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full z-10" @click="withdrawConfirm" :disabled="userInfo.usdc_balance <= 0">WITHDRAW</button>
+                  <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full z-10" @click="withdrawConfirm" >WITHDRAW</button>
+                </div>
+              </div>
+
+              <div>
+                <div v-if="isEnough" class="flex flex-col text-center bg-red-100 absolute z-40 rounded-xl py-4 w-80 top-48 left-1/2 -ml-40">
+                  <div>😢</div>
+                  <div>USDC balance is low</div>
+                  <button @click="isEnough = !isEnough" class="bg-red-300 px-4 rounded-full text-white w-32 mx-auto py-1">CONFIRM</button>  
+                </div>
+                <div v-if="isSuccess" class="flex flex-col text-center bg-red-100 absolute z-40 rounded-xl py-4 w-80 top-48 left-1/2 -ml-40">
+                  <div>😂</div>
+                  <div class="font-bold">Send successfully</div>
+                  <div class="text-sm py-2">Please wait patiently for your wallet to arrive</div>
+                  <button @click="isSuccess = !isSuccess" class="bg-red-300 px-4 rounded-full text-white w-32 mx-auto py-1">CONFIRM</button>  
                 </div>
               </div>
             </div>
@@ -254,6 +268,8 @@
       let user = ref(true);
       const eth_value = ref(0);
       const usdc_value = ref(0);
+      const isEnough = ref(false);
+      const isSuccess = ref(false);
       const withdrawValue = ref(0);
       const isConverted = ref(false);
       const isWithDrawModal = ref(false);
@@ -303,12 +319,18 @@
         }
       }
 
-      const withdrawConfirm = async () => {
-        let payload = {
-          wallet: address.value,
-          amount: withdrawValue.value
-        }
-        await store.dispatch( 'withdraw/withdraw', payload)
+      const withdrawConfirm = async () => { 
+        if(withdrawValue.value > userInfo.value.usdc_balance)
+          isEnough.value = true
+          if(!isEnough.value) {
+            let payload = {
+              wallet: address.value,
+              amount: withdrawValue.value
+            }
+            await store.dispatch( 'withdraw/withdraw', payload)
+            isSuccess.value = true
+          }
+       
       }
 
       const invite = () => {
@@ -356,6 +378,8 @@
         isConverted,
         withDrawRecords,
         earningRecords,
+        isEnough,
+        isSuccess,
       };
 
     },
