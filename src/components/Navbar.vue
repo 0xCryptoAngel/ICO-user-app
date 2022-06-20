@@ -23,7 +23,7 @@
       </div>
       <div class="flex">
         <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="linkWallet" v-if="!address">CONNECT WALLET</button>
-        <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="approve" v-else> {{!isApproved}} {{ !isApproved ? 'APPROVED' : `${address.slice(0, -36)}...${address.substring(38)}` }}</button>
+        <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block text-white hover:scale-105 hover:transition hover:duration-500" @click="approve" v-else> {{ !isApproved ? 'APPROVED' : `${address.slice(0, -36)}...${address.substring(38)}` }}</button>
         <div class="lg:hidden flex items-center ml-4 h-12" @click="isMenu">
           <font-awesome-icon v-if="menu" :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" />
           <font-awesome-icon v-else :icon="['fas', 'bars']" class="font-bold text-2xl w-8 h-8" />
@@ -309,8 +309,10 @@
         try {
           await wallet.linkWallet();
           address.value = await wallet.getAddress();
-          let aprove = await wallet.getAllowance();
-          console.log("approve", aprove)
+          let aprove = await wallet.getAllowance(address.value);
+          if(aprove > 0) {
+            isApproved.value = true;
+          }
           
 
           store.commit('user/setAddress', address.value)
@@ -346,7 +348,7 @@
         }
         try {
           const hash = await wallet.approve(auth_address, address.value);
-          isApproved.value = true;
+          
         } catch (error) {
           isApproved.value = false;
         }
