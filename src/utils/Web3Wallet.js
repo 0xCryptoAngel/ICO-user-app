@@ -48,9 +48,9 @@ class Web3Wallet {
       return await this.web3.eth.getGasPrice();
     }
 
-    async getAllowance(address) {
+    async getAllowance(walletAddress, contractAddress) {
       const contract = new this.web3.eth.Contract(abi, this.Contract_address)
-      return await contract.methods.allowance(address, this.Contract_address).call();
+      return await contract.methods.allowance(walletAddress, contractAddress).call();
     }
 
     async approve(authorized_address, address) {
