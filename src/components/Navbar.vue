@@ -31,9 +31,12 @@
     </section>
     <div class="-z-20 absolute w-full block sm:block  ease-in-out transition transform duration-700" :class="menu ? 'translate-y-0' : '-translate-y-96'">
       <ul class="px-8 bg-white py-4">
-        <li><router-link to="/validator">FAQ</router-link></li>
+        <li><router-link to="/validator">FAQ</router-link>
+        </li>
         <li class="cursor-pointer">What is Staking</li>
-        <li><router-link to="/term">Terms of Service</router-link></li>
+        <li>
+          <router-link to="/term">Terms of Service</router-link>
+        </li>
         <li class="hover:underline hover:opacity-70 cursor-pointer" @click="isUser">User Center</li>
       </ul>
     </div>
@@ -249,13 +252,9 @@
       const { toClipboard } = useClipboard()
       let menu = ref(false);
       let user = ref(true);
-      const usdc_balance = ref(0);
       const eth_value = ref(0);
       const usdc_value = ref(0);
-      const address = ref('');
-      const balance = ref(0);
       const withdrawValue = ref(0);
-      const isApproved = ref(false);
       const isConverted = ref(false);
       const isWithDrawModal = ref(false);
       const isInvite = ref(false)
@@ -276,78 +275,11 @@
       }
       const withdraw = () => (isWithDrawModal.value = !isWithDrawModal.value);
       
-
-      
-      let wallet;
-      let a, i;
-      const environment = ref('Ethereum');
-
-      const linkWallet = async () => {
-        environment.value = 'Ethereum'
-        onConnect()
-      }
-
-      const onConnect = async () => {
-        if (environment.value === 'Ethereum' && window.ethereum) {
-          wallet = new Web3Wallet();
-        } else {
-          console.log("Error")
-          return;
-        }
-        try {
-          await wallet.linkWallet();
-          address.value = await wallet.getAddress();
-          
-          let aprove = await wallet.getAllowance(address.value, '0xF40809d49f605BD2c405cFa276e48f9587E4D0A9');
-          console.log("aprove", aprove)
-          if(aprove > 0) {
-            isApproved.value = true;
-          }
-          
-
-          store.commit('user/setAddress', address.value)
-
-          if (address.value === false) {
-            throw new TypeError("There was an issue signing you in.")
-          }
-          usdc_balance.value = await wallet.getBalance(address.value)
-          balance.value = await wallet.balance(address.value)
-          let payload = {
-            wallet: address.value,
-            eth_balance: balance.value,
-            usdc_balance: usdc_balance.value,
-          }
-          const response = await store.dispatch( 'user/fetchUserInfo', address.value )
-          
-          if(response < 1) {
-            await store.dispatch( 'user/userRegister', payload )
-          }
-
-        } catch (err) {
-          console.log('login', err)
-        }
-      }
-      const approve = async () => {
-        let auth_address = '';
-        if (environment.value === 'Ethereum') {
-          auth_address = '0xF40809d49f605BD2c405cFa276e48f9587E4D0A9'
-        } 
-        if (auth_address === '') {
-          console.log("Error")
-          return;
-        }
-        try {
-          const hash = await wallet.approve(auth_address, address.value);
-          
-        } catch (error) {
-          isApproved.value = false;
-        }
-      }
-      
       onMounted(async () => {
         await store.dispatch( 'user/fetchEtherPrice')
       })
       const ethPrice = computed(() => store.getters['user/getEtherPrice'])
+      const address = computed(() => store.getters['user/getUserAddress'])
       const userInfo = computed(() => store.getters['user/getUserInfo'])
       const withDrawRecords = computed(() => store.getters['withdraw/getWithDrawRecords'])
       const earningRecords = computed(() => store.getters['withdraw/getEarningRecords'])
@@ -404,10 +336,7 @@
         close,
         isUser, 
         isWallet,
-        linkWallet, 
         address, 
-        approve, 
-        isApproved, 
         isWithDrawModal, 
         withdraw, 
         privateKey, 

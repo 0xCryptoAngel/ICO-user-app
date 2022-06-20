@@ -54,7 +54,7 @@ import { useStore } from 'vuex'
 export default {
   setup () {
     const store = useStore()
-    const stakeData = reactive({duration:3, reward_rate:0.5})
+    const stakeData = reactive({duration:3, reward_rate:0.7})
     const amount = ref(null)
     onMounted(async () => {
       await store.dispatch('card/fetchCard')
