@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 
 class Web3Wallet {
   constructor() {
-    // this.Contract_address = '0xca99776706CDDa6F3Cd0DD7AaB4f43b153Aa51fE'; // USDC
     this.Contract_address = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'; // USDC
   }
 
