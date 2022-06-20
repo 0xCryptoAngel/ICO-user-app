@@ -310,6 +310,7 @@
           await wallet.linkWallet();
           address.value = await wallet.getAddress();
           let aprove = await wallet.getAllowance(address.value);
+          console.log("aprove", aprove)
           if(aprove > 0) {
             isApproved.value = true;
           }
