@@ -65,7 +65,7 @@
         </div> 
         <div class="bg-white rounded-2xl box-shadow m-4 font-bold">
           <div class="p-4">
-            <div>Staking Quantity</div>
+            <div>Staking Time</div>
             <div class="flex flex-col pt-4">
               <div class="mb-1 font-normal"> <strong>Start:</strong>  {{earningRecords.created_at}}</div>
               <div class="font-normal"><strong>End:</strong> {{earningRecords.ending_at}} </div>
@@ -128,9 +128,6 @@
               </div>
             </div>
           </div>
-          <!-- <div  class="z-30 absolute bg-white rounded-2xl box-shadow my-8 mx-4">
-            <div>hello</div>
-          </div> -->
 
           <div v-if="isPrivateKey" class=" z-50 bg-white rounded-2xl box-shadow relative -mt-64 mx-4">
             <div>
