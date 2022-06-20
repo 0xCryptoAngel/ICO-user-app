@@ -2,9 +2,9 @@
   <section class="flex flex-col w-full md:flex-row md:w-full px-12 md:justify-between bg-blue-75 py-8 bg-footer">
     <div>
       <div class="text-xl font-semibold">Stacking Options</div>
-      <div><a href="faq.html" class="hover:underline">FAQ ↗</a></div>
-      <div><a href="terms.html" class="hover:underline">Terms of Service ↗</a></div>
-      <div><a href="ethereum.org" class="hover:underline">ethereum.org ↗</a></div>
+      <div><router-link to="/validator" class="hover:underline">FAQ ↗</router-link></div>
+      <div><router-link to="/term" class="hover:underline">Terms of Service ↗</router-link></div>
+      <div><a href="https://ethereum.org/en/" class="hover:underline">ethereum.org ↗</a></div>
       <div><a href="#" class="hover:underline">User Centre ↗</a></div>
     </div>
     <div class="flex items-center">

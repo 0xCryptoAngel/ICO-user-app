@@ -68,9 +68,9 @@
         <div class="py-2">
           Learn more about the roles and responsibilities of Ethereum validators.
         </div>
-        <a href="faq.html" class="hover:underline text-lg pt-2 pb-4">
+        <router-link to="/validator" class="hover:underline text-lg pt-2 pb-4">
           <div class="text-base"><strong>More on validators</strong></div>
-        </a>
+        </router-link>
       </div>
     </div>
   </section>
