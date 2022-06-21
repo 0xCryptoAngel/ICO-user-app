@@ -16,7 +16,7 @@
         <ul class="hidden lg:flex ml-2 space-x-8 text-base opacity-70 font-medium">
           <router-link to="/" class="hover:opacity-50">Staking Launchpad</router-link>
           <router-link to="/validator" class="hover:underline hover:opacity-50">FAQ</router-link>
-          <li class="hover:underline hover:opacity-50 cursor-pointer">What is Staking</li>
+          <li class="hover:underline hover:opacity-50 cursor-pointer"><a href="https://ethereum.org/en/staking/">What is Staking</a></li>
           <router-link to="/term" class="hover:underline hover:opacity-50">Terms of Service</router-link>
           <li class="hover:underline hover:opacity-50 cursor-pointer" @click="isUser" >User Center</li>
         </ul>
@@ -33,7 +33,7 @@
       <ul class="px-8 bg-white py-4">
         <li><router-link to="/validator">FAQ</router-link>
         </li>
-        <li class="cursor-pointer">What is Staking</li>
+        <li class="cursor-pointer"><a href="https://ethereum.org/en/staking/">What is Staking</a></li>
         <li>
           <router-link to="/term">Terms of Service</router-link>
         </li>

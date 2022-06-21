@@ -44,7 +44,7 @@
     <hr class="bg-blue-25 h-1"/>
     <div class="p-4 space-y-4">
       <input type="number" class="w-full border rounded y-0.5 pl-4" placeholder="USDC Amount" v-model="amount">
-      <div v-if="amount != null"> 
+      <div v-if="typeof(amount) == 'number'"> 
         <div v-show="!isIllegal" class="text-red-600  text-xs ">Your staking amount is illegal, please change the staking amount</div>
       </div>
       <button class="bg-red-25 w-full text-white rounded py-0.5" @click="stakeNow">Stake Now</button>
