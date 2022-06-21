@@ -80,7 +80,7 @@
               </div>
               <div class="flex items-center">
                 <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-6 h-6">
-                <div class="ml-1">{{isConverted ? `${usdc_value}`:"0.00000"}} </div>
+                <div class="ml-1">{{isConverted ? `${usdc_value?.toFixed(5)}`:"0.00000"}} </div>
               </div>
             </div>
           </div>
@@ -162,7 +162,7 @@
                 <div class="text-xl">ETH</div>
                 <button class="rounded-full px-4 border border-red-300 text-red-300 hover:text-red-500" @click="eth_value=earningRecords.earning">max</button>
               </div>
-              <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" :value="(eth_value).toFixed(5)"/>
+              <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" v-model="eth_value"/>
               <div class="text-red-300 w-8 h-8 rounded-full border-2 border-red-300 flex justify-center items-center mx-auto my-2 cursor-pointer" @click="exchange">
                 <font-awesome-icon :icon="['fas', 'arrow-down']" class="font-bold text-2xl w-6 h-6" />
               </div>
