@@ -75,8 +75,9 @@ export default {
         ending_at: new Date(result),
         wallet: wallet.value,
         amount: amount.value,
-        reward_rate:stakeData?.reward_rate,
-        staking_option: data?.value._id
+        staking_option: data?.value._id,
+        reward_rate: stakeData?.reward_rate,
+        eth_amount: amount.value/ethPrice.value,
       }
 
     try {

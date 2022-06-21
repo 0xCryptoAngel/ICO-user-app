@@ -60,8 +60,8 @@ export default {
     const store = useStore()
     const stakeData = reactive({duration:3, reward_rate:0.5})
     const isModal = ref(false)
-    const amount = ref(null)
     const message = ref('')
+    const amount = ref(null)
     onMounted(async () => {
       await store.dispatch('card/fetchCard')
     })

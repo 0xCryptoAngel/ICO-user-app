@@ -74,8 +74,9 @@ export default {
         ending_at: new Date(result),
         wallet: wallet.value,
         amount: amount.value,
+        staking_option: data?.value._id,
         reward_rate: stakeData?.reward_rate,
-        staking_option: data?.value._id
+        eth_amount: amount.value/ethPrice.value,
       }
       try {
         let res = await store.dispatch( 'card/createStake', payload )
