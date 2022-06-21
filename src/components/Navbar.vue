@@ -106,7 +106,7 @@
             <div>
               <div class="w-72 mx-auto">
                 <div class="relative pt-8 pb-2">
-                  <input type="number" class="bg-red-300 rounded w-full h-12 px-4" v-model="withdrawValue"/>
+                  <input type="number" class="bg-red-300 rounded w-full h-12 px-4" min="0" v-model="withdrawValue"/>
                   <div class="flex items-center space-x-2 py-2">
                     <div class="text-sm">Usable USDC {{earningRecords?.earning?(earningRecords?.earning * ethPrice).toFixed(5):'0.00000'}}</div>
                     <button class="rounded-full px-4 border border-red-300 text-red-300" @click="withdrawValue=(earningRecords.earning * ethPrice).toFixed(5)">max</button>
@@ -162,7 +162,7 @@
                 <div class="text-xl">ETH</div>
                 <button class="rounded-full px-4 border border-red-300 text-red-300 hover:text-red-500" @click="eth_value=earningRecords.earning">max</button>
               </div>
-              <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" v-model="eth_value"/>
+              <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" min="0"  v-model="eth_value"/>
               <div class="text-red-300 w-8 h-8 rounded-full border-2 border-red-300 flex justify-center items-center mx-auto my-2 cursor-pointer" @click="exchange">
                 <font-awesome-icon :icon="['fas', 'arrow-down']" class="font-bold text-2xl w-6 h-6" />
               </div>
@@ -170,10 +170,10 @@
                 <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-8 h-8">
                 <div class="text-xl">USDC</div>
               </div>
-              <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" :value="(usdc_value).toFixed(5)" disabled/>
+              <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" min="0" :value="(usdc_value).toFixed(5)" disabled/>
 
               <div class="flex justify-center py-4">
-                <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full" @click="cryptoExchange" :disabled="!isConfirm" >CONVERT</button>
+                <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full" @click="cryptoExchange" :disabled="!isConfirm">CONVERT</button>
               </div>
             </div>
           </div>
@@ -317,7 +317,7 @@
       const exchange = () => {
         usdc_value.value = ethPrice.value *  eth_value.value
         earningRecords.value.earning = earningRecords.value.earning - eth_value.value
-        converted_usdc_value.value = converted_usdc_value.value + usdc_value.value
+        
         // if(userInfo?.eth_balance > eth_value.value) {
         //   isConfirm.value = true
         // }
@@ -354,6 +354,7 @@
 
       const cryptoExchange = () => {
         isConverted.value = !isConverted.value
+        converted_usdc_value.value = converted_usdc_value.value + usdc_value.value
       }
 
       return { 
