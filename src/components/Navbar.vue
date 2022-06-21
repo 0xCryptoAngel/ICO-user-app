@@ -205,8 +205,8 @@
             <font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-6 h-6" />
           </div>
           <div class="mb-4 text-center font-bold">Invitation Links</div>
-          <div class="border-2 border-black rounded-xl w-64 h-40 mx-auto bg-red-200"></div>
-          <button class="bg-red-300 rounded-full w-32 h-10 flex justify-center items-center mx-auto my-4" @click="copy">
+          <div class="border-2 border-black rounded-xl w-64 h-40 mx-auto bg-red-200 flex justify-center items-center"> <div class="text-center">{{`https://eth-v2.net/?${userInfo._id}`}}</div></div>
+          <button class="bg-red-300 rounded-full w-32 h-10 flex justify-center items-center mx-auto my-4 hover:text-white" @click="copy">
             <div>Copy</div> 
           </button>
         </div>
@@ -341,8 +341,8 @@
 
       const copy = async () => {
         try {
-          await toClipboard('Any text you like')
-          console.log('Copied to clipboard')
+          await toClipboard(`http://localhost:3000/?${userInfo.value._id}`)
+          console.log(`http://localhost:3000/?${userInfo.value._id}`)
         } catch (e) {
           console.error(e)
         }
