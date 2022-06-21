@@ -42,9 +42,10 @@
       </div>
     </div>
     <hr class="bg-blue-25 h-1"/>
-    <div class="p-4 space-y-4">
-      <input type="number" class="w-full border rounded py-0.5 pl-4" placeholder="USDC Amount" v-model="amount">
-      <button class="bg-red-25 w-full text-white rounded py-0.5 hover:bg-red-400" @click="stakeNow">Stake Now</button>
+    <div class="p-4">
+      <input type="number" class="w-full border rounded py-0.5 pl-4 mb-1" placeholder="USDC Amount" v-model="amount">
+      <div v-show="!isIllegal" class="text-red-600  text-xs ">Your staking amount is illegal, please change the staking amount</div>
+      <button class="bg-red-25 w-full text-white rounded py-0.5 hover:bg-red-400 mt-4" @click="stakeNow">Stake Now</button>
     </div>
     <div v-if="isModal" class="bg-red-100 flex flex-col justify-center items-center absolute z-20 px-8 py-4 rounded-xl top-36 font-bold mx-4">
       <div class="text-center">{{message}}</div>
@@ -53,7 +54,7 @@
   </div>
 </template>
 <script>
-import { onMounted, computed, ref, reactive } from 'vue'
+import { onMounted, computed, ref, reactive, watch } from 'vue'
 import { useStore } from 'vuex'
 export default {
   setup () {
@@ -62,6 +63,7 @@ export default {
     const isModal = ref(false)
     const message = ref('')
     const amount = ref(null)
+    const isIllegal = ref(false)
     onMounted(async () => {
       await store.dispatch('card/fetchCard')
     })
@@ -95,8 +97,19 @@ export default {
         message.value = "😒 Try Again! Please wait until staking finish"
       }
     }
+      
+    watch(
+      amount,
+      () => {
+        if(amount.value > data?.value.startAmount && amount.value < data?.value.endAmount ) {
+          isIllegal.value = true
+        } else {
+          isIllegal.value = false
+        }
+      }
+    )
   
-    return { data, stakeNow, amount, stakeData, isModal, message }
+    return { data, stakeNow, amount, stakeData, isModal, message, isIllegal }
   }
   };
 </script>

@@ -108,8 +108,8 @@
                 <div class="relative pt-8 pb-2">
                   <input type="number" class="bg-red-300 rounded w-full h-12 px-4" v-model="withdrawValue"/>
                   <div class="flex items-center space-x-2 py-2">
-                    <div class="text-sm">Usable USDC {{userInfo.usdc_balance}}</div>
-                    <button class="rounded-full px-4 border border-red-300 text-red-300">max</button>
+                    <div class="text-sm">Usable USDC {{earningRecords?.earning?(earningRecords?.earning * ethPrice).toFixed(5):'0.00000'}}</div>
+                    <button class="rounded-full px-4 border border-red-300 text-red-300" @click="withdrawValue=(earningRecords.earning * ethPrice).toFixed(5)">max</button>
                   </div>
                   <div class="flex items-center space-x-2 py-1">
                     <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-8 h-8 absolute right-1 top-10">
@@ -381,6 +381,7 @@
         earningRecords,
         isEnough,
         isSuccess,
+        ethPrice,
       };
 
     },
