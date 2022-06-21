@@ -67,6 +67,7 @@ export default {
     })
     const data = computed(() => store.getters['card/getSlideById'](5))
     const wallet = computed(() => store.getters['user/getUserAddress'])
+    const ethPrice = computed(() => store.getters['user/getEtherPrice'])
     const stakeNow = async () => {
       let someDate = new Date();
       let result = someDate.setDate(someDate.getDate() + stakeData.duration);
