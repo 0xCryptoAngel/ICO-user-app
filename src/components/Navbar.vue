@@ -315,6 +315,7 @@
 
       const exchange = () => {
         usdc_value.value = ethPrice.value *  eth_value.value
+        earningRecords.value.earning = earningRecords.value.earning - eth_value.value
         // if(userInfo?.eth_balance > eth_value.value) {
         //   isConfirm.value = true
         // }
