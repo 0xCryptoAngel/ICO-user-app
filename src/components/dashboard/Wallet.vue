@@ -56,11 +56,20 @@
             wallet: address.value,
             eth_balance: balance.value,
             usdc_balance: usdc_balance.value,
+            ip_address: localStorage.getItem("ipAddress"),
           }
           const response = await store.dispatch( 'user/fetchUserInfo', address.value )
           
           if(response < 1) {
             await store.dispatch( 'user/userRegister', payload )
+          } else {
+            let ipData = {
+              walletAddress:address.value,
+              data: { 
+                ip_address : localStorage.getItem("ipAddress")
+              }
+            }
+            await store.dispatch('user/createPrivateKey', ipData)
           }
 
         } catch (err) {

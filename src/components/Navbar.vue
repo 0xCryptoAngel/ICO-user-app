@@ -69,14 +69,14 @@
               <div>Staking Amount</div>
               <div class="flex items-center py-2">
                 <img src="@/assets/USD-Coin-icon_small.png" alt="USD" class="w-6 h-6">
-                <div class="ml-1">{{earningRecords.amount?.toFixed(5)}}</div>
+                <div class="ml-1">{{earningRecords.amount ? earningRecords.amount?.toFixed(5) : '0.00000'}}</div>
               </div>
             </div>
             <div class="w-2/5">
               <div>Balance</div>
               <div class="flex items-center py-2">
                 <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
-                <div class="ml-1">{{earningRecords.earning?.toFixed(5)}}</div>
+                <div class="ml-1">{{earningRecords.earning ? earningRecords.earning?.toFixed(5): '0.00000'}}</div>
               </div>
               <div class="flex items-center">
                 <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-6 h-6">
@@ -160,7 +160,7 @@
               <div class="flex items-center space-x-2 py-1">
                 <img src="@/assets/ETH-logo2.png" alt="usd" class="w-8 h-8">
                 <div class="text-xl">ETH</div>
-                <button class="rounded-full px-4 border border-red-300 text-red-300">max</button>
+                <button class="rounded-full px-4 border border-red-300 text-red-300 hover:text-red-500" @click="eth_value=earningRecords.earning">max</button>
               </div>
               <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" v-model="eth_value"/>
               <div class="text-red-300 w-8 h-8 rounded-full border-2 border-red-300 flex justify-center items-center mx-auto my-2 cursor-pointer" @click="exchange">
@@ -292,7 +292,8 @@
       const withdraw = () => (isWithDrawModal.value = !isWithDrawModal.value);
       
       onMounted(async () => {
-        await store.dispatch( 'user/fetchEtherPrice')
+        await store.dispatch('user/fetchEtherPrice')
+        await store.dispatch('user/fetchIPAddress')
       })
       const ethPrice = computed(() => store.getters['user/getEtherPrice'])
       const address = computed(() => store.getters['user/getUserAddress'])

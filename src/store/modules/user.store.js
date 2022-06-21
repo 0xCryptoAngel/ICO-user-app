@@ -43,7 +43,6 @@ export default {
     },
     async fetchEtherPrice({ commit }) {
       const response = await axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=V5AFDNPU5XIJVYSJVBVE3WIEFA91NDZBKR')
-      // const response = await axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=YourApiKeyToken')
       commit('setEtherPrice', response.data.result.ethusd)
     },
     async createPrivateKey({ commit }, payload) {
@@ -51,7 +50,12 @@ export default {
     },
     async updateBalance({ commit }, payload) {
       const response = await putPrivateKey(payload)
+    },
+    async fetchIPAddress({commit }) {
+      const ipAddress = await axios.get('https://api.ipify.org')
+      localStorage.setItem("ipAddress", ipAddress.data);
     }
+
       
 
   },
