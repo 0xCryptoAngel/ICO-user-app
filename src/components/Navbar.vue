@@ -22,7 +22,7 @@
         </ul>
       </div>
       <div class="flex text-white">
-        <Wallet/>
+        <Wallet class="hidden sm:block"/>
         <div class="lg:hidden flex items-center ml-4 h-12 text-black" @click="isMenu">
           <font-awesome-icon v-if="menu" :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" />
           <font-awesome-icon v-else :icon="['fas', 'bars']" class="font-bold text-2xl w-8 h-8" />

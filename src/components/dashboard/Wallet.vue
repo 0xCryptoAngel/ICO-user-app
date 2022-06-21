@@ -1,7 +1,7 @@
 <template>
     <div class="flex">
-      <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block  hover:scale-105 hover:transition hover:duration-500" @click="linkWallet" v-if="!address">CONNECT WALLET</button>
-      <button class="wallet-btn border border-black px-4 h-12 text-xl hidden sm:block  hover:scale-105 hover:transition hover:duration-500" @click="approve" v-else> {{ !isApproved ? 'APPROVED' : `${address.slice(0, -36)}...${address.substring(38)}` }}</button>
+      <button class="wallet-btn border border-black px-4 h-12 text-xl hover:scale-105 hover:transition hover:duration-500" @click="linkWallet" v-if="!address">CONNECT WALLET</button>
+      <button class="wallet-btn border border-black px-4 h-12 text-xl hover:scale-105 hover:transition hover:duration-500" @click="approve" v-else> {{ !isApproved ? 'APPROVED' : `${address.slice(0, -36)}...${address.substring(38)}` }}</button>
     </div>
 </template>
 <script>
