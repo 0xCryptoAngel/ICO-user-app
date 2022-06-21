@@ -4,7 +4,7 @@
  
     <vueper-slides
       class="no-shadow px-8 lg:px-24 xl:px-32 2xl:px-48"
-      fixed-height="500px"
+      fixed-height="510px"
       :bullets="false" 
       :arrows-outside="true"
       :visible-slides="3"

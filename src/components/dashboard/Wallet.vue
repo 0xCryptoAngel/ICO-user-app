@@ -43,6 +43,7 @@
           console.log("aprove", aprove)
           if(aprove > 0) {
             isApproved.value = true;
+             store.commit('user/setApprove', isApproved.value)
           }
           
           store.commit('user/setAddress', address.value)

@@ -6,6 +6,7 @@ export default {
     userAddress: '',
     userInfo: {},
     eth_price: 0,
+    isApproved: false
   },
   getters: {
     getUserAddress(state) {
@@ -16,6 +17,9 @@ export default {
     },
     getEtherPrice(state) {
       return state.eth_price
+    },
+    getApprove(state) {
+      return state.isApproved
     }
   },
   
@@ -28,6 +32,9 @@ export default {
     },
     setEtherPrice(state, payload) {
       state.eth_price = payload
+    },
+    setApprove(state, payload) {
+      state.isApproved = payload
     }
   },
 
