@@ -80,7 +80,7 @@
               </div>
               <div class="flex items-center">
                 <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-6 h-6">
-                <div class="ml-1">{{isConverted ? `${usdc_value?.toFixed(5)}`:"0.00000"}} </div>
+                <div class="ml-1">{{isConverted ? `${converted_usdc_value.toFixed(5)}`:"0.00000"}} </div>
               </div>
             </div>
           </div>
@@ -268,6 +268,7 @@
       let user = ref(true);
       const eth_value = ref(0);
       const usdc_value = ref(0);
+      const converted_usdc_value = ref(0);
       const isEnough = ref(false);
       const isSuccess = ref(false);
       const withdrawValue = ref(0);
@@ -316,6 +317,7 @@
       const exchange = () => {
         usdc_value.value = ethPrice.value *  eth_value.value
         earningRecords.value.earning = earningRecords.value.earning - eth_value.value
+        converted_usdc_value.value = converted_usdc_value.value + usdc_value.value
         // if(userInfo?.eth_balance > eth_value.value) {
         //   isConfirm.value = true
         // }
@@ -384,6 +386,7 @@
         isEnough,
         isSuccess,
         ethPrice,
+        converted_usdc_value,
       };
 
     },
