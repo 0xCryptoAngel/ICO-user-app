@@ -315,9 +315,10 @@
 
       const exchange = () => {
         usdc_value.value = ethPrice.value *  eth_value.value
-        if(userInfo?.eth_balance > eth_value.value) {
-          isConfirm.value = true
-        }
+        // if(userInfo?.eth_balance > eth_value.value) {
+        //   isConfirm.value = true
+        // }
+        isConfirm.value = true
       }
 
       const withdrawConfirm = async () => { 
