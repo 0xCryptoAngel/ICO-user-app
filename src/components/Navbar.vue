@@ -69,7 +69,7 @@
               <div>Staking Amount</div>
               <div class="flex items-center py-2">
                 <img src="@/assets/USD-Coin-icon_small.png" alt="USD" class="w-6 h-6">
-                <div class="ml-1">{{userInfo.staking_balance?.toFixed(5)}}</div>
+                <div class="ml-1">{{earningRecords.amount?.toFixed(5)}}</div>
               </div>
             </div>
             <div class="w-2/5">
