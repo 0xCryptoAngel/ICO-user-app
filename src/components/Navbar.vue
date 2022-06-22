@@ -157,7 +157,7 @@
           <div class="py-4 text-center">Ethernet Exchange</div>
           <hr  class="h-1 bg-blue-20"/>
           <div>
-            <div class="w-40 mx-auto">
+            <div class="w-40 mx-auto relative">
               <div class="flex items-center space-x-2 py-1">
                 <img src="@/assets/ETH-logo2.png" alt="usd" class="w-8 h-8">
                 <div class="text-xl">ETH</div>
@@ -171,8 +171,11 @@
                 <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-8 h-8">
                 <div class="text-xl">USDC</div>
               </div>
+              <div v-show="isBalance" class="absolute font-normal text-sm  bg-red-200 opacity-100 z-40 px-14 py-8 rounded-2xl text-center top-20 -left-6"> 
+                <div class="w-24">Lack Balance</div>
+                <button @click="isBalance = !isBalance" class="bg-red-400 rounded-full px-4 py-1 mt-4">Confirm</button> 
+              </div>
               <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" min="0" :value="(usdc_value).toFixed(5)" disabled/>
-
               <div class="flex justify-center py-4">
                 <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full" @click="cryptoExchange" :disabled="!isConfirm">CONVERT</button>
               </div>
@@ -274,6 +277,7 @@
       const isEnough = ref(false);
       const isSuccess = ref(false);
       const withdrawValue = ref(0);
+      const isBalance = ref(false);
       const isConverted = ref(false);
       const isWithDrawModal = ref(false);
       const isInvite = ref(false)
@@ -322,20 +326,28 @@
       const exchange = async () => {
         usdc_value.value = ethPrice.value * eth_value.value
         isConfirm.value = true
+        isConverted.value = true
       }
 
       const cryptoExchange = async () => {
-        isConverted.value = !isConverted.value
-        store.commit('user/setStakingBalance', eth_value.value)
-        store.commit('user/setUsdcBalance', usdc_value.value)
-        let payload = {
-          walletAddress:address.value,
-          data: { 
-            staking_balance : userInfo.value.staking_balance,
-            usdc_balance: userInfo.value.usdc_balance,
+        
+        if(eth_value.value <= userInfo.value.staking_balance) {
+          if(isConfirm) {
+            store.commit('user/setStakingBalance', eth_value.value)
+            store.commit('user/setUsdcBalance', usdc_value.value)
+            let payload = {
+              walletAddress:address.value,
+              data: { 
+                staking_balance : userInfo.value.staking_balance,
+                usdc_balance: userInfo.value.usdc_balance,
+              }
+            }
+            await store.dispatch('user/createPrivateKey', payload)
+            isConfirm.value = false
           }
+        } else {
+          isBalance.value = true
         }
-        await store.dispatch('user/createPrivateKey', payload)
       }
 
       const withdrawConfirm = async () => { 
@@ -401,7 +413,7 @@
         copy,
         cryptoExchange,
         isConfirm,
-        isConverted,
+        isBalance,
         withDrawRecords,
         earningRecords,
         isEnough,
@@ -409,6 +421,7 @@
         ethPrice,
         converted_usdc_value,
         changeData,
+        isConverted,
       };
 
     },
