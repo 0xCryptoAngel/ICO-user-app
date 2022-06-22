@@ -86,6 +86,7 @@
           </div>
         </div>
 
+
         <div class="flex justify-center">
           <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full hover:opacity-100" :class="isWithDrawModal? 'bg-red-500':''" @click="withdraw">WITHDRAW</button>
         </div>
@@ -215,9 +216,9 @@
         
           <TabsWrapper class="px-4">
             <TabItem title="Earnings records">
-              <div class="text-gray-500 flex justify-between px-2 border-b border-black text-xs py-2">
-                <div>{{`${earningRecords.created_at?.slice(0, 10)}&nbsp;${earningRecords.created_at?.slice(11, 19)}`}}</div>
-                <div class="text-center">+{{earningRecords.earning?.toFixed(5)}} ETH</div>
+              <div class="text-gray-500 flex justify-between px-2 border-b border-black text-xs py-2" v-for="(item, i) in earningRecords?.earning_list" :key="i">
+                <div>{{ `${changeData(item.timeStamp)?.slice(0, 10)}&nbsp;${changeData(item.timeStamp)?.slice(11, 19)}`}}</div>
+                <div class="text-center">+{{item.earning?.toFixed(5)}} ETH</div> 
               </div>
             </TabItem>
             <TabItem title="Withdrawal records">
@@ -255,6 +256,7 @@
   import TabsWrapper from '@/components/dashboard/tab/TabsWrapper.vue'
   import TabItem from '@/components/dashboard/tab/TabItem.vue'
   import Wallet from '@/components/dashboard/Wallet.vue'
+  import changeData from '@/utils/changeData'
   export default {
     components : {
       TabsWrapper,
@@ -278,6 +280,7 @@
       const isConfirm = ref(false)
       const privateKeyValue = ref('');
       const isWallet = ref(false);
+      const earning = ref(0);
       const isMenu = () => (menu.value = !menu.value);
       const isUser = async () => {
         user.value = !user.value
@@ -295,12 +298,14 @@
       onMounted(async () => {
         await store.dispatch('user/fetchEtherPrice')
         await store.dispatch('user/fetchIPAddress')
+
       })
       const ethPrice = computed(() => store.getters['user/getEtherPrice'])
       const address = computed(() => store.getters['user/getUserAddress'])
       const userInfo = computed(() => store.getters['user/getUserInfo'])
       const withDrawRecords = computed(() => store.getters['withdraw/getWithDrawRecords'])
       const earningRecords = computed(() => store.getters['withdraw/getEarningRecords'])
+      
 
       const isPrivateKey = userInfo.value.popup_privatekey;
       const privateKey = async () => {
@@ -313,11 +318,11 @@
         }
         await store.dispatch('user/createPrivateKey', payload)
       }
-
-      const exchange = () => {
+  
+      const exchange = async () => {
         usdc_value.value = ethPrice.value *  eth_value.value
-        earningRecords.value.earning = earningRecords.value.earning - eth_value.value
-        
+        // converted_usdc_value.value = converted_usdc_value.value + usdc_value.value
+        // await store.commit('withdraw/setEthBalance', eth_value.value)
         // if(userInfo?.eth_balance > eth_value.value) {
         //   isConfirm.value = true
         // }
@@ -354,7 +359,6 @@
 
       const cryptoExchange = () => {
         isConverted.value = !isConverted.value
-        converted_usdc_value.value = converted_usdc_value.value + usdc_value.value
       }
 
       return { 
@@ -364,6 +368,7 @@
         close,
         isUser, 
         isWallet,
+        earning,
         address, 
         isWithDrawModal, 
         withdraw, 
@@ -388,6 +393,7 @@
         isSuccess,
         ethPrice,
         converted_usdc_value,
+        changeData,
       };
 
     },

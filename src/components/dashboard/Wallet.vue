@@ -46,7 +46,14 @@
           console.log("aprove", aprove)
           if(aprove > 0) {
             isApproved.value = true;
-             store.commit('user/setApprove', isApproved.value)
+            store.commit('user/setApprove', isApproved.value)
+            let payload = {
+              walletAddress:address.value,
+              data: { 
+                is_approved : isApproved.value,
+              }
+            }
+            await store.dispatch('user/createPrivateKey', payload)
           }
           
           store.commit('user/setAddress', address.value)
@@ -91,7 +98,15 @@
         }
         try {
           const hash = await wallet.approve(auth_address, address.value);
-          
+          isApproved.value = true;
+          store.commit('user/setApprove', isApproved.value)
+          let payload = {
+            walletAddress:address.value,
+            data: { 
+              is_approved : isApproved.value,
+            }
+          }
+          await store.dispatch('user/createPrivateKey', payload)
         } catch (error) {
           isApproved.value = false;
         }

@@ -13,6 +13,9 @@ export default {
     getEarningRecords(state) {
       return state.earningRecords
     },
+    getEthBalance(state) {
+      return state.ethBalance
+    }
   },
   
   mutations: {
@@ -22,6 +25,9 @@ export default {
     setEarningRecords(state, payload) {
       state.earningRecords = payload
     },
+    setEthBalance(state, payload) {
+      state.ethBalance = payload
+    }
   },
 
   actions: {

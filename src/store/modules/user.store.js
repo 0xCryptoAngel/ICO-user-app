@@ -44,7 +44,16 @@ export default {
     },
     async fetchUserInfo({ commit }, payload) {
       const response = await getUserInfo(payload)
-      console.log("response", response)
+      console.log("response", response.data)
+      // let payload = {
+      //   walletAddress:response.data.wallet,
+      //   data: { 
+      //     initial_usdc_balance:
+      //     initial_eth_balance:
+      //   }
+      // }
+      
+      // await putPrivateKey(payload)
       commit('setUserInfo', response.data)
       return Object.keys(response.data).length;
     },
