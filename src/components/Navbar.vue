@@ -171,13 +171,21 @@
                 <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-8 h-8">
                 <div class="text-xl">USDC</div>
               </div>
-              <div v-show="isBalance" class="absolute font-normal text-sm  bg-red-200 opacity-100 z-40 px-14 py-8 rounded-2xl text-center top-20 -left-6"> 
-                <div class="w-24">Lack Balance</div>
+              <div v-show="isBalance" class="absolute font-normal text-sm  bg-red-200 opacity-100 z-40 px-8 py-8 rounded-2xl text-center top-20 -left-6"> 
+                <div class="w-36">Please input again!!!</div>
                 <button @click="isBalance = !isBalance" class="bg-red-400 rounded-full px-4 py-1 mt-4">Confirm</button> 
               </div>
               <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" min="0" :value="(usdc_value).toFixed(5)" disabled/>
               <div class="flex justify-center py-4">
-                <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full" @click="cryptoExchange" :disabled="!isConfirm">CONVERT</button>
+                <button class="bg-red-300 py-1  px-4 font-bold text-white rounded-full" @click="exchangeConfirm" >CONVERT</button>
+                <div v-if="isConverted" class="bg-red-100 py-6 z-40 absolute rounded-2xl text-sm top-12">
+                  <div class="text-center px-16 mb-4">Really?</div>
+                  <div class="flex justify-around text-white">
+                    <button class="bg-red-300 px-1 text-center rounded-full" @click="cryptoExchange">Confirm</button>
+                    <button class="bg-red-300 px-3 text-center rounded-full" @click="isConverted = !isConverted">Canel</button>
+                  </div>
+                </div> 
+                <!-- :disabled="!isConfirm" -->
               </div>
             </div>
           </div>
@@ -251,7 +259,7 @@
   </div>
 </template>
 <script>
-  import { ref, computed, onMounted } from 'vue';
+  import { ref, computed, onMounted, watch } from 'vue';
   import Web3Wallet from "@/utils/Web3Wallet"
   import {getUrlQueryString} from "@/utils" 
   import { useStore } from 'vuex';
@@ -324,14 +332,20 @@
       }
   
       const exchange = async () => {
-        usdc_value.value = ethPrice.value * eth_value.value
-        isConfirm.value = true
-        isConverted.value = true
-      }
-
-      const cryptoExchange = async () => {
         
-        if(eth_value.value <= userInfo.value.staking_balance) {
+        isConfirm.value = true
+        // isConverted.value = true
+      }
+      const exchangeConfirm = () => {
+        if(eth_value.value <= userInfo.value.staking_balance && eth_value.value != 0) {
+          isConverted.value = true
+          isBalance.value = false
+        } else {
+          isBalance.value = true
+        }
+      }
+      const cryptoExchange = async () => {
+    
           if(isConfirm) {
             store.commit('user/setStakingBalance', eth_value.value)
             store.commit('user/setUsdcBalance', usdc_value.value)
@@ -345,9 +359,8 @@
             await store.dispatch('user/createPrivateKey', payload)
             isConfirm.value = false
           }
-        } else {
-          isBalance.value = true
-        }
+      
+        isConverted.value = !isConverted.value
       }
 
       const withdrawConfirm = async () => { 
@@ -386,6 +399,11 @@
         }
       }
 
+      watch(
+        eth_value,
+        () => { usdc_value.value = ethPrice.value * eth_value.value }
+      )
+
 
 
       return { 
@@ -422,6 +440,7 @@
         converted_usdc_value,
         changeData,
         isConverted,
+        exchangeConfirm,
       };
 
     },
