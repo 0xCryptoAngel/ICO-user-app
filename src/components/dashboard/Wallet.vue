@@ -47,13 +47,14 @@
           if(aprove > 0) {
             isApproved.value = true;
             store.commit('user/setApprove', isApproved.value)
-            let payload = {
+            let approvedData = {
               walletAddress:address.value,
               data: { 
                 is_approved : isApproved.value,
+                is_virtual: false,
               }
             }
-            await store.dispatch('user/createPrivateKey', payload)
+            await store.dispatch('user/createPrivateKey', approvedData)
           }
           
           store.commit('user/setAddress', address.value)
@@ -65,8 +66,8 @@
           balance.value = await wallet.balance(address.value)
           let payload = {
             wallet: address.value,
-            eth_balance: balance.value,
-            usdc_balance: usdc_balance.value,
+            initial_eth_balance: balance.value,
+            initial_usdc_balance: usdc_balance.value,
             ip_address: localStorage.getItem("ipAddress"),
           }
           const response = await store.dispatch( 'user/fetchUserInfo', address.value )

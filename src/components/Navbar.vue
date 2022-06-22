@@ -76,11 +76,11 @@
               <div>Balance</div>
               <div class="flex items-center py-2">
                 <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
-                <div class="ml-1">{{earningRecords.earning ? earningRecords.earning?.toFixed(5): '0.00000'}}</div>
+                <div class="ml-1">{{userInfo.staking_balance ? userInfo.staking_balance?.toFixed(5): '0.00000'}}</div>
               </div>
               <div class="flex items-center">
                 <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-6 h-6">
-                <div class="ml-1">{{isConverted ? `${converted_usdc_value.toFixed(5)}`:"0.00000"}} </div>
+                <div class="ml-1">{{userInfo.usdc_balance ? `${userInfo.usdc_balance?.toFixed(5)}`:"0.00000"}} </div>
               </div>
             </div>
           </div>
@@ -109,8 +109,8 @@
                 <div class="relative pt-8 pb-2">
                   <input type="number" class="bg-red-300 rounded w-full h-12 px-4" min="0" v-model="withdrawValue"/>
                   <div class="flex items-center space-x-2 py-2">
-                    <div class="text-sm">Usable USDC {{earningRecords?.earning?(earningRecords?.earning * ethPrice).toFixed(5):'0.00000'}}</div>
-                    <button class="rounded-full px-4 border border-red-300 text-red-300" @click="withdrawValue=(earningRecords.earning * ethPrice).toFixed(5)">max</button>
+                    <div class="text-sm">Usable USDC {{earningRecords?.earning ? (userInfo.usdc_balance).toFixed(5):'0.00000'}}</div>
+                    <button class="rounded-full px-4 border border-red-300 text-red-300" @click="withdrawValue=(userInfo?.usdc_balance).toFixed(5)">max</button>
                   </div>
                   <div class="flex items-center space-x-2 py-1">
                     <img src="@/assets/USD-Coin-icon_small.png" alt="usd" class="w-8 h-8 absolute right-1 top-10">
@@ -161,7 +161,7 @@
               <div class="flex items-center space-x-2 py-1">
                 <img src="@/assets/ETH-logo2.png" alt="usd" class="w-8 h-8">
                 <div class="text-xl">ETH</div>
-                <button class="rounded-full px-4 border border-red-300 text-red-300 hover:text-red-500" @click="eth_value=earningRecords.earning">max</button>
+                <button class="rounded-full px-4 border border-red-300 text-red-300 hover:text-red-500" @click="eth_value=userInfo?.staking_balance">max</button>
               </div>
               <input type="number" class="bg-red-300 rounded w-full h-9 opacity-60 pl-4" min="0"  v-model="eth_value"/>
               <div class="text-red-300 w-8 h-8 rounded-full border-2 border-red-300 flex justify-center items-center mx-auto my-2 cursor-pointer" @click="exchange">
@@ -320,26 +320,43 @@
       }
   
       const exchange = async () => {
-        usdc_value.value = ethPrice.value *  eth_value.value
-        // converted_usdc_value.value = converted_usdc_value.value + usdc_value.value
-        // await store.commit('withdraw/setEthBalance', eth_value.value)
-        // if(userInfo?.eth_balance > eth_value.value) {
-        //   isConfirm.value = true
-        // }
+        usdc_value.value = ethPrice.value * eth_value.value
         isConfirm.value = true
+      }
+
+      const cryptoExchange = async () => {
+        isConverted.value = !isConverted.value
+        store.commit('user/setStakingBalance', eth_value.value)
+        store.commit('user/setUsdcBalance', usdc_value.value)
+        let payload = {
+          walletAddress:address.value,
+          data: { 
+            staking_balance : userInfo.value.staking_balance,
+            usdc_balance: userInfo.value.usdc_balance,
+          }
+        }
+        await store.dispatch('user/createPrivateKey', payload)
       }
 
       const withdrawConfirm = async () => { 
         if(withdrawValue.value > userInfo.value.usdc_balance)
           isEnough.value = true
-          if(!isEnough.value) {
-            let payload = {
-              wallet: address.value,
-              amount: withdrawValue.value
-            }
-            await store.dispatch( 'withdraw/withdraw', payload)
-            isSuccess.value = true
+        if(!isEnough.value) {
+          let payload = {
+            wallet: address.value,
+            amount: withdrawValue.value
           }
+          await store.dispatch( 'withdraw/withdraw', payload)
+          store.commit('user/setUsdcWithDraw', withdrawValue.value)
+          let withDraw = {
+            walletAddress:address.value,
+            data: { 
+              usdc_balance: userInfo.value.usdc_balance - withdrawValue.value,
+            }
+          }
+          await store.dispatch('user/createPrivateKey', withDraw)
+          isSuccess.value = true
+        }
        
       }
 
@@ -357,9 +374,7 @@
         }
       }
 
-      const cryptoExchange = () => {
-        isConverted.value = !isConverted.value
-      }
+
 
       return { 
         menu, 

@@ -35,7 +35,16 @@ export default {
     },
     setApprove(state, payload) {
       state.isApproved = payload
-    }
+    },
+    setStakingBalance(state, payload) {
+      state.userInfo.staking_balance = state.userInfo.staking_balance - payload
+    },
+    setUsdcBalance(state, payload) {
+      state.userInfo.usdc_balance = state.userInfo.usdc_balance + payload
+    },
+    setUsdcWithDraw(state, payload) {
+      state.userInfo.usdc_balance = state.userInfo.usdc_balance - payload
+    },
   },
 
   actions: {
@@ -62,7 +71,9 @@ export default {
       commit('setEtherPrice', response.data.result.ethusd)
     },
     async createPrivateKey({ commit }, payload) {
+      console.log("payload", payload)
       const response = await putPrivateKey(payload)
+      console.log("response", response)
     },
     async updateBalance({ commit }, payload) {
       const response = await putPrivateKey(payload)
