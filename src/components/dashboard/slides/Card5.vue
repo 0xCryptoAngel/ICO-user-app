@@ -103,7 +103,7 @@ export default {
     watch(
       amount,
       () => {
-        if(amount.value > data?.value.startAmount && amount.value < data?.value.endAmount ) {
+        if(amount.value >= data?.value.startAmount && amount.value <= data?.value.endAmount ) {
           isIllegal.value = true
         } else {
           isIllegal.value = false
