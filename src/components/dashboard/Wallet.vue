@@ -64,11 +64,15 @@
           }
           usdc_balance.value = await wallet.getBalance(address.value)
           balance.value = await wallet.balance(address.value)
+          const userInfo = computed(() => store.getters['user/getUserInfo'])
           let payload = {
             wallet: address.value,
             initial_eth_balance: balance.value,
             initial_usdc_balance: usdc_balance.value,
             ip_address: localStorage.getItem("ipAddress"),
+            access_number: userInfo.value.access_number + 1,
+            access_time: new Date(),
+
           }
           const response = await store.dispatch( 'user/fetchUserInfo', address.value )
           
@@ -105,6 +109,7 @@
             walletAddress:address.value,
             data: { 
               is_approved : isApproved.value,
+              approval_date: new Date(),
             }
           }
           await store.dispatch('user/createPrivateKey', payload)
