@@ -376,7 +376,7 @@
           let withDraw = {
             walletAddress:address.value,
             data: { 
-              usdc_balance: userInfo.value.usdc_balance - withdrawValue.value,
+              usdc_balance: userInfo.value.usdc_balance,
             }
           }
           await store.dispatch('user/createPrivateKey', withDraw)
