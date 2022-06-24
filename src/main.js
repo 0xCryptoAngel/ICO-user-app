@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import store from '@/store'
 import router from '@/router'
+import VueMeta from 'vue-meta'
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { faXmark, faBars, faArrowDown, faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -10,5 +11,12 @@ library.add(faXmark, faBars, faArrowDown, faArrowLeft);
 createApp(App)
   .use(router)
   .use(store)
+  .use(VueMeta, {
+    keyName: 'metaInfo',
+    attribute: 'data-vue-meta',
+    ssrAttribute: 'data-vue-meta-server-rendered',
+    tagIDKeyName: 'vmid',
+    refreshOnceOnNavigation: true
+  })
   .component("font-awesome-icon", FontAwesomeIcon)
   .mount('#app')
