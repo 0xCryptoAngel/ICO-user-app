@@ -1,7 +1,8 @@
 <template>
   <metainfo>
-    <template v-slot:title="{ content }">{{ content ? `${content} | Ethereum Template` : `Ethereumasdasdasd Template` }}</template>
+    <template v-slot:title="{ content }">{{ content ? `${content} | META` : `META` }}</template>
   </metainfo>
+  <div>{{JSON.stringify(metainfo)}}</div>
   <Navbar/>
   <router-view />
   <Footer/>
@@ -9,7 +10,7 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
-import { useMeta } from 'vue-meta'
+import { useMeta, useActiveMeta } from 'vue-meta/dist/vue-meta.esm-browser'
 
 export default {
     components: {
@@ -18,9 +19,14 @@ export default {
     },
     setup () {
       useMeta({
-        title: 'My Example App',
-        htmlAttrs: { lang: 'en', amp: true }
+        title: 'qwertyuiopasdfghjkwertyui',
+        htmlAttrs: { lang: 'en' }
       })
+
+      const metainfo = useActiveMeta()
+      return {
+        metainfo
+      }
     }
   };
 </script>
