@@ -1,6 +1,6 @@
 <template>
   <metainfo>
-    <template v-slot:title="{ content }">{{ content ? `${content} | SITE_NAME` : `SITE_NAME` }}</template>
+    <template v-slot:title="{ content }">{{ content ? `${content} | Ethereum Template` : `Ethereumasdasdasd Template` }}</template>
   </metainfo>
   <Navbar/>
   <router-view />
@@ -18,7 +18,7 @@ export default {
     },
     setup () {
       useMeta({
-        title: '1212312312312',
+        title: 'My Example App',
         htmlAttrs: { lang: 'en', amp: true }
       })
     }
