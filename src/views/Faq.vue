@@ -338,12 +338,3 @@
     </div>
   </div>
 </template>
-<script>
-  import { useMeta } from 'vue-meta'
-
-  export default {
-    setup () {
-      useMeta({ title: 'Some Page' })
-    }
-  }
-</script>

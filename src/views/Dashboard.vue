@@ -18,7 +18,6 @@ import Validator from '@/components/dashboard/Validator.vue'
 import EthScaling from '@/components/dashboard/EthScaling.vue'
 import { computed  } from '@vue/reactivity'
 import { useStore } from 'vuex'
-import { useMeta } from 'vue-meta' 
 export default {
   components: {
     Home,
@@ -31,7 +30,6 @@ export default {
   setup() {
     const store = useStore()
     const isApprove = computed(() => store.getters['user/getApprove'])
-    useMeta({ title: 'Some Page' })
     return { isApprove }
   }
 };
