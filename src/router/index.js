@@ -5,19 +5,6 @@ const routes = [
     path: "/",
     name: "dashboard",
     component: () => import('@/views/Dashboard.vue'),
-    meta: {
-      title: 'About Page - Example App',
-      metaTags: [
-        {
-          name: 'description',
-          content: 'The about page of our example app.'
-        },
-        {
-          property: 'og:description',
-          content: 'The about page of our example app.'
-        }
-      ]
-    },
   },
   {
     path: "/validator",
