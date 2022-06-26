@@ -46,14 +46,14 @@
         <div class="flex justify-end p-4" @click="isUser"><button></button><font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" /></div>
         <div class="flex px-8 pb-6">
           <div class="relative">
-            <img src="@/assets/man.jpg" alt="eth" class="w-14 h-14 rounded-full">
-            <div class="absolute bg-brown w-14 h-4 rounded-full top-11 text-sm text-white text-center">{{userInfo?.creadit_score}}</div>
+            <img src="@/assets/man.jpg" alt="eth" class="w-14 h-14 rounded-4xl">
           </div>
           <div class="flex flex-col justify-center ml-4">
             <div>Wallet Adddress</div>
             <div v-if="address">{{`${address.slice(0, -36)}...${address.substring(37)}`}}</div>
             <div v-else>Please connect your wallet</div>
           </div>
+          <div class="absolute bg-brown w-14 h-4 rounded-full top-28 right-8 text-sm text-white text-center flex justify-center items-center"> <div>{{userInfo?.creadit_score}}</div> </div>
         </div> 
         <div class="bg-white rounded-2xl box-shadow m-4 font-bold">
           <div class="p-4">
@@ -185,7 +185,6 @@
                     <button class="bg-red-300 px-3 text-center rounded-full" @click="isConverted = !isConverted">Canel</button>
                   </div>
                 </div> 
-                <!-- :disabled="!isConfirm" -->
               </div>
             </div>
           </div>

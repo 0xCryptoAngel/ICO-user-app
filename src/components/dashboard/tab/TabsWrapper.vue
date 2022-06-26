@@ -38,8 +38,6 @@ provide('selectedTitle', selectedTitle)
   display: flex;
   justify-content: space-between;
   border-radius: 5px 5px 0 0;
-  border-bottom: 1px black solid;
-
 }
 
 .tabs__item {
@@ -60,5 +58,7 @@ provide('selectedTitle', selectedTitle)
 .tabs__content {
   background-color: #fff;
   font-size: 14px;  
+  height: 380px;
+  overflow-y: auto;
 }
 </style>

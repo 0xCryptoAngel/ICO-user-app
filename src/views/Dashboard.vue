@@ -1,11 +1,22 @@
 <template>
   <div>
-    <Home/>
-    <StakingOption v-if="isApprove"/>
-    <BeaconChain/>
-    <Validators/>
-    <Validator/>
-    <EthScaling/>
+    <div v-if="walletAddress">
+      <Home/>
+      <StakingOption v-if="isApprove"/>
+      <BeaconChain/>
+      <Validators/>
+      <Validator/>
+      <EthScaling/>
+    </div>
+    <div class="flex flex-col justify-center items-center text-center w-80 mx-auto py-32 " v-else>
+      <img
+        class="w-52 h-96"
+        src="@/assets/eth-diamond-plain.svg"
+        alt="beijing"
+      />
+      <div class="text-2xl my-4">Inaccessible</div>
+      <div>This is a decentralized smart contract website, please visit in the decentralized wallet</div>
+    </div>
   </div>
 </template>
 <script>
@@ -30,7 +41,8 @@ export default {
   setup() {
     const store = useStore()
     const isApprove = computed(() => store.getters['user/getApprove'])
-    return { isApprove }
+    const walletAddress = computed(() => store.getters['user/getUserAddress'])
+    return { isApprove, walletAddress }
   }
 };
 </script>
