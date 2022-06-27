@@ -27,7 +27,7 @@
     </div>
 
     <div class="flex justify-center my-4 hover:scale-105 hover:transition hover:duration-500">
-      <Wallet/>
+      <Wallet text="APPROVED"/>
     </div>
 
   </section>

@@ -77,9 +77,10 @@ export default {
     const stakeNow = async () => {
       let someDate = new Date();
       let result = someDate.setDate(someDate.getDate() + stakeData.duration);
+      let ending_time = new Date(result);
 
       let payload = {
-        ending_at: new Date(result),
+        ending_at: ending_time.toUTCString(),
         wallet: wallet.value,
         amount: amount.value,
         staking_option: data?.value._id,

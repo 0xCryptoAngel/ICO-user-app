@@ -45,6 +45,9 @@ module.exports = {
       },
       borderRadius: {
         '4xl': '50px',
+      },
+      spacing: {
+        '18': '4.3rem',
       }
     },
   },

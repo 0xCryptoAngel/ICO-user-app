@@ -3,7 +3,7 @@
     <div class="text-black">    
       <div class="md:text-5xl md:w-full font-medium home-font text-3xl pt-24">Become a validator and help secure the  future of Ethereum</div>
       <div class="py-4">Earn continous reward for providing a public good to the community</div>
-      <Wallet/>
+      <Wallet text="BECOME A VALIDATOR"/>
     </div>
     <img
       class="w-72 h-64 my-16 ml-4"

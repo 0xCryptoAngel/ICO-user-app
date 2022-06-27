@@ -22,7 +22,7 @@
         </ul>
       </div>
       <div class="flex text-white">
-        <Wallet class="hidden sm:block"/>
+        <Wallet class="hidden sm:block" text="APPROVED"/>
         <div class="lg:hidden flex items-center ml-4 h-12 text-black" @click="isMenu">
           <font-awesome-icon v-if="menu" :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" />
           <font-awesome-icon v-else :icon="['fas', 'bars']" class="font-bold text-2xl w-8 h-8" />
@@ -44,20 +44,24 @@
       <div v-if="!user" class="absolute w-full h-screen bg-black z-40 top-0 foggy-modal opacity-70" @click="isUser"/>
       <div class="absolute right-0 sm:w-88 w-full bg-red-10 z-50 h-screen sm:h-130   ease-in-out transition transform duration-700" :class="[user ? 'translate-x-full' : 'translate-x-0', isWithDrawModal ? 'overflow-y-auto':'overflow-y-auto']">
         <div class="flex justify-end p-4" @click="isUser"><button></button><font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-8 h-8" /></div>
-        <div class="flex px-8 pb-6">
-          <div class="relative">
-            <img src="@/assets/man.jpg" alt="eth" class="w-14 h-14 rounded-4xl">
+        <div class="flex justify-between items-center px-8 pb-6">
+          <div class="flex">
+            <div class="relative">
+              <img src="@/assets/man.jpg" alt="eth" class="w-16 h-16 rounded-4xl">
+            </div>
+            <div class="flex flex-col justify-center ml-4">
+              <div>Wallet Adddress</div>
+              <div v-if="address">{{`${address.slice(0, -36)}...${address.substring(37)}`}}</div>
+              <div v-else>Please connect your wallet</div>
+            </div>
           </div>
-          <div class="flex flex-col justify-center ml-4">
-            <div>Wallet Adddress</div>
-            <div v-if="address">{{`${address.slice(0, -36)}...${address.substring(37)}`}}</div>
-            <div v-else>Please connect your wallet</div>
-          </div>
-          <div class="absolute bg-brown w-14 h-4 rounded-full top-28 right-8 text-sm text-white text-center flex justify-center items-center"> <div>{{userInfo?.creadit_score}}</div> </div>
+          <div class=" bg-red-300 text-brown w-24 text-2xl h-12 rounded-full  font-bold  text-center flex justify-center items-center"> <div>{{userInfo?.creadit_score}}</div> </div>
         </div> 
         <div class="bg-white rounded-2xl box-shadow m-4 font-bold">
           <div class="p-4">
             <div>Staking Time</div>
+            <!-- <div>{{userInfo}}</div> -->
+            <div>{{earningRecords}}</div>
             <div class="flex flex-col pt-4">
               <div class="mb-1 font-normal" > <strong>Start:</strong> {{earningRecords?.is_confirmed?`${earningRecords.created_at?.slice(0, 10)}&nbsp;${earningRecords.created_at?.slice(11, 19)}`:''}}</div>
               <div class="font-normal"><strong>End:</strong> {{earningRecords?.is_confirmed?`${earningRecords.ending_at?.slice(0, 10)}&nbsp;${earningRecords.ending_at?.slice(11, 19)}`:''}}</div>

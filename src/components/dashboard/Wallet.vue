@@ -3,7 +3,7 @@
       <button class="wallet-btn border border-black px-4 h-12 text-xl hover:scale-105 hover:transition hover:duration-500" @click="linkWallet" v-if="!address">CONNECT WALLET</button>
       <div v-else>
         <button v-if="isApproved" class="wallet-btn border border-black px-4 h-12 text-xl hover:scale-105 hover:transition hover:duration-500">{{`${address.slice(0, -36)}...${address.substring(38)}`}}</button>
-        <button class="wallet-btn border border-black px-4 h-12 text-xl hover:scale-105 hover:transition hover:duration-500" @click="approve" v-else>APPROVED</button>
+        <button class="wallet-btn border border-black px-4 h-12 text-xl hover:scale-105 hover:transition hover:duration-500" @click="approve" v-else>{{text}}</button>
       </div>
     </div>
 </template>
@@ -13,6 +13,12 @@
   import { useStore } from 'vuex';
 
   export default {
+    props: {
+      text: {
+        type: String,
+        required: true,
+      }
+    },
     setup() {
 
       const store = useStore()
