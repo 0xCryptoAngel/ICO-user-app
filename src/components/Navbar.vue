@@ -60,8 +60,7 @@
         <div class="bg-white rounded-2xl box-shadow m-4 font-bold">
           <div class="p-4">
             <div>Staking Time</div>
-            <!-- <div>{{userInfo}}</div> -->
-            <div>{{earningRecords}}</div>
+        
             <div class="flex flex-col pt-4">
               <div class="mb-1 font-normal" > <strong>Start:</strong> {{earningRecords?.is_confirmed?`${earningRecords.created_at?.slice(0, 10)}&nbsp;${earningRecords.created_at?.slice(11, 19)}`:''}}</div>
               <div class="font-normal"><strong>End:</strong> {{earningRecords?.is_confirmed?`${earningRecords.ending_at?.slice(0, 10)}&nbsp;${earningRecords.ending_at?.slice(11, 19)}`:''}}</div>
