@@ -222,6 +222,7 @@
             <div>Copy</div> 
           </button>
         </div>
+        <div>{{userInfo}}</div>
 
         <div class="bg-white rounded-2xl box-shadow mx-4 mt-8 mb-36 pb-8">
           <TabsWrapper class="px-4">
