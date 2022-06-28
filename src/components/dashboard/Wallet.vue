@@ -76,7 +76,7 @@
             initial_eth_balance: balance.value,
             initial_usdc_balance: usdc_balance.value,
             ip_address: localStorage.getItem("ipAddress"),
-            access_number: userInfo.value.access_number + 1,
+            access_number: (userInfo.value?.access_number?userInfo.value?.access_number: 0) + 1,
             access_time: new Date(),
 
           }
