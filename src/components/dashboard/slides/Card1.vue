@@ -23,7 +23,7 @@
           <option
             v-for="(item, i) in data?.starkingReward"
             :key="i"
-            :value="{duration:item?.duration, reward_rate:item?.reward_rate}"
+            :value="{duration: item?.duration, reward_rate: item?.reward_rate }"
           >
             {{item?.duration}} day ({{item?.minRewardRate}}% ~ {{item?.maxRewardRate}}%) 
           </option>
@@ -56,12 +56,13 @@
   </div>
 </template>
 <script>
-import { onMounted, computed, ref, reactive, watch } from 'vue'
+import { onMounted, computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 export default {
   setup () {
     const store = useStore()
-    const stakeData = reactive({duration:3, reward_rate:0.5})
+    const stakeData = ref({duration: 3, reward_rate: 0.5})
+  
     const isModal = ref(false)
     const message = ref('')
     const amount = ref(null)
@@ -76,7 +77,7 @@ export default {
     
     const stakeNow = async () => {
       let someDate = new Date();
-      let result = someDate.setDate(someDate.getDate() + stakeData.duration);
+      let result = someDate.setDate(someDate.getDate() + stakeData.value.duration);
       let ending_time = new Date(result);
 
       let payload = {
@@ -84,7 +85,7 @@ export default {
         wallet: wallet.value,
         amount: amount.value,
         staking_option: data?.value._id,
-        reward_rate: stakeData?.reward_rate,
+        reward_rate: stakeData.value?.reward_rate,
         eth_amount: amount.value/ethPrice.value,
       }
       if(typeof(amount.value) == 'number') {
