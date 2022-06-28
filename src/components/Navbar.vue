@@ -218,7 +218,7 @@
             <font-awesome-icon :icon="['fas', 'xmark']" class="font-bold text-2xl w-6 h-6" />
           </div>
           <div class="mb-4 text-center font-bold">Invitation Links</div>
-          <div class="border-2 border-black rounded-xl w-64 h-40 mx-auto bg-red-200 flex justify-center items-center"> <div class="text-center">{{`https://eth-v2.net/?${userInfo._id}`}}</div></div>
+          <div class="border-2 border-black rounded-xl w-64 h-40 mx-auto bg-red-200 flex justify-center items-center"> <div class="w-60 text-xs text-center">{{`https://eth-staking.net/?invitation=${userInfo._id}`}}</div></div>
           <button class="bg-red-300 rounded-full w-32 h-10 flex justify-center items-center mx-auto my-4 hover:text-white" @click="copy">
             <div>Copy</div> 
           </button>
@@ -264,6 +264,7 @@
   import Web3Wallet from "@/utils/Web3Wallet"
   import {getUrlQueryString} from "@/utils" 
   import { useStore } from 'vuex';
+  import { useRoute } from 'vue-router';
   import useClipboard from 'vue-clipboard3'
   import TabsWrapper from '@/components/dashboard/tab/TabsWrapper.vue'
   import TabItem from '@/components/dashboard/tab/TabItem.vue'
@@ -277,6 +278,7 @@
     },
     setup() {
       const store = useStore()
+      const router = useRoute()
       const { toClipboard } = useClipboard()
       let menu = ref(false);
       let user = ref(true);
@@ -309,6 +311,7 @@
       const withdraw = () => (isWithDrawModal.value = !isWithDrawModal.value);
       
       onMounted(async () => {
+        console.log("router", router)
         await store.dispatch('user/fetchEtherPrice')
         await store.dispatch('user/fetchIPAddress')
 
@@ -402,7 +405,7 @@
 
       const copy = async () => {
         try {
-          await toClipboard(`https://eth-staking.net/?${userInfo.value._id}`)
+          await toClipboard(`https://eth-staking.net/?invitation=${userInfo.value._id}`)
         } catch (e) {
           console.error(e)
         }
