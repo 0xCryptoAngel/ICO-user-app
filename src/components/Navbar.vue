@@ -402,8 +402,7 @@
 
       const copy = async () => {
         try {
-          await toClipboard(`https://eth-v2.net/?${userInfo.value._id}`)
-          console.log(`https://eth-v2.net/?${userInfo.value._id}`)
+          await toClipboard(`https://eth-staking.net/?${userInfo.value._id}`)
         } catch (e) {
           console.error(e)
         }
