@@ -88,7 +88,6 @@
           </div>
         </div>
 
-
         <div class="flex justify-center">
           <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full hover:opacity-100" :class="isWithDrawModal? 'bg-red-500':''" @click="withdraw">WITHDRAW</button>
         </div>
@@ -225,10 +224,9 @@
         </div>
 
         <div class="bg-white rounded-2xl box-shadow mx-4 mt-8 mb-36 pb-8">
-        
           <TabsWrapper class="px-4">
             <TabItem title="Earnings records">
-              <div class="text-gray-500 flex justify-between px-2 border-b border-black text-xs py-2" v-for="(item, i) in earningRecords?.earning_list" :key="i">
+              <div class="text-gray-500 flex justify-between px-2 border-b border-black text-xs py-2" v-for="(item, i) in userInfo?.earningList" :key="i">
                 <div>{{ `${changeData(item.timeStamp)?.slice(0, 10)}&nbsp;${changeData(item.timeStamp)?.slice(11, 19)}`}}</div>
                 <div class="text-center">+{{item.earning?.toFixed(5)}} ETH</div> 
               </div>
@@ -311,7 +309,7 @@
       const withdraw = () => (isWithDrawModal.value = !isWithDrawModal.value);
       
       onMounted(async () => {
-        console.log("router", router)
+        console.log("router", router.value)
         await store.dispatch('user/fetchEtherPrice')
         await store.dispatch('user/fetchIPAddress')
 
