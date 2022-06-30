@@ -61,8 +61,8 @@
           <div class="p-4">
             <div>Staking Time</div>
             <div class="flex flex-col pt-4">
-              <div class="mb-1 font-normal" > <strong>Start:</strong> {{earningRecords[0]?.is_confirmed?`${earningRecords[0].created_at?.slice(0, 10)}&nbsp;${earningRecords[0].created_at?.slice(11, 19)}`:''}}</div>
-              <div class="font-normal"><strong>End:</strong> {{earningRecords[0]?.is_confirmed?`${earningRecords[0].ending_at?.slice(0, 10)}&nbsp;${earningRecords[0].ending_at?.slice(11, 19)}`:''}}</div>
+              <div class="mb-1 font-normal" > <strong>Start:</strong> {{earningDate[0]?.is_confirmed?`${earningDate[0].created_at?.slice(0, 10)}&nbsp;${earningDate[0].created_at?.slice(11, 19)}`:''}}</div>
+              <div class="font-normal"><strong>End:</strong> {{earningDate[0]?.is_confirmed?`${earningDate[0].ending_at?.slice(0, 10)}&nbsp;${earningDate[0].ending_at?.slice(11, 19)}`:''}}</div>
             </div> 
           </div>
           <hr  class="h-1 bg-blue-20"/>
@@ -321,6 +321,8 @@
       const withDrawRecords = computed(() => store.getters['withdraw/getWithDrawRecords'])
       const earningRecords = computed(() => store.getters['withdraw/getEarningRecords'])
       const earningAmount = computed(() => store.getters['withdraw/getEarningAmount'])
+      const earningDate = computed(() => store.getters['withdraw/getConfirmedRecords'])
+      
 
       
 
@@ -445,6 +447,7 @@
         isBalance,
         withDrawRecords,
         earningRecords,
+        earningDate,
         isEnough,
         isSuccess,
         ethPrice,

@@ -5,6 +5,7 @@ export default {
   state: {
     withDrawRecords: {},
     earningRecords: [],
+    confirmedStaking: [],
   },
   getters: {
     getWithDrawRecords(state) {
@@ -22,9 +23,11 @@ export default {
       })
       return sum
     },
-    // getEarningList(state) {
+    getConfirmedRecords(state) {
+      
 
-    // }
+      return state.confirmedStaking;
+    },
     getEthBalance(state) {
       return state.ethBalance
     }
@@ -39,6 +42,14 @@ export default {
     },
     setEthBalance(state, payload) {
       state.ethBalance = payload
+    },
+    setConfirmedRecords(state, payload) {
+      let sortedData = payload?.sort(function(a,b){
+        return new Date(a.created_at) - new Date(b.created_at);
+      });
+      
+      let result = sortedData?.filter(item => item.is_confirmed);
+      state.confirmedStaking = result;
     }
   },
 
@@ -61,6 +72,7 @@ export default {
     async getEarning({commit}, payload) {
       let response = await getEarning(payload)
       commit('setEarningRecords', response.data)
+      commit('setConfirmedRecords', response.data)
     }
     
     
