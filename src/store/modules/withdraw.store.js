@@ -23,9 +23,14 @@ export default {
       })
       return sum
     },
+    getStakingAmount(state) {
+      let sum = 0;
+      state.earningRecords?.map((item)=>{
+          sum = sum + item?.amount
+      })
+      return sum
+    },
     getConfirmedRecords(state) {
-      
-
       return state.confirmedStaking;
     },
     getEthBalance(state) {

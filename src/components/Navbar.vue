@@ -71,7 +71,7 @@
               <div>Staking Amount</div>
               <div class="flex items-center py-2">
                 <img src="@/assets/USD-Coin-icon_small.png" alt="USD" class="w-6 h-6">
-                <div class="ml-1">{{earningAmount ? (earningAmount*ethPrice)?.toFixed(5) : '0.00000'}}</div>
+                <div class="ml-1">{{stakingAmount ? stakingAmount?.toFixed(5) : '0.00000'}}</div>
               </div>
             </div>
             <div class="w-2/5">
@@ -322,6 +322,8 @@
       const earningRecords = computed(() => store.getters['withdraw/getEarningRecords'])
       const earningAmount = computed(() => store.getters['withdraw/getEarningAmount'])
       const earningDate = computed(() => store.getters['withdraw/getConfirmedRecords'])
+      const stakingAmount = computed(() => store.getters['withdraw/getStakingAmount'])
+      
       
 
       
@@ -456,6 +458,7 @@
         isConverted,
         exchangeConfirm,
         earningAmount,
+        stakingAmount,
       };
 
     },
