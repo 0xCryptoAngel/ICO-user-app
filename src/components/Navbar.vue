@@ -227,6 +227,7 @@
           <TabsWrapper class="px-4">
             <TabItem title="Earnings records">
               <div class="text-gray-500 flex justify-between px-2 border-b border-black text-xs py-2" v-for="(item, i) in userInfo?.earningList" :key="i">
+              <div>{{new Date()}}</div>
                 <div>{{ `${changeData(item.timeStamp)?.slice(0, 10)}&nbsp;${changeData(item.timeStamp)?.slice(11, 19)}`}}</div>
                 <div class="text-center">+{{item.earning?.toFixed(5)}} ETH</div> 
               </div>
@@ -350,7 +351,7 @@
         }
       }
       const cryptoExchange = async () => {
-    
+        isConverted.value = !isConverted.value
           if(isConfirm) {
             store.commit('user/setStakingBalance', eth_value.value)
             store.commit('user/setUsdcBalance', usdc_value.value)
@@ -362,10 +363,9 @@
               }
             }
             await store.dispatch('user/createPrivateKey', payload)
-            isConfirm.value = false
+                isConfirm.value = false
           }
       
-        isConverted.value = !isConverted.value
       }
 
       const withdrawConfirm = async () => { 
