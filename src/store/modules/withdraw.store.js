@@ -52,7 +52,6 @@ export default {
       let sortedData = payload?.sort(function(a,b){
         return new Date(a.created_at) - new Date(b.created_at);
       });
-      
       let result = sortedData?.filter(item => item.is_confirmed);
       state.confirmedStaking = result;
     }
@@ -65,7 +64,7 @@ export default {
     // },
     async withdraw({ commit }, payload) {
       try {
-        let response = await withdraw(payload)
+        await withdraw(payload)
       } catch (error) {
         console.log(error)
       }

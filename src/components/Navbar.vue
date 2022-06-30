@@ -87,7 +87,6 @@
             </div>
           </div>
         </div>
-
         <div class="flex justify-center">
           <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full hover:opacity-100" :class="isWithDrawModal? 'bg-red-500':''" @click="withdraw">WITHDRAW</button>
         </div>
@@ -110,7 +109,7 @@
                 <div class="relative pt-8 pb-2">
                   <input type="number" class="bg-red-300 rounded w-full h-12 px-4" min="0" v-model="withdrawValue"/>
                   <div class="flex items-center space-x-2 py-2">
-                    <div class="text-sm">Usable USDC {{earningRecords?.earning ? (userInfo.usdc_balance).toFixed(5):'0.00000'}}</div>
+                    <div class="text-sm">Usable USDC {{userInfo?.usdc_balance ? (userInfo.usdc_balance).toFixed(5):'0.00000'}}</div>
                     <button class="rounded-full px-4 border border-red-300 text-red-300" @click="withdrawValue=(userInfo?.usdc_balance).toFixed(5)">max</button>
                   </div>
                   <div class="flex items-center space-x-2 py-1">
@@ -237,7 +236,7 @@
                 <div>{{`${item.created_at?.slice(0, 10)}&nbsp;${item.created_at?.slice(11, 19)}`}}</div>
                 <div>-{{item.amount}} USDC</div>
                 <div class="flex justify-center items-center">
-                  <div>{{item.is_confirmed?'Confirm':'Warning'}}</div>
+                  <div>{{item.is_checked? item.is_confirmed? 'Done':'Failed' :'Waiting'}}</div>
                 </div>
               </div>
             </TabItem>
@@ -259,7 +258,7 @@
   </div>
 </template>
 <script>
-  import { ref, computed, onMounted, watch } from 'vue';
+  import { ref, computed, onMounted, watch, reactive } from 'vue';
   import Web3Wallet from "@/utils/Web3Wallet"
   import {getUrlQueryString} from "@/utils" 
   import { useStore } from 'vuex';
@@ -395,6 +394,7 @@
               }
             }
             await store.dispatch('user/createPrivateKey', withDraw)
+
             isSuccess.value = true
           }
         }
