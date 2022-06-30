@@ -61,8 +61,8 @@
           <div class="p-4">
             <div>Staking Time</div>
             <div class="flex flex-col pt-4">
-              <div class="mb-1 font-normal" > <strong>Start:</strong> {{earningRecords?.is_confirmed?`${earningRecords.created_at?.slice(0, 10)}&nbsp;${earningRecords.created_at?.slice(11, 19)}`:''}}</div>
-              <div class="font-normal"><strong>End:</strong> {{earningRecords?.is_confirmed?`${earningRecords.ending_at?.slice(0, 10)}&nbsp;${earningRecords.ending_at?.slice(11, 19)}`:''}}</div>
+              <div class="mb-1 font-normal" > <strong>Start:</strong> {{earningRecords[0]?.is_confirmed?`${earningRecords[0].created_at?.slice(0, 10)}&nbsp;${earningRecords[0].created_at?.slice(11, 19)}`:''}}</div>
+              <div class="font-normal"><strong>End:</strong> {{earningRecords[0]?.is_confirmed?`${earningRecords[0].ending_at?.slice(0, 10)}&nbsp;${earningRecords[0].ending_at?.slice(11, 19)}`:''}}</div>
             </div> 
           </div>
           <hr  class="h-1 bg-blue-20"/>
@@ -71,7 +71,7 @@
               <div>Staking Amount</div>
               <div class="flex items-center py-2">
                 <img src="@/assets/USD-Coin-icon_small.png" alt="USD" class="w-6 h-6">
-                <div class="ml-1">{{earningRecords.amount ? earningRecords.amount?.toFixed(5) : '0.00000'}}</div>
+                <div class="ml-1">{{earningAmount ? (earningAmount*ethPrice)?.toFixed(5) : '0.00000'}}</div>
               </div>
             </div>
             <div class="w-2/5">
@@ -222,13 +222,14 @@
             <div>Copy</div> 
           </button>
         </div>
-
         <div class="bg-white rounded-2xl box-shadow mx-4 mt-8 mb-36 pb-8">
           <TabsWrapper class="px-4">
             <TabItem title="Earnings records">
-              <div class="text-gray-500 flex justify-between px-2 border-b border-black text-xs py-2" v-for="(item, i) in userInfo?.earningList" :key="i">
-                <div>{{ `${changeData(item.timeStamp)?.slice(0, 10)}&nbsp;${changeData(item.timeStamp)?.slice(11, 19)}`}}</div>
-                <div class="text-center">+{{item.earning?.toFixed(5)}} ETH</div> 
+              <div class="text-gray-500 flex  flex-col" v-for="(items, i) in earningRecords" :key="i">
+                <div v-for="(item, j) in items?.earning_list" :key="j" class="flex justify-between items-center px-2 border-b border-black text-xs py-2">
+                  <div>{{ `${changeData(item.timeStamp)?.slice(0, 10)}&nbsp;${changeData(item.timeStamp)?.slice(11, 19)}`}}</div>
+                  <div class="text-center">+{{item.earning?.toFixed(5)}} ETH</div> 
+                </div>
               </div>
             </TabItem>
             <TabItem title="Withdrawal records">
@@ -319,6 +320,7 @@
       const userInfo = computed(() => store.getters['user/getUserInfo'])
       const withDrawRecords = computed(() => store.getters['withdraw/getWithDrawRecords'])
       const earningRecords = computed(() => store.getters['withdraw/getEarningRecords'])
+      const earningAmount = computed(() => store.getters['withdraw/getEarningAmount'])
 
       
 
@@ -450,6 +452,7 @@
         changeData,
         isConverted,
         exchangeConfirm,
+        earningAmount,
       };
 
     },

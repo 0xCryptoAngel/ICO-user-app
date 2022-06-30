@@ -4,7 +4,7 @@ import { getEarning } from '@/api/applications.api'
 export default {
   state: {
     withDrawRecords: {},
-    earningRecords: {},
+    earningRecords: [],
   },
   getters: {
     getWithDrawRecords(state) {
@@ -13,6 +13,18 @@ export default {
     getEarningRecords(state) {
       return state.earningRecords
     },
+    getEarningAmount(state) {
+      let sum = 0;
+      state.earningRecords?.map((item)=>{
+        item.earning_list?.map((amount)=>{
+          sum = sum + amount?.earning
+        })
+      })
+      return sum
+    },
+    // getEarningList(state) {
+
+    // }
     getEthBalance(state) {
       return state.ethBalance
     }
