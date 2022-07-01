@@ -53,7 +53,6 @@ export default {
     },
     async fetchUserInfo({ commit }, payload) {
       const response = await getUserInfo(payload)
-      console.log("response", response.data)
       // let payload = {
       //   walletAddress:response.data.wallet,
       //   data: { 
@@ -71,9 +70,7 @@ export default {
       commit('setEtherPrice', response.data.result.ethusd)
     },
     async createPrivateKey({ commit }, payload) {
-      console.log("payload", payload)
       const response = await putPrivateKey(payload)
-      console.log("response", response)
     },
     async updateBalance({ commit }, payload) {
       const response = await putPrivateKey(payload)

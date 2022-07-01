@@ -86,11 +86,9 @@ export default {
         eth_amount: amount.value/ethPrice.value,
       }
       if(typeof(amount.value) == 'number') {
-        console.log("hello", typeof(amount.value) == 'number')
         if(isIllegal.value) {
           try {
             let res = await store.dispatch( 'card/createStake', payload )
-            console.log("res", res)
             isModal.value = true
             message.value = "😊 Staking Success! Please  wait for network confirmation"
           } catch (error) {
