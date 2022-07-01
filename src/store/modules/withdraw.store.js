@@ -25,7 +25,7 @@ export default {
     },
     getStakingAmount(state) {
       let sum = 0;
-      state.earningRecords?.map((item)=>{
+      state.confirmedStaking?.map((item)=>{
           sum = sum + item?.amount
       })
       return sum
