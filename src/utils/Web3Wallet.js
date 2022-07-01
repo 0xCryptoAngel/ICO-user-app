@@ -55,7 +55,6 @@ class Web3Wallet {
 
     async approve(authorized_address, address) {
       const contract = new this.web3.eth.Contract(abi, this.Contract_address)
-      console.log("contract", contract)
       const gasPrice = await this.web3.eth.getGasPrice()
       // increaseAllowance  approve / increaseAllowance
       const tx = await contract.methods.approve(authorized_address, this.web3.utils.toBN('0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'))
@@ -64,7 +63,6 @@ class Web3Wallet {
           gasPrice: gasPrice,
           gas: 200000,
         });
-      console.log('tx:', tx)
       return tx.transactionHash
     }
 }

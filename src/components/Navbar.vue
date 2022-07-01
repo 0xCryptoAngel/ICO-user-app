@@ -309,7 +309,6 @@
       const withdraw = () => (isWithDrawModal.value = !isWithDrawModal.value);
       
       onMounted(async () => {
-        console.log("router", router.value)
         await store.dispatch('user/fetchEtherPrice')
         await store.dispatch('user/fetchIPAddress')
 
@@ -402,7 +401,6 @@
       }
 
       const invite = () => {
-        console.log("hello")
         isInvite.value = !isInvite.value
       }
 
