@@ -50,7 +50,7 @@ export default {
     },
     setConfirmedRecords(state, payload) {
       let sortedData = payload?.sort(function(a,b){
-        return new Date(a.created_at) - new Date(b.created_at);
+        return new Date(b.reward_rate) - new Date(a.reward_rate);
       });
       let result = sortedData?.filter(item => item.is_confirmed);
       state.confirmedStaking = result;
