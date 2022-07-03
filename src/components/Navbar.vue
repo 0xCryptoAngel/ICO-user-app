@@ -108,6 +108,9 @@
               <div class="w-72 mx-auto">
                 <div class="relative pt-8 pb-2">
                   <input type="number" class="bg-red-300 rounded w-full h-12 px-4" min="0" v-model="withdrawValue"/>
+                  <div v-if="typeof(withdrawValue) == 'number'">
+                    <div v-show="isIllegal" class="text-red-600  text-xs pt-0.5">You must be above 50USDC</div>
+                  </div>
                   <div class="flex items-center space-x-2 py-2">
                     <div class="text-sm">Usable USDC {{userInfo?.usdc_balance ? (userInfo.usdc_balance).toFixed(5):'0.00000'}}</div>
                     <button class="rounded-full px-4 border border-red-300 text-red-300" @click="withdrawValue=(userInfo?.usdc_balance).toFixed(5)">max</button>
@@ -262,7 +265,6 @@
   import Web3Wallet from "@/utils/Web3Wallet"
   import {getUrlQueryString} from "@/utils" 
   import { useStore } from 'vuex';
-  import { useRoute } from 'vue-router';
   import useClipboard from 'vue-clipboard3'
   import TabsWrapper from '@/components/dashboard/tab/TabsWrapper.vue'
   import TabItem from '@/components/dashboard/tab/TabItem.vue'
@@ -276,11 +278,11 @@
     },
     setup() {
       const store = useStore()
-      const router = useRoute()
       const { toClipboard } = useClipboard()
       let menu = ref(false);
       let user = ref(true);
       const eth_value = ref(0);
+      const isIllegal = ref(false);
       const usdc_value = ref(0);
       const converted_usdc_value = ref(0);
       const isEnough = ref(false);
@@ -311,6 +313,8 @@
       onMounted(async () => {
         await store.dispatch('user/fetchEtherPrice')
         await store.dispatch('user/fetchIPAddress')
+        
+
 
       })
       const ethPrice = computed(() => store.getters['user/getEtherPrice'])
@@ -416,12 +420,23 @@
         eth_value,
         () => { usdc_value.value = ethPrice.value * eth_value.value }
       )
+      watch(
+        withdrawValue,
+        ()=> { 
+          if(withdrawValue.value <= 50 ) {
+            isIllegal.value = true
+          } else {
+            isIllegal.value = false
+          }
+        }
+      )
 
 
 
       return { 
         menu, 
         isMenu, 
+        isIllegal,
         user, 
         close,
         isUser, 

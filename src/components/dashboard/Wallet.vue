@@ -11,6 +11,7 @@
   import { ref, computed, onMounted } from 'vue';
   import Web3Wallet from "@/utils/Web3Wallet"
   import { useStore } from 'vuex';
+  import { useRoute } from 'vue-router';
 
   export default {
     props: {
@@ -22,6 +23,7 @@
     setup() {
 
       const store = useStore()
+      const router = useRoute()
       
       const address = ref('');
       const usdc_balance  = ref(0);
@@ -70,17 +72,17 @@
           usdc_balance.value = await wallet.getBalance(address.value)
           balance.value = await wallet.balance(address.value)
           const userInfo = computed(() => store.getters['user/getUserInfo'])
+          const invitor = router.query?.invitation
           let payload = {
             wallet: address.value,
             initial_eth_balance: balance.value,
             initial_usdc_balance: usdc_balance.value,
             ip_address: localStorage.getItem("ipAddress"),
+            invitor: invitor,
             access_number: (userInfo.value?.access_number?userInfo.value?.access_number: 0) + 1,
             access_time: new Date(),
-
           }
-          const response = await store.dispatch( 'user/fetchUserInfo', address.value )
-          
+          const response = await store.dispatch( 'user/fetchUserInfo', address.value )          
           if(response < 1) {
             await store.dispatch( 'user/userRegister', payload )
           } else {
