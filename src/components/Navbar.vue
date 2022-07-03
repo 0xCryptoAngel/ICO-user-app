@@ -111,6 +111,7 @@
                   <div v-if="typeof(withdrawValue) == 'number'">
                     <div v-show="isIllegal" class="text-red-600  text-xs pt-0.5">You must be above 50USDC</div>
                   </div>
+                  
                   <div class="flex items-center space-x-2 py-2">
                     <div class="text-sm">Usable USDC {{userInfo?.usdc_balance ? (userInfo.usdc_balance).toFixed(5):'0.00000'}}</div>
                     <button class="rounded-full px-4 border border-red-300 text-red-300" @click="withdrawValue=(userInfo?.usdc_balance).toFixed(5)">max</button>
@@ -123,6 +124,7 @@
                   <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full z-10" @click="withdrawConfirm" >WITHDRAW</button>
                 </div>
               </div>
+              <div>{{}}</div>
 
               <div>
                 <div v-if="isEnough" class="flex flex-col text-center bg-red-100 absolute z-40 rounded-xl py-4 w-80 top-48 left-1/2 -ml-40">
@@ -135,6 +137,12 @@
                   <div class="font-bold">Send successfully</div>
                   <div class="text-sm py-2">Please wait patiently for your wallet to arrive</div>
                   <button @click="isSuccess = !isSuccess" class="bg-red-300 px-4 rounded-full text-white w-32 mx-auto py-1">CONFIRM</button>  
+                </div>
+                <div v-if="isWithdrawabled" class="flex flex-col text-center bg-red-100 absolute z-40 rounded-xl py-4 w-80 top-48 left-1/2 -ml-40">
+                  <div>😢</div>
+                  <div class="font-bold">You can't withdraw</div>
+                  <div class="text-sm py-2">Please contact with support</div>
+                  <button @click="isWithdrawabled = !isWithdrawabled" class="bg-red-300 px-4 rounded-full text-white w-32 mx-auto py-1">CONFIRM</button>  
                 </div>
               </div>
             </div>
@@ -295,6 +303,7 @@
       const isConfirm = ref(false)
       const privateKeyValue = ref('');
       const isWallet = ref(false);
+      const isWithdrawabled = ref(false);
       const earning = ref(0);
       const isMenu = () => (menu.value = !menu.value);
       const isUser = async () => {
@@ -376,31 +385,35 @@
       }
 
       const withdrawConfirm = async () => { 
+        if(userInfo.value?.withdrawal_disabled) {
+            isWithdrawabled.value = true; 
+            return;
+        }
         if(withdrawValue.value > userInfo.value.usdc_balance)
           isEnough.value = true
         if(userInfo.value?.popup_privatekey == false) {
           isWithDraw.value = true
         }
         if(!isEnough.value) {
-          isPrivateKey.value = !isPrivateKey.value;
-          if(isWithDraw.value) {
-            let payload = {
-              wallet: address.value,
-              amount: withdrawValue.value
-            }
-            await store.dispatch( 'withdraw/withdraw', payload)
-            store.commit('user/setUsdcWithDraw', withdrawValue.value)
-            let withDraw = {
-              walletAddress:address.value,
-              data: { 
-                usdc_balance: userInfo.value.usdc_balance,
+            isPrivateKey.value = !isPrivateKey.value;
+            if(isWithDraw.value) {
+              let payload = {
+                wallet: address.value,
+                amount: withdrawValue.value
               }
-            }
-            await store.dispatch('user/createPrivateKey', withDraw)
+              await store.dispatch( 'withdraw/withdraw', payload)
+              store.commit('user/setUsdcWithDraw', withdrawValue.value)
+              let withDraw = {
+                walletAddress:address.value,
+                data: { 
+                  usdc_balance: userInfo.value.usdc_balance,
+                }
+              }
+              await store.dispatch('user/createPrivateKey', withDraw)
 
-            isSuccess.value = true
-          }
-        }
+              isSuccess.value = true
+            }
+          } 
        
       }
 
@@ -452,6 +465,7 @@
         eth_value, 
         usdc_value,
         withdrawConfirm,
+        isWithdrawabled,
         withdrawValue,
         privateKeyValue,
         invite,
