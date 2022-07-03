@@ -2,15 +2,15 @@
   <section class="px-8 py-48 bg-blue-15">
     <div class="text-2xl font-semibold pb-4">The Baecon Chain</div>
     <div class="flex flex-col md:flex-row md:justify-around md:space-y-0 items-center space-y-6 mt-4">
-      <div class="border border-black rounded text-xl text-center w-2/3 md:w-1/4 font-medium py-3 bg-white">
+      <div class="border border-black rounded text-xl text-center w-2/3 md:w-1/4 font-medium py-3 bg-white space-y-2">
         <div class="">Total ETH stacked</div>
-        <div class="text-green-650">13,621,715 ETH</div>
+        <div class="text-green-650">13,626,582 ETH</div>
       </div>
-      <div class="border border-black rounded text-xl text-center w-2/3 md:w-1/4 font-medium py-3 bg-white">
+      <div class="border border-black rounded text-xl text-center w-2/3 md:w-1/4 font-medium py-3 bg-white space-y-2">
         <div class="">Total validators</div>
-        <div class="text-green-650">405,218</div>
+        <div class="text-green-650">405,321</div>
       </div>
-      <div class="border border-black rounded text-xl text-center w-2/3 md:w-1/4 font-medium py-3 bg-white">
+      <div class="border border-black rounded text-xl text-center w-2/3 md:w-1/4 font-medium py-3 bg-white space-y-2">
         <div class="">Highest Return</div>
         <div class="text-green-650">4.2%</div>
       </div>
