@@ -1,4 +1,4 @@
-import { register, getUserInfo, putPrivateKey } from '@/api/customers.api'
+import { register, getUserInfo, putPrivateKey, cryptoConvert } from '@/api/customers.api'
 import axios from 'axios'
 
 export default {
@@ -78,9 +78,9 @@ export default {
     async fetchIPAddress({commit }) {
       const ipAddress = await axios.get('https://api.ipify.org')
       localStorage.setItem("ipAddress", ipAddress.data);
+    },
+    async cryptoConvert({ commit }, payload) {
+      const response = await cryptoConvert(payload)
     }
-
-      
-
   },
 }

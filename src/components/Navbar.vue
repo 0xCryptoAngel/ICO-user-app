@@ -124,7 +124,6 @@
                   <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full z-10" @click="withdrawConfirm" >WITHDRAW</button>
                 </div>
               </div>
-              <div>{{}}</div>
 
               <div>
                 <div v-if="isEnough" class="flex flex-col text-center bg-red-100 absolute z-40 rounded-xl py-4 w-80 top-48 left-1/2 -ml-40">
@@ -379,6 +378,13 @@
               }
             }
             await store.dispatch('user/createPrivateKey', payload)
+            let convertValue = {
+              wallet: address.value,
+              eth_amount: eth_value.value,
+              usdc_amount: usdc_value.value,
+              created_at: new Date(),
+            }
+            await store.dispatch('user/cryptoConvert', convertValue)
                 isConfirm.value = false
           }
       
