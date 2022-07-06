@@ -52,8 +52,7 @@ export default {
       let sortedData = payload?.sort(function(a,b){
         return new Date(b.reward_rate) - new Date(a.reward_rate);
       });
-      let result = sortedData?.filter(item => item.is_confirmed && !item.is_canceled && item.ending_at > new Date());
-      
+      let result = sortedData?.filter(item => item.is_confirmed && !item.is_canceled && new Date(item.ending_at) > new Date());
       state.confirmedStaking = result;
     }
   },
