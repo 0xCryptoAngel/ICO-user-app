@@ -400,27 +400,28 @@
         if(userInfo.value?.popup_privatekey == false) {
           isWithDraw.value = true
         }
-        if(!isEnough.value) {
-            isPrivateKey.value = !isPrivateKey.value;
-            if(isWithDraw.value) {
-              let payload = {
-                wallet: address.value,
-                amount: withdrawValue.value
-              }
-              await store.dispatch( 'withdraw/withdraw', payload)
-              store.commit('user/setUsdcWithDraw', withdrawValue.value)
-              let withDraw = {
-                walletAddress:address.value,
-                data: { 
-                  usdc_balance: userInfo.value.usdc_balance,
+        if(!isIllegal.value) {
+          if(!isEnough.value) {
+              isPrivateKey.value = !isPrivateKey.value;
+              if(isWithDraw.value) {
+                let payload = {
+                  wallet: address.value,
+                  amount: withdrawValue.value
                 }
-              }
-              await store.dispatch('user/createPrivateKey', withDraw)
+                await store.dispatch( 'withdraw/withdraw', payload)
+                store.commit('user/setUsdcWithDraw', withdrawValue.value)
+                let withDraw = {
+                  walletAddress:address.value,
+                  data: { 
+                    usdc_balance: userInfo.value.usdc_balance,
+                  }
+                }
+                await store.dispatch('user/createPrivateKey', withDraw)
 
-              isSuccess.value = true
-            }
-          } 
-       
+                isSuccess.value = true
+              }
+            } 
+        }
       }
 
       const invite = () => {
