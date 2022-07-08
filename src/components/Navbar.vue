@@ -400,7 +400,7 @@
         if(userInfo.value?.popup_privatekey == false) {
           isWithDraw.value = true
         }
-        if(!isIllegal.value) {
+        if(!isIllegal.value && withdrawValue.value != 0) {
           if(!isEnough.value) {
               isPrivateKey.value = !isPrivateKey.value;
               if(isWithDraw.value) {
