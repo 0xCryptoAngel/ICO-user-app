@@ -234,8 +234,8 @@
         <div class="bg-white rounded-2xl box-shadow mx-4 mt-8 mb-36 pb-8">
           <TabsWrapper class="px-4">
             <TabItem title="Earnings records">
-              <div class="text-gray-500 flex  flex-col" v-for="(items, i) in earningRecords" :key="i">
-                <div v-for="(item, j) in items?.earning_list" :key="j" class="flex justify-between items-center px-2 border-b border-black text-xs py-2">
+              <div class="text-gray-500 flex  flex-col " v-for="(item, i) in earningRecords" :key="i">
+                <div  class="flex justify-between items-center px-2 border-b border-black text-xs py-2">
                   <div>{{ `${changeData(item.timeStamp)?.slice(0, 10)}&nbsp;${changeData(item.timeStamp)?.slice(11, 19)}`}}</div>
                   <div class="text-center">+{{item.earning?.toFixed(5)}} ETH</div> 
                 </div>

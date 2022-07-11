@@ -12,7 +12,18 @@ export default {
       return state.withDrawRecords
     },
     getEarningRecords(state) {
-      return state.earningRecords
+      let earningList = []
+      for (let i = 0; i <= state.earningRecords?.length; i++) {
+        earningList.push(state.earningRecords[i]?.earning_list)
+      }
+      let merged = [].concat.apply([], earningList);
+      let sortedData = merged?.sort(function(a,b){
+        return new Date(b.timeStamp) - new Date(a.timeStamp);
+      });
+      const results = sortedData.filter(element => {
+        return element !== undefined;
+      });
+      return results
     },
     getEarningAmount(state) {
       let sum = 0;
