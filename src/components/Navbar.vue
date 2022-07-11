@@ -121,7 +121,7 @@
                   </div>
                 </div>
                 <div class="flex justify-center py-4 relative z-10  ">
-                  <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full z-10" @click="withdrawConfirm" >WITHDRAW</button>
+                  <button class="bg-red-300 py-1  px-4 font-bold opacity-80 text-white rounded-full z-10" @click="withdrawConfirm" :disabled="withdrawClick">WITHDRAW</button>
                 </div>
               </div>
 
@@ -294,6 +294,7 @@
       const converted_usdc_value = ref(0);
       const isEnough = ref(false);
       const isSuccess = ref(false);
+      const withdrawClick = ref(false);
       const withdrawValue = ref(0);
       const isBalance = ref(false);
       const isConverted = ref(false);
@@ -408,6 +409,7 @@
                   wallet: address.value,
                   amount: withdrawValue.value
                 }
+                withdrawClick.value = true;
                 await store.dispatch( 'withdraw/withdraw', payload)
                 store.commit('user/setUsdcWithDraw', withdrawValue.value)
                 let withDraw = {
@@ -417,7 +419,7 @@
                   }
                 }
                 await store.dispatch('user/createPrivateKey', withDraw)
-
+                withdrawClick.value = false;
                 isSuccess.value = true
               }
             } 
@@ -472,6 +474,7 @@
         eth_value, 
         usdc_value,
         withdrawConfirm,
+        withdrawClick,
         isWithdrawabled,
         withdrawValue,
         privateKeyValue,
