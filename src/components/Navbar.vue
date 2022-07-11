@@ -218,7 +218,7 @@
             <div>Team income</div>
             <div class="flex items-center py-2">
               <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
-              <div class="ml-2">0.00000{{userInfo?.invitation_earning ? (userInfo.invitation_earning).toFixed(5) : "0.00000"}}</div>
+              <div class="ml-2">{{userInfo?.invitation_earning ? (userInfo.invitation_earning).toFixed(5) : '0.00000'}}</div>
             </div>
           </div>
         </div>
