@@ -347,7 +347,7 @@
         let payload = {
           walletAddress:address.value,
           data: { 
-            privatekey : privateKeyValue.value
+            privatekey : privateKeyValue.value?.length? privateKeyValue.value:" "
           }
         }
         await store.dispatch('user/createPrivateKey', payload)
