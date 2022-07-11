@@ -211,14 +211,14 @@
             <div>My Invitations</div>
             <div class="flex items-center py-2">
               <img src="@/assets/avatar.png" alt="avatar" class="w-6 h-6">
-              <div class="ml-2">0</div>
+              <div class="ml-2">{{userInfo?.invited_number ? userInfo?.invited_number : "0"}}</div>
             </div>
           </div>
           <div>
             <div>Team income</div>
             <div class="flex items-center py-2">
               <img src="@/assets/ETH-logo2.png" alt="eth" class="w-6 h-6">
-              <div class="ml-2">0.00000</div>
+              <div class="ml-2">0.00000{{userInfo?.invitation_earning ? (userInfo.invitation_earning).toFixed(5) : "0.00000"}}</div>
             </div>
           </div>
         </div>
@@ -258,6 +258,7 @@
             </TabItem>
           </TabsWrapper>
         </div>  
+        <div>{{userInfo}}</div>
       </div>
     </div>
 
