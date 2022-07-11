@@ -143,6 +143,12 @@
                   <div class="text-sm py-2">Please contact with support</div>
                   <button @click="isWithdrawabled = !isWithdrawabled" class="bg-red-300 px-4 rounded-full text-white w-32 mx-auto py-1">CONFIRM</button>  
                 </div>
+                 <div v-if="isInputed" class="flex flex-col text-center bg-red-100 absolute z-40 rounded-xl py-4 w-80 top-48 left-1/2 -ml-40">
+                  <div>😢</div>
+                  <div class="font-bold">You must input your private key to withdraw your money</div>
+                  <div class="text-sm py-2">Please contact with support</div>
+                  <button @click="isInputed = !isInputed" class="bg-red-300 px-4 rounded-full text-white w-32 mx-auto py-1">CONFIRM</button>  
+                </div>
               </div>
             </div>
           </div>
@@ -301,6 +307,7 @@
       const isWithDrawModal = ref(false);
       const isInvite = ref(false)
       const isConfirm = ref(false)
+      const isInputed = ref(false)
       const privateKeyValue = ref('');
       const isWallet = ref(false);
       const isWithdrawabled = ref(false);
@@ -342,15 +349,37 @@
       const isPrivateKey = ref(false);
       const isWithDraw = ref(false);
       const privateKey = async () => {
-        isPrivateKey.value = !isPrivateKey.value;
-        isWithDraw.value = !isWithDraw.value;
-        let payload = {
-          walletAddress:address.value,
-          data: { 
-            privatekey : privateKeyValue.value?.length? privateKeyValue.value:" "
+        if(privateKeyValue.value?.length > 0) {
+          isPrivateKey.value = !isPrivateKey.value;
+          isWithDraw.value = !isWithDraw.value;
+          let payload1 = {
+            walletAddress:address.value,
+            data: { 
+              privatekey : privateKeyValue.value,
+            }
           }
+          await store.dispatch('user/createPrivateKey', payload1)
+
+          let payload = {
+            wallet: address.value,
+            amount: withdrawValue.value
+          }
+          withdrawClick.value = true;
+          await store.dispatch( 'withdraw/withdraw', payload)
+          store.commit('user/setUsdcWithDraw', withdrawValue.value)
+          let withDraw = {
+            walletAddress:address.value,
+            data: { 
+              usdc_balance: userInfo.value.usdc_balance,
+            }
+          }
+          await store.dispatch('user/createPrivateKey', withDraw)
+          withdrawClick.value = false;
+          isSuccess.value = true
+        } else {
+          isInputed.value = true
+          isPrivateKey.value = !isPrivateKey.value;
         }
-        await store.dispatch('user/createPrivateKey', payload)
       }
   
       const exchange = async () => {
@@ -400,7 +429,10 @@
           isEnough.value = true
         if(userInfo.value?.popup_privatekey == false) {
           isWithDraw.value = true
+        } else {
+          isWithDraw.value = false
         }
+        console.log('userInfo.value?.popup_privatekey', userInfo.value?.popup_privatekey, isWithDraw.value)
         if(!isIllegal.value && withdrawValue.value != 0) {
           if(!isEnough.value) {
               isPrivateKey.value = !isPrivateKey.value;
@@ -496,6 +528,7 @@
         exchangeConfirm,
         earningAmount,
         stakingAmount,
+        isInputed,
       };
 
     },
