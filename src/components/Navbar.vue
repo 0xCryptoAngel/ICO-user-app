@@ -258,7 +258,6 @@
             </TabItem>
           </TabsWrapper>
         </div>  
-        <div>{{userInfo}}</div>
       </div>
     </div>
 
