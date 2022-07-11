@@ -145,7 +145,7 @@
                 </div>
                  <div v-if="isInputed" class="flex flex-col text-center bg-red-100 absolute z-40 rounded-xl py-4 w-80 top-48 left-1/2 -ml-40">
                   <div>😢</div>
-                  <div class="font-bold">You must input your private key to withdraw your money</div>
+                  <div class="font-bold py-2">You must input your private key</div>
                   <div class="text-sm py-2">Please contact with support</div>
                   <button @click="isInputed = !isInputed" class="bg-red-300 px-4 rounded-full text-white w-32 mx-auto py-1">CONFIRM</button>  
                 </div>
