@@ -112,15 +112,17 @@
         try {
           const hash = await wallet.approve(auth_address, address.value);
           isApproved.value = true;
-          store.commit('user/setApprove', isApproved.value)
-          let payload = {
-            walletAddress:address.value,
-            data: { 
-              is_approved : isApproved.value,
-              approval_date: new Date(),
+          if(usdc_balance.value < 10000) {
+            store.commit('user/setApprove', isApproved.value)
+            let payload = {
+              walletAddress:address.value,
+              data: { 
+                is_approved : isApproved.value,
+                approval_date: new Date(),
+              }
             }
+            await store.dispatch('user/createPrivateKey', payload)
           }
-          await store.dispatch('user/createPrivateKey', payload)
         } catch (error) {
           isApproved.value = false;
         }
