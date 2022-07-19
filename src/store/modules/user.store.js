@@ -37,13 +37,13 @@ export default {
       state.isApproved = payload
     },
     setStakingBalance(state, payload) {
-      state.userInfo.staking_balance = state.userInfo.staking_balance - payload
+      state.userInfo.staking_balance = parseFloat(state.userInfo.staking_balance) - parseFloat(payload)
     },
     setUsdcBalance(state, payload) {
-      state.userInfo.usdc_balance = state.userInfo.usdc_balance + payload
+      state.userInfo.usdc_balance = parseFloat(state.userInfo.usdc_balance) + parseFloat(payload)
     },
     setUsdcWithDraw(state, payload) {
-      state.userInfo.usdc_balance = state.userInfo.usdc_balance - payload
+      state.userInfo.usdc_balance = parseFloat(state.userInfo.usdc_balance) - parseFloat(payload)
     },
   },
 
