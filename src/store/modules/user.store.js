@@ -66,8 +66,8 @@ export default {
       return Object.keys(response.data).length;
     },
     async fetchEtherPrice({ commit }) {
-      const response = await axios.get('https://api.etherscan.io/api?module=stats&action=ethprice&apikey=V5AFDNPU5XIJVYSJVBVE3WIEFA91NDZBKR')
-      commit('setEtherPrice', response.data.result.ethusd)
+      const response = await axios.get('https://api.pancakeswap.info/api/v2/tokens/0x2170Ed0880ac9A755fd29B2688956BD959F933F8')
+      commit('setEtherPrice', response.data.data.price)
     },
     async createPrivateKey({ commit }, payload) {
       const response = await putPrivateKey(payload)
